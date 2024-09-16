@@ -6,10 +6,12 @@ body {
 
 .sidebar {
     width: 200px;
-    background-color: #f0f0f0;
-    padding: 15px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100vh; /* Занимает всю высоту экрана */
+    background-color: #f4f4f4;
+    position: fixed;
+    overflow-y: auto; /* Прокрутка, если контент превышает высоту */
 }
+
 
 .sidebar h2 {
     font-size: 18px;
@@ -31,7 +33,7 @@ body {
 }
 
 .content {
-    flex-grow: 1;
+    margin-left: 320px; /* Отступ для боковой панели */
     padding: 20px;
 }
 
@@ -42,9 +44,32 @@ body {
 
 .device-list th, .device-list td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
 }
 
 .device-list th {
     background-color: #f2f2f2;
+}
+
+.tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.active {
+    background-color: green;
+}
+
+.inactive {
+    background-color: red;
 }

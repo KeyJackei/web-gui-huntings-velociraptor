@@ -11,12 +11,22 @@
 
 <div class="sidebar">
     <h2>Устройства</h2>
-    <ul>
-        <li><a href="#">Debian</a></li>
-        <li><a href="#">RHEL</a></li>
-        <li><a href="#">Windows</a></li>
-        <li><a href="#">Ubuntu</a></li>
-    </ul>
+    <div class="tab" onclick="toggleDevices('debian')">
+        Debian <span id="debian-status">active (3)</span>
+        <span class="indicator active"></span>
+    </div>
+    <div class="tab" onclick="toggleDevices('rhel')">
+        RHEL <span id="rhel-status">inactive (1)</span>
+        <span class="indicator inactive"></span>
+    </div>
+    <div class="tab" onclick="toggleDevices('windows')">
+        Windows <span id="windows-status">active (5)</span>
+        <span class="indicator active"></span>
+    </div>
+    <div class="tab" onclick="toggleDevices('ubuntu')">
+        Ubuntu <span id="ubuntu-status">inactive (2)</span>
+        <span class="indicator inactive"></span>
+    </div>
 </div>
 
 <div class="content">
@@ -34,31 +44,12 @@
                 <th>Время последнего запроса</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>123e4567-e89b-12d3-a456-426614174000</td>
-                <td>user1</td>
-                <td>device1</td>
-                <td>192.168.1.1</td>
-                <td>Linux</td>
-                <td>Ubuntu 20.04</td>
-                <td>2023-10-01 12:00:00</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>123e4567-e89b-12d3-a456-426614174001</td>
-                <td>user2</td>
-                <td>device2</td>
-                <td>192.168.1.2</td>
-                <td>Windows</td>
-                <td>Windows 10</td>
-                <td>2023-10-01 12:05:00</td>
-            </tr>
-            <!-- Добавьте дополнительные строки по мере необходимости -->
+        <tbody id="device-table-body">
+            <!-- Динамически добавляемые строки устройств -->
         </tbody>
     </table>
 </div>
 
+<script src="{% static 'js/main.js' %}"></script> <!-- Подключение JavaScript файла -->
 </body>
 </html>
