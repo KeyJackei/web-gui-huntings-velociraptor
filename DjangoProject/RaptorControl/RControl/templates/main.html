@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaptorControl</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"> <!-- Подключение CSS файла -->
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Устройства</h2>
+    <ul>
+        <li><a href="#">Debian</a></li>
+        <li><a href="#">RHEL</a></li>
+        <li><a href="#">Windows</a></li>
+        <li><a href="#">Ubuntu</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <h1>Список устройств</h1>
+    <table class="device-list">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>UUID</th>
+                <th>Последний пользователь</th>
+                <th>Local Name</th>
+                <th>IP-адрес</th>
+                <th>Платформа</th>
+                <th>Версия ОС</th>
+                <th>Время последнего запроса</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>123e4567-e89b-12d3-a456-426614174000</td>
+                <td>user1</td>
+                <td>device1</td>
+                <td>192.168.1.1</td>
+                <td>Linux</td>
+                <td>Ubuntu 20.04</td>
+                <td>2023-10-01 12:00:00</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>123e4567-e89b-12d3-a456-426614174001</td>
+                <td>user2</td>
+                <td>device2</td>
+                <td>192.168.1.2</td>
+                <td>Windows</td>
+                <td>Windows 10</td>
+                <td>2023-10-01 12:05:00</td>
+            </tr>
+            <!-- Добавьте дополнительные строки по мере необходимости -->
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
