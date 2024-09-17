@@ -1,40 +1,70 @@
+html, body {
+    height: 90%; /* Устанавливаем высоту в 100% для html и body */
+    margin: 0; /* Убираем отступы */
+}
+
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
     display: flex;
+    /* background-image: url('/media/background_menu.jpg'); */
+    background-size: cover; /* Изображение занимает весь фон */
+    background-position: center; /* Центрирование изображения */
+    background-repeat: no-repeat; /* Запрет повторения изображения */
 }
 
 .sidebar {
     width: 200px;
     height: 100vh; /* Занимает всю высоту экрана */
-    background-color: #f4f4f4;
+    background-color: #1a1a1a; /* Более светлый тёмный цвет */
     position: fixed;
     overflow-y: auto; /* Прокрутка, если контент превышает высоту */
+    color: #ffffff; /* Цвет текста для лучшей видимости */
 }
-
 
 .sidebar h2 {
     font-size: 18px;
     margin-bottom: 10px;
+    color: #ffffff; /* Цвет заголовка */
 }
 
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
+.sidebar .tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #333333; /* Более светлый цвет для разделителей */
 }
 
-.sidebar li {
-    margin: 10px 0;
+.sidebar .tab:hover {
+    background-color: #000000; /* Цвет фона при наведении */
 }
 
-.sidebar a {
-    text-decoration: none;
-    color: #333;
+.sidebar .tab span {
+    color: #f60000; /* Цвет текста для табов */
+}
+
+.sidebar .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.active {
+    background-color: rgb(58, 247, 16);
+}
+
+.inactive {
+    background-color: red;
 }
 
 .content {
-    margin-left: 320px; /* Отступ для боковой панели */
+    margin-left: 220px; /* Отступ для боковой панели */
     padding: 20px;
+    /* background-color: rgba(240, 240, 240, 0.8); Цвет фона для контента с прозрачностью */
+    color: #000000; /* Цвет текста для контента */
+    width: calc(100% - 220px); /* Устанавливаем ширину контента */
+    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
 }
 
 .device-list {
@@ -43,33 +73,11 @@ body {
 }
 
 .device-list th, .device-list td {
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     padding: 10px;
 }
 
 .device-list th {
-    background-color: #f2f2f2;
-}
-
-.tab {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #ccc;
-}
-
-.indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.active {
-    background-color: green;
-}
-
-.inactive {
-    background-color: red;
+    background-color: #706e6e; /* Цвет фона для заголовков таблицы */
+    color: #000000; /* Цвет текста для заголовков таблицы */
 }
