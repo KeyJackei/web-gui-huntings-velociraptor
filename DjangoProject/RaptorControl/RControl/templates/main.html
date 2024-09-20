@@ -10,22 +10,25 @@
 <body>
 
 <div class="sidebar">
-    <h2>Устройства</h2>
-    <div class="tab" onclick="toggleDevices('debian')">
-        Debian <span id="debian-status">active (3)</span>
-        <span class="indicator active"></span>
-    </div>
-    <div class="tab" onclick="toggleDevices('rhel')">
-        RHEL <span id="rhel-status">inactive (1)</span>
-        <span class="indicator inactive"></span>
-    </div>
-    <div class="tab" onclick="toggleDevices('windows')">
-        Windows <span id="windows-status">active (5)</span>
-        <span class="indicator active"></span>
-    </div>
-    <div class="tab" onclick="toggleDevices('ubuntu')">
-        Ubuntu <span id="ubuntu-status">inactive (2)</span>
-        <span class="indicator inactive"></span>
+    <h2 class="toggle-header-name" id="toggle-header-name">RaptorControl</h2>
+    <h2 class="toggle-header" onclick="toggleDevicesList()">Устройства</h2>
+    <div class="devices-list" id="devices-list">
+        <div class="tab" onclick="toggleDevices('debian')">
+            Debian <span id="debian-status">active (3)</span>
+            <span class="indicator active"></span>
+        </div>
+        <div class="tab" onclick="toggleDevices('rhel')">
+            RHEL <span id="rhel-status">inactive (1)</span>
+            <span class="indicator inactive"></span>
+        </div>
+        <div class="tab" onclick="toggleDevices('windows')">
+            Windows <span id="windows-status">active (5)</span>
+            <span class="indicator active"></span>
+        </div>
+        <div class="tab" onclick="toggleDevices('ubuntu')">
+            Ubuntu <span id="ubuntu-status">inactive (2)</span>
+            <span class="indicator inactive"></span>
+        </div>
     </div>
 </div>
 

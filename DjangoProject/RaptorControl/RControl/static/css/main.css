@@ -6,7 +6,6 @@ html, body {
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    /* background-image: url('/media/background_menu.jpg'); */
     background-size: cover; /* Изображение занимает весь фон */
     background-position: center; /* Центрирование изображения */
     background-repeat: no-repeat; /* Запрет повторения изображения */
@@ -32,7 +31,9 @@ body {
     justify-content: space-between;
     padding: 10px;
     cursor: pointer;
-    border-bottom: 1px solid #333333; /* Более светлый цвет для разделителей */
+    border-bottom: 1px solid #686767; /* Более светлый цвет для разделителей */
+    font-size: 14px
+
 }
 
 .sidebar .tab:hover {
@@ -77,7 +78,24 @@ body {
     padding: 10px;
 }
 
-.device-list th {
-    background-color: #706e6e; /* Цвет фона для заголовков таблицы */
-    color: #000000; /* Цвет текста для заголовков таблицы */
+.devices-list {
+    max-height: 0; /* Скрываем список устройств по умолчанию */
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+
+.toggle-header {
+    cursor: pointer; /* Указатель при наведении на заголовок */
+    margin: 100px 0; /* Отступы для заголовка */
+    font-weight: bold; /* Жирный шрифт для заголовка */
+    text-align: center;
+    font-size: 18px;
+}
+
+.toggle-header-name {
+    margin: 10;
+    text-align: center;
+    font-size: 24px;
+    
 }
