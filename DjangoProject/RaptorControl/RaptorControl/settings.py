@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os.path
 from pathlib import Path
+from decouple import config
 
 from django.conf.global_settings import STATICFILES_DIRS, MEDIA_ROOT, MEDIA_URL
 
@@ -83,11 +84,14 @@ WSGI_APPLICATION = 'RaptorControl.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'raptorcontroldatabase',
+        'USER': 'key',
+        'PASSWORD': config('DB_PASS'),
+        'HOST': 'localhost',  # или IP-адрес сервера
+        'PORT': '5432',       # стандартный порт для PostgreSQL
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

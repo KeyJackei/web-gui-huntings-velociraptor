@@ -30,9 +30,9 @@ function loadDevices() {
 function toggleDevicesList() {
     const devicesList = document.getElementById('devices-list');
     if (devicesList.style.maxHeight) {
-        devicesList.style.maxHeight = null; // Закрываем
+        devicesList.style.maxHeight = null; // Закрываем список ОС
     } else {
-        devicesList.style.maxHeight = devicesList.scrollHeight + "px"; // Открываем
+        devicesList.style.maxHeight = devicesList.scrollHeight + "px"; // Открываем список ОС
     }
 }
 

@@ -22,7 +22,7 @@ body {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+    box-sizing: border-box; 
 }
 
 .login-container button {
