@@ -34,21 +34,35 @@
 
 <div class="content">
     <h1>Список устройств</h1>
+    <button onclick="fetchDevices()">Refresh</button>
     <table class="device-list">
         <thead>
             <tr>
                 <th>#</th>
-                <th>UUID</th>
-                <th>Последний пользователь</th>
-                <th>Local Name</th>
-                <th>IP-адрес</th>
-                <th>Платформа</th>
-                <th>Версия ОС</th>
-                <th>Время последнего запроса</th>
+                <th>Host Name</th>
+                <th>Uptime</th>
+                <th>Boot Time</th>
+                <th>Processes</th>
+                <th>OS</th>
+                <th>Platform</th>
+                <th>Kernel Version</th>
+                <th>Architecture</th>
             </tr>
         </thead>
         <tbody id="device-table-body">
-            <!-- Динамически добавляемые строки устройств -->
+            {% for device in devices %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ device.hostname }}</td>
+                <td>{{ device.uptime }}</td>
+                <td>{{ device.boot_time }}</td>
+                <td>{{ device.procs }}</td>
+                <td>{{ device.os }}</td>
+                <td>{{ device.platform }}</td>
+                <td>{{ device.kernel_version }}</td>
+                <td>{{ device.arch }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
