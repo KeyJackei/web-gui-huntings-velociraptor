@@ -24,12 +24,12 @@ def save_devices_data(device_data):
         if isinstance(device['BootTime'], (int, float)):  # Проверяем, что это число
             boot_time = datetime.datetime.fromtimestamp(device['BootTime'], tz=pytz.UTC)
 
-        # Используйте boot_time вместо device['BootTime']
+        # Использование boot_time вместо device['BootTime']
         Devices.objects.update_or_create(
             hostname=device['Hostname'],
             defaults={
                 'uptime': device['Uptime'],
-                'boot_time': boot_time,  # Используем правильное значение
+                'boot_time': boot_time,  
                 'procs': device['Procs'],
                 'os': device['OS'],
                 'platform': device['Platform'],
@@ -81,7 +81,7 @@ def fetch_devices(request):
 
     # Загрузка конфигурации
     with open(config_path, 'r') as config_file:
-        config = yaml.safe_load(config_file)  # Загрузите конфигурацию из YAML
+        config = yaml.safe_load(config_file)  # Загрузка конфигурации из YAML
 
     run(config, query, env_dict)  # Передайте загруженную конфигурацию
     print('Fetching')
