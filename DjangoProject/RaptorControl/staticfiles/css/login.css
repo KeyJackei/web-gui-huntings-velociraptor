@@ -1,0 +1,47 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    text-align: center;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+}
+
+.login-button {
+    background-color: #4CAF50; /* Зеленый цвет для кнопки входа */
+    color: white;
+    margin-bottom: 10px; /* Добавляем отступ снизу для кнопки входа */
+}
+
+.signup-button {
+    background-color: #2196F3; /* Синеватый цвет для кнопки создания аккаунта */
+    color: white;
+    font-size: 0.9em; /* Меньший размер шрифта */
+}

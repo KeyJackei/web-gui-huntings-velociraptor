@@ -12,12 +12,16 @@ body {
 }
 
 .sidebar {
-    width: 200px;
-    height: 100vh; /* Занимает всю высоту экрана */
-    background-color: #1a1a1a; /* Более светлый тёмный цвет */
     position: fixed;
-    overflow-y: auto; /* Прокрутка, если контент превышает высоту */
-    color: #ffffff; /* Цвет текста для лучшей видимости */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 58px 0 0; /* Height of navbar */
+    /* box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%); */
+    width: 240px;
+    z-index: 600;
+    background-color: #212529;
+    color: #ffffff;
 }
 
 .sidebar h2 {
@@ -37,7 +41,7 @@ body {
 }
 
 .sidebar .tab:hover {
-    background-color: #000000; /* Цвет фона при наведении */
+    background-color: #303030; /* Цвет фона при наведении */
 }
 
 .sidebar .tab span {
@@ -73,13 +77,9 @@ body {
     width: 100%;
 }
 
-.device-list th, .device-list td {
-    border: 1px solid #000000;
-    padding: 10px;
-}
 
 .devices-list {
-    max-height: 0; /* Скрываем список устройств по умолчанию */
+    max-height: 100; /* Нескрываем список устройств по умолчанию */
     overflow: hidden;
     transition: max-height 0.5s ease;
 }
