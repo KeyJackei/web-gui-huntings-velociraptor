@@ -1,18 +1,43 @@
-
-//Вызов функции API velociraptor для добавления текущих машин в общий список
+// Вызов функции API velociraptor для добавления текущих машин в общий список
 function fetchDevices() {
-    fetch('/fetch-devices/')  //Маршрут функции
+    fetch('/fetch-devices/')  // Маршрут функции
         .then(response => {
             if (response.ok) {
-                // Обновить страницу после успешного запроса
-                location.reload();  // Перезагрутть страницу, чтобы отобразить обновлённые данные
+                return response.json();  // Получаем JSON-ответ
             } else {
-                console.error('Ошибка при получении данных:', response.statusText);
+                console.error('Wrong data response:', response.statusText);
+                throw new Error('Network response was not ok.');
             }
+        })
+        .then(data => {
+            updateDeviceTable(data.devices);  // Обновляем таблицу с новыми данными
         })
         .catch(error => {
             console.error('Ошибка:', error);
         });
+}
+
+// Функция для обновления таблицы устройств
+function updateDeviceTable(devices) {
+    const tableBody = document.getElementById('device-table-body');
+    tableBody.innerHTML = ''; // Очищаем текущую таблицу
+
+    devices.forEach((device, index) => {
+        const row = `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${device.hostname}</td>
+                <td>${device.uptime}</td>
+                <td>${device.boot_time}</td>
+                <td>${device.procs}</td>
+                <td>${device.os}</td>
+                <td>${device.platform}</td>
+                <td>${device.kernel_version}</td>
+                <td>${device.arch}</td>
+            </tr>
+        `;
+        tableBody.insertAdjacentHTML('beforeend', row); // Добавляем новую строку
+    });
 }
 
 function toggleDevicesList() {

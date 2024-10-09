@@ -1,7 +1,7 @@
 import datetime
 import os.path
 import pytz
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from pyvelociraptor import api_pb2, api_pb2_grpc
 import pyvelociraptor
@@ -10,12 +10,17 @@ import json
 import yaml
 from .models import Devices
 
+
 def login_view(request):
     return render(request, 'login.html')
 
 def main_view(request):
     devices = Devices.objects.all()
     return render(request, 'main.html', {'devices': devices})
+
+def devices_api(request):
+    devices = Devices.objects.all().values()
+    return JsonResponse(list(devices), safe=False)
 
 #Сохранение данных в PostgreSQL
 # def save_devices_data(device_data):
@@ -98,3 +103,29 @@ def main_view(request):
 #     print('Fetching')
 #
 #     return HttpResponse(status=200)  # Возвращаем успешный ответ
+
+#Изменённый код
+# def fetch_devices(request):
+#     config_path = os.path.join(os.path.dirname(__file__), "api-connection-user-config/api-keyjackei.config.yaml")
+#     query = """
+#     SELECT config.Version.Name AS Name,
+#            config.Version.BuildTime as BuildTime,
+#            config.Version.Version as Version,
+#            config.Version.ci_build_url AS build_url,
+#            config.Version.install_time as install_time,
+#            config.Labels AS Labels,
+#            Hostname, OS, Architecture,
+#            Platform, PlatformVersion, KernelVersion, Fqdn,
+#            Interfaces.MAC AS MACAddresses
+#     FROM info()
+#     """
+#     env_dict = {"Foo": "Bar"}
+#
+#     with open(config_path, 'r') as config_file:
+#         config = yaml.safe_load(config_file)
+#
+#     # Получение данных и сохранение их в базе данных
+#     device_data = run(config, query, env_dict)  # Это должно возвращать данные о устройствах в формате JSON
+#     save_devices_data(device_data)
+#
+#     return JsonResponse({"status": "success", "devices": device_data})
