@@ -4,6 +4,7 @@ function fetchDevices() {
         .then(response => {
             if (response.ok) {
                 return response.json();  // Получаем JSON-ответ
+
             } else {
                 console.error('Wrong data response:', response.statusText);
                 throw new Error('Network response was not ok.');
@@ -54,15 +55,3 @@ function toggleDevicesList() {
         devicesList.style.maxHeight = devicesList.style.maxHeight ? null : devicesList.scrollHeight + "px";
 }
 
-function toggleSection(sectionId) {
-        const section = document.getElementById(sectionId);
-        const isActiveSection = sectionId === 'active-devices-list';
-        const otherSectionId = isActiveSection ? 'inactive-devices-list' : 'active-devices-list';
-        const otherSection = document.getElementById(otherSectionId);
-
-        // Toggle the display of sections
-        if (section.style.display === "none") {
-            section.style.display = "block";
-            otherSection.style.display = "none";
-        }
-}

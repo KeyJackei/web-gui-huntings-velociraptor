@@ -129,3 +129,5 @@ def devices_api(request):
 #     save_devices_data(device_data)
 #
 #     return JsonResponse({"status": "success", "devices": device_data})
+
+ 
