@@ -55,3 +55,7 @@ function toggleDevicesList() {
         devicesList.style.maxHeight = devicesList.style.maxHeight ? null : devicesList.scrollHeight + "px";
 }
 
+// Вкладка активностей - открытие и закрытие
+function toggleActive() {
+    
+}

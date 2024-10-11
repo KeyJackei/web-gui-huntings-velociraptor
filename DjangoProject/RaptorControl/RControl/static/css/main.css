@@ -1,14 +1,15 @@
+/* Устанавливаем высоту в 100% для html и body */
 html, body {
-    height: 90%; /* Устанавливаем высоту в 100% для html и body */
+    height: 90%; 
     margin: 0; /* Убираем отступы */
 }
 
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    background-size: cover; /* Изображение занимает весь фон */
-    background-position: center; /* Центрирование изображения */
-    background-repeat: no-repeat; /* Запрет повторения изображения */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .sidebar {
@@ -16,8 +17,7 @@ body {
     top: 0;
     bottom: 0;
     left: 0;
-    padding: 58px 0 0; /* Height of navbar */
-    /* box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%); */
+    padding: 58px 0 0; 
     width: 240px;
     z-index: 600;
     background-color: #212529;
@@ -27,25 +27,26 @@ body {
 .sidebar h2 {
     font-size: 18px;
     margin-bottom: 10px;
-    color: #ffffff; /* Цвет заголовка */
+    color: #ffffff; 
 }
 
 .sidebar .tab {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Центрируем элементы по вертикали */
     padding: 10px;
     cursor: pointer;
-    border-bottom: 1px solid #686767; /* Более светлый цвет для разделителей */
-    font-size: 14px
-
+    border-bottom: 1px solid #686767; 
+    font-size: 14px;
 }
 
 .sidebar .tab:hover {
-    background-color: #303030; /* Цвет фона при наведении */
+    background-color: #303030; 
 }
 
 .sidebar .tab span {
-    color: #f60000; /* Цвет текста для табов */
+    color: #fffefe; 
+    margin-left: 5px; /* Отступ для числа */
 }
 
 .sidebar .indicator {
@@ -53,49 +54,60 @@ body {
     height: 10px;
     border-radius: 50%;
     display: inline-block;
+    margin-left: 5px; 
 }
 
 .active {
-    background-color: rgb(58, 247, 16);
+    background-color: rgb(58, 247, 16); /* Зеленый для Active */
 }
 
 .inactive {
-    background-color: red;
+    background-color: red; /* Красный для Inactive */
 }
 
 .content {
-    margin-left: 230px; /* Отступ для боковой панели */
+    margin-left: 230px; 
     padding: 20px;
-    /* background-color: rgba(240, 240, 240, 0.8); Цвет фона для контента с прозрачностью */
-    color: #000000; /* Цвет текста для контента */
-    width: calc(100% - 220px); /* Устанавливаем ширину контента */
-    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+    color: #000000; 
+    width: calc(100% - 220px); 
+    box-sizing: border-box; 
 }
-
-.device-list {
-    border-collapse: collapse;
-    width: 100%;
-}
-
 
 .devices-list {
-    max-height: 0; /* Нескрываем список устройств по умолчанию */
+    max-height: 0; 
     overflow: hidden;
     transition: max-height 0.5s ease;
 }
 
-
 .toggle-header {
-    cursor: pointer; /* Указатель при наведении на заголовок */
-    margin: 100px 0; /* Отступы для заголовка */
-    font-weight: bold; /* Жирный шрифт для заголовка */
+    cursor: pointer; 
+    margin: 100px 0; 
+    font-weight: bold; 
     text-align: center;
     font-size: 18px;
 }
 
+.toggle-header :hover{
+    background-color: #303030;
+}
+
+
 .toggle-header-name {
-    margin: 10;
+    margin: 10px 0 90px;
     text-align: center;
     font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar .toggle-header {
+    cursor: pointer; /* Указатель при наведении на заголовок */
+    margin: 90px 0 10px; /* Отступы для заголовка */
+    font-weight: bold; /* Жирный шрифт для заголовка */
+    font-size: 18px; /* Размер шрифта */
+    padding: 10px; /* Отступ внутри заголовка */
+}
+
+.sidebar .toggle-header:hover {
+    background-color: #303030; /* Цвет фона при наведении */
     
 }
