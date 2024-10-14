@@ -35,13 +35,27 @@ body {
 }
 
 .login-button {
-    background-color: #4CAF50; /* Зеленый цвет для кнопки входа */
+    background-color: #303030; /* Зеленый цвет для кнопки входа */
     color: white;
     margin-bottom: 10px; /* Добавляем отступ снизу для кнопки входа */
 }
 
 .signup-button {
-    background-color: #2196F3; /* Синеватый цвет для кнопки создания аккаунта */
-    color: white;
+    background-color: #edeff1; /* Синеватый цвет для кнопки создания аккаунта */
+    color: rgb(4, 4, 4);
     font-size: 0.9em; /* Меньший размер шрифта */
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+}
+
+.messages li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
 }

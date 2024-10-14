@@ -1,47 +1,52 @@
+/* Устанавливаем высоту в 100% для html и body */
 html, body {
-    height: 90%; /* Устанавливаем высоту в 100% для html и body */
+    height: 90%; 
     margin: 0; /* Убираем отступы */
 }
 
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    background-size: cover; /* Изображение занимает весь фон */
-    background-position: center; /* Центрирование изображения */
-    background-repeat: no-repeat; /* Запрет повторения изображения */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .sidebar {
-    width: 200px;
-    height: 100vh; /* Занимает всю высоту экрана */
-    background-color: #1a1a1a; /* Более светлый тёмный цвет */
     position: fixed;
-    overflow-y: auto; /* Прокрутка, если контент превышает высоту */
-    color: #ffffff; /* Цвет текста для лучшей видимости */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 58px 0 0; 
+    width: 240px;
+    z-index: 600;
+    background-color: #212529;
+    color: #ffffff;
 }
 
 .sidebar h2 {
     font-size: 18px;
     margin-bottom: 10px;
-    color: #ffffff; /* Цвет заголовка */
+    color: #ffffff; 
 }
 
 .sidebar .tab {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Центрируем элементы по вертикали */
     padding: 10px;
     cursor: pointer;
-    border-bottom: 1px solid #686767; /* Более светлый цвет для разделителей */
-    font-size: 14px
-
+    border-bottom: 1px solid #686767; 
+    font-size: 14px;
 }
 
 .sidebar .tab:hover {
-    background-color: #000000; /* Цвет фона при наведении */
+    background-color: #303030; 
 }
 
 .sidebar .tab span {
-    color: #f60000; /* Цвет текста для табов */
+    color: #fffefe; 
+    margin-left: 5px; /* Отступ для числа */
 }
 
 .sidebar .indicator {
@@ -49,53 +54,132 @@ body {
     height: 10px;
     border-radius: 50%;
     display: inline-block;
+    margin-left: 5px; 
 }
 
 .active {
-    background-color: rgb(58, 247, 16);
+    background-color: rgb(58, 247, 16); /* Зеленый для Active */
 }
 
 .inactive {
-    background-color: red;
+    background-color: red; /* Красный для Inactive */
 }
 
 .content {
-    margin-left: 220px; /* Отступ для боковой панели */
+    margin-left: 230px; 
     padding: 20px;
-    /* background-color: rgba(240, 240, 240, 0.8); Цвет фона для контента с прозрачностью */
-    color: #000000; /* Цвет текста для контента */
-    width: calc(100% - 220px); /* Устанавливаем ширину контента */
-    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
-}
-
-.device-list {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.device-list th, .device-list td {
-    border: 1px solid #000000;
-    padding: 10px;
+    color: #000000; 
+    width: calc(100% - 220px); 
+    box-sizing: border-box; 
 }
 
 .devices-list {
-    max-height: 0; /* Скрываем список устройств по умолчанию */
+    max-height: 0; 
     overflow: hidden;
     transition: max-height 0.5s ease;
 }
 
-
 .toggle-header {
-    cursor: pointer; /* Указатель при наведении на заголовок */
-    margin: 100px 0; /* Отступы для заголовка */
-    font-weight: bold; /* Жирный шрифт для заголовка */
+    cursor: pointer; 
+    margin: 100px 0; 
+    font-weight: bold; 
     text-align: center;
     font-size: 18px;
 }
 
+.toggle-header :hover{
+    background-color: #303030;
+}
+
+
 .toggle-header-name {
-    margin: 10;
+    margin: 10px 0 90px;
     text-align: center;
     font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar .toggle-header {
+    cursor: pointer; /* Указатель при наведении на заголовок */
+    margin: 90px 0 10px; /* Отступы для заголовка */
+    font-weight: bold; /* Жирный шрифт для заголовка */
+    font-size: 18px; /* Размер шрифта */
+    padding: 10px; /* Отступ внутри заголовка */
+}
+
+.sidebar .toggle-header:hover {
+    background-color: #303030; /* Цвет фона при наведении */
     
+}
+
+/* Стили для панели пользователя */
+.user-panel {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для панели */
+}
+
+.user-panel #username {
+    margin-right: 10px; /* Отступ между именем пользователя и иконкой */
+    font-weight: bold;
+    color: #303030; /* Убедитесь, что цвет контрастирует с фоном */
+    font-size: 16px; /* Увеличьте размер шрифта, если он слишком маленький */
+}
+
+.user-panel .fas {
+    transition: color 0.3s; /*Плавный переход в цвет*/
+    margin: 5px;
+}
+
+.user-panel:hover .fas {
+    color: #ec0c0c;
+    cursor: pointer;
+
+}
+
+
+/* Стили для выпадающего списка */
+.dropdown {
+    display: none; /* Скрываем выпадающий список по умолчанию */
+    position: absolute;
+    top: 100%; /* Расположение ниже панели пользователя */
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для выпадающего списка */
+}
+
+.dropdown a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #000;
+}
+
+.dropdown a:hover {
+    background-color: #ec0c0c; /* Цвет фона при наведении */
+}
+
+/* Стили для кнопки выхода */
+.logout-button {
+    background-color: #faf7f7; /* Цвет фона для кнопки */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем границы */
+    border-radius: 5px; /* Скругление углов */
+    padding: 5px 10px; /* Отступы внутри кнопки */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s; /* Плавный переход цвета */
+}
+
+.logout-button:hover {
+    background-color: #121213; /* Темный цвет при наведении */
 }

@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход</title>
+    <title>RaptorControl</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
     <div class="login-container">
         <h2>Вход</h2>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %} >{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Логин" required>
+            <input type="text" name="login" placeholder="Логин" required>
             <input type="password" name="password" placeholder="Пароль" required>
             <button type="submit" class="login-button">Войти</button>
-                <button type="button" class="signup-button">Создать аккаунт</button>
         </form>
     </div>
 </body>

@@ -1,6 +1,9 @@
 import datetime
 import os.path
+from django.contrib import messages
 import pytz
+from django.contrib.auth import logout
+from django.contrib.auth.hashers import check_password
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from pyvelociraptor import api_pb2, api_pb2_grpc
@@ -8,15 +11,37 @@ import pyvelociraptor
 import grpc
 import json
 import yaml
-from .models import Devices
+from .models import Devices, Users
 
 
 def login_view(request):
+    if request.method == 'POST':
+        login = request.POST['login']
+        password = request.POST['password']
+
+        try:
+            user = Users.objects.get(login=login)
+            if check_password(password, user.password):
+                request.session['user_id'] = user.id
+                request.session['user_role'] = user.role
+                request.session['username'] = user.login  # Сохраняем имя пользователя в сессии
+                return redirect('main')
+            else:
+                messages.error(request, 'Неверный логин или пароль')
+        except Users.DoesNotExist:
+            messages.error(request, 'Пользователь не найден')
+
     return render(request, 'login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
 
 def main_view(request):
     devices = Devices.objects.all()
-    return render(request, 'main.html', {'devices': devices})
+    username = request.session.get('username', None)
+    return render(request, 'main.html', {'devices': devices, 'username': username})
 
 def devices_api(request):
     devices = Devices.objects.all().values()

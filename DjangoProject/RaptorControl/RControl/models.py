@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from django.db import models
 from django.views.decorators.http import last_modified
 
@@ -14,5 +15,15 @@ class Devices(models.Model):
     def __str__(self):
         return self.hostname
 
+class Users(models.Model):
+    login = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    username = models.CharField(max_length=100)
+    role = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
 
 
