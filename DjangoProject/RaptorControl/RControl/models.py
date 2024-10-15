@@ -15,6 +15,7 @@ class Devices(models.Model):
     def __str__(self):
         return self.hostname
 
+#TODO: Перенести модель в users
 class Users(models.Model):
     login = models.CharField(max_length=255)
     password = models.CharField(max_length=255)

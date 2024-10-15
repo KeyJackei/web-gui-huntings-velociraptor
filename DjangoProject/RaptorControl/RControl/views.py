@@ -13,7 +13,7 @@ import json
 import yaml
 from .models import Devices, Users
 
-
+#TODO:Перенести представления аутентификации в приложение users
 def login_view(request):
     if request.method == 'POST':
         login = request.POST['login']
