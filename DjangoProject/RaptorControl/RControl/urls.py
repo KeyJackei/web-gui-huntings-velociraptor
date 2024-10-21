@@ -1,14 +1,13 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from .views import main_view
+from .views import main_view, fetch_devices
 
-#from .views import fetch_devices
 
 #TODO: Перенести маршруты в users и html файл
 urlpatterns = [
     path('', main_view, name='main'),
-    #path('fetch-devices/', fetch_devices, name='fetch_devices')
+    path('fetch_devices/', fetch_devices, name='fetch_devices'),
 ]
 
 
