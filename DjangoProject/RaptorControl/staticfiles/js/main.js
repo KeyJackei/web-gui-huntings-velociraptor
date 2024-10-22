@@ -11,20 +11,23 @@ function fetchDevices() {
             }
         })
         .then(data => {
-            updateDeviceTable(data.devices);  // Обновляем таблицу с новыми данными
+            updateDeviceTable(data.devices, data.clients);  // Передаем устройства и клиентов
         })
         .catch(error => {
             console.error('Ошибка:', error);
         });
 }
 
-// Функция для обновления таблицы устройств
-function updateDeviceTable(devices) {
-    const tableBody = document.getElementById('device-table-body');
-    tableBody.innerHTML = ''; // Очищаем текущую таблицу
+function updateDeviceTable(devices, clients) {
+    const deviceTableBody = document.getElementById('device-table-body-server');
+    const clientTableBody = document.getElementById('client-table-body');
+
+    deviceTableBody.innerHTML = ''; // Очищаем таблицу устройств
+    clientTableBody.innerHTML = ''; // Очищаем таблицу клиентов
 
     devices.forEach((device, index) => {
-        const row = `
+        // Заполняем таблицу устройств
+        const deviceRow = `
             <tr>
                 <td>${index + 1}</td>
                 <td>${device.hostname}</td>
@@ -37,7 +40,23 @@ function updateDeviceTable(devices) {
                 <td>${device.arch}</td>
             </tr>
         `;
-        tableBody.insertAdjacentHTML('beforeend', row); // Добавляем новую строку
+        deviceTableBody.insertAdjacentHTML('beforeend', deviceRow);
+    });
+
+    clients.forEach((client, index) => {
+        // Заполняем таблицу клиентов
+        const clientRow = `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${client.client_id}</td>
+                <td>${client.hostname}</td>
+                <td>${client.os_client}</td>
+                <td>${client.release}</td>
+                <td>${client.last_ip}</td>
+                <td>${client.last_seen_at}</td>
+            </tr>
+        `;
+        clientTableBody.insertAdjacentHTML('beforeend', clientRow);
     });
 }
 

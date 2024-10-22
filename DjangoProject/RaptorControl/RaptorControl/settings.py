@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'RControl',
-    'users'
+    'users',
 ]
 
 MIDDLEWARE = [
