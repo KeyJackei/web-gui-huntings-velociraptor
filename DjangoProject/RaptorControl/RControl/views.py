@@ -78,29 +78,6 @@ def run(config, query, env_dict):
                 #print(package)
                 save_devices_data(package)
 
-# @never_cache
-# def fetch_devices(request):
-#     # Задайте параметры напрямую
-#     config_path = os.path.join(os.path.dirname(__file__),
-#     "api_keys/api-admin.config.yaml")  # Путь к конфигурационному файлу
-#     query = """SELECT * FROM info()"""
-#     env_dict = {"Foo": "Bar"}  # Переменные окружения
-#     # Загрузка конфигурации
-#     with open(config_path, 'r') as config_file:
-#         config = yaml.safe_load(config_file)
-#     run(config, query, env_dict)
-#     query = """SELECT client_id,
-#                  os_info.fqdn as HostName,
-#                  os_info.system as OS,
-#                  os_info.release as Release,
-#                  timestamp(epoch=last_seen_at/ 1000000).String as LastSeenAt,
-#                  last_ip AS LastIP,
-#                  last_seen_at AS _LastSeenAt
-#           FROM clients(count=100000)"""  # Запрос
-#     run(config, query, env_dict)
-#     print('Fetching')
-#     return HttpResponse(status=200)
-
 
 @never_cache
 def fetch_devices(request):
