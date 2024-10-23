@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-4r33hfzpuf@s8^zd$8u0$riur#5ewb676xq05lf**@_0rlz5g8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['raptorcontrol.com', '10.145.219.237', '127.0.0.1']
+ALLOWED_HOSTS = ['raptorcontrol.com', '10.145.219.237', '127.0.0.1', '10.145.213.228']
 
 
 # Application definition
@@ -126,7 +126,7 @@ PASSWORD_HASHERS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
 

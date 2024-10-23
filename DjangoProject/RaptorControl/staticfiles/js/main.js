@@ -1,32 +1,33 @@
 // Вызов функции API velociraptor для добавления текущих машин в общий список
 
 function fetchDevices() {
-    fetch('fetch_devices/')  // Маршрут функции
+    fetch('fetch_devices/')  // Отправляем запрос на сервер
         .then(response => {
             if (response.ok) {
-                return response.json();  // Получаем JSON-ответ
+                return response.json();  // Если всё ок, возвращаем JSON
             } else {
-                console.error('Wrong data response:', response.statusText);
+                console.error('Ошибка:', response.statusText);  // Обрабатываем ошибку
                 throw new Error('Network response was not ok.');
             }
         })
         .then(data => {
-            updateDeviceTable(data.devices, data.clients);  // Передаем устройства и клиентов
+            console.log("Данные получены от сервера:", data);  // Логируем полученные данные
+            updateDeviceTable(data.devices, data.clients);  // Обновляем таблицы устройств и клиентов
         })
         .catch(error => {
-            console.error('Ошибка:', error);
+            console.error('Ошибка:', error);  // Обрабатываем ошибку запроса
         });
 }
 
 function updateDeviceTable(devices, clients) {
-    const deviceTableBody = document.getElementById('device-table-body-server');
-    const clientTableBody = document.getElementById('client-table-body');
+    const deviceTableBody = document.getElementById('device-table-body-server');  // Тело таблицы хостов
+    const clientTableBody = document.getElementById('client-table-body');  // Тело таблицы клиентов
 
     deviceTableBody.innerHTML = ''; // Очищаем таблицу устройств
     clientTableBody.innerHTML = ''; // Очищаем таблицу клиентов
 
-    devices.forEach((device, index) => {
-        // Заполняем таблицу устройств
+    devices.forEach((device, index) => {  // Обновляем таблицу хостов
+        console.log("Добавляем устройство:", device);  // Логируем добавляемые устройства
         const deviceRow = `
             <tr>
                 <td>${index + 1}</td>
@@ -43,14 +44,14 @@ function updateDeviceTable(devices, clients) {
         deviceTableBody.insertAdjacentHTML('beforeend', deviceRow);
     });
 
-    clients.forEach((client, index) => {
-        // Заполняем таблицу клиентов
+    clients.forEach((client, index) => {  // Обновляем таблицу клиентов
+        console.log("Добавляем клиента:", client);  // Логируем добавляемых клиентов
         const clientRow = `
             <tr>
                 <td>${index + 1}</td>
                 <td>${client.client_id}</td>
                 <td>${client.hostname}</td>
-                <td>${client.os_client}</td>
+                <td>${client.os}</td>
                 <td>${client.release}</td>
                 <td>${client.last_ip}</td>
                 <td>${client.last_seen_at}</td>
@@ -59,6 +60,48 @@ function updateDeviceTable(devices, clients) {
         clientTableBody.insertAdjacentHTML('beforeend', clientRow);
     });
 }
+
+// function updateDeviceTable(devices, clients) {
+//     const deviceTableBody = document.getElementById('device-table-body-server');  // Тело таблицы хостов
+//     const clientTableBody = document.getElementById('client-table-body');  // Тело таблицы клиентов
+
+//     deviceTableBody.innerHTML = ''; // Очищаем таблицу устройств
+//     clientTableBody.innerHTML = ''; // Очищаем таблицу клиентов
+
+//     devices.forEach((device, index) => {  // Обновляем таблицу хостов
+//         const deviceRow = `
+//             <tr>
+//                 <td>${index + 1}</td>
+//                 <td>${device.hostname}</td>
+//                 <td>${device.uptime}</td>
+//                 <td>${device.boot_time}</td>
+//                 <td>${device.procs}</td>
+//                 <td>${device.os}</td>
+//                 <td>${device.platform}</td>
+//                 <td>${device.kernel_version}</td>
+//                 <td>${device.arch}</td>
+//             </tr>
+//         `;
+//         deviceTableBody.insertAdjacentHTML('beforeend', deviceRow);
+//     });
+
+//     clients.forEach((client, index) => {  // Обновляем таблицу клиентов
+//         const clientRow = `
+//             <tr>
+//                 <td>${index + 1}</td>
+//                 <td>${client.client_id}</td>
+//                 <td>${client.hostname}</td>
+//                 <td>${client.os}</td>
+//                 <td>${client.release}</td>
+//                 <td>${client.last_ip}</td>
+//                 <td>${client.last_seen_at}</td>
+//             </tr>
+//         `;
+//         clientTableBody.insertAdjacentHTML('beforeend', clientRow);
+//     });
+// }
+
+setInterval(fetchDevices, 10000);
 
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -92,3 +135,5 @@ window.onclick = function(event) {
         }
     }
 }
+
+

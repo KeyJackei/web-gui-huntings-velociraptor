@@ -22,3 +22,6 @@ class DevicesClient(models.Model):
     last_ip = models.CharField(max_length=50)
     last_seen_at = models.DateTimeField()
 
+    def __str__(self):
+        return self.hostname
+
