@@ -32,8 +32,7 @@ function updateDeviceTable(devices, clients) {
             <tr>
                 <td>${index + 1}</td>
                 <td>${device.hostname}</td>
-                <td>${device.uptime}</td>
-                <td>${device.boot_time}</td>
+                <td>${convertToLocalTime(device.boot_time)}</td>
                 <td>${device.procs}</td>
                 <td>${device.os}</td>
                 <td>${device.platform}</td>
@@ -54,54 +53,21 @@ function updateDeviceTable(devices, clients) {
                 <td>${client.os}</td>
                 <td>${client.release}</td>
                 <td>${client.last_ip}</td>
-                <td>${client.last_seen_at}</td>
+                <td>${convertToLocalTime(client.last_seen_at)}</td>
             </tr>
         `;
         clientTableBody.insertAdjacentHTML('beforeend', clientRow);
     });
 }
 
-// function updateDeviceTable(devices, clients) {
-//     const deviceTableBody = document.getElementById('device-table-body-server');  // Тело таблицы хостов
-//     const clientTableBody = document.getElementById('client-table-body');  // Тело таблицы клиентов
-
-//     deviceTableBody.innerHTML = ''; // Очищаем таблицу устройств
-//     clientTableBody.innerHTML = ''; // Очищаем таблицу клиентов
-
-//     devices.forEach((device, index) => {  // Обновляем таблицу хостов
-//         const deviceRow = `
-//             <tr>
-//                 <td>${index + 1}</td>
-//                 <td>${device.hostname}</td>
-//                 <td>${device.uptime}</td>
-//                 <td>${device.boot_time}</td>
-//                 <td>${device.procs}</td>
-//                 <td>${device.os}</td>
-//                 <td>${device.platform}</td>
-//                 <td>${device.kernel_version}</td>
-//                 <td>${device.arch}</td>
-//             </tr>
-//         `;
-//         deviceTableBody.insertAdjacentHTML('beforeend', deviceRow);
-//     });
-
-//     clients.forEach((client, index) => {  // Обновляем таблицу клиентов
-//         const clientRow = `
-//             <tr>
-//                 <td>${index + 1}</td>
-//                 <td>${client.client_id}</td>
-//                 <td>${client.hostname}</td>
-//                 <td>${client.os}</td>
-//                 <td>${client.release}</td>
-//                 <td>${client.last_ip}</td>
-//                 <td>${client.last_seen_at}</td>
-//             </tr>
-//         `;
-//         clientTableBody.insertAdjacentHTML('beforeend', clientRow);
-//     });
-// }
+fetchDevices()
 
 setInterval(fetchDevices, 10000);
+
+function convertToLocalTime(utcTime) {
+    const date = new Date(utcTime)
+    return date.toLocaleString('ru-Ru', {timeZone: 'Asia/Yekaterinburg'})
+}
 
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -110,10 +76,10 @@ function toggleSidebar() {
     content.classList.toggle('sidebar-hidden');
 }
 
-document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
+//document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
 
 
-// Остальные функции для интерфейса остаются без изменений
+// Функции интерфейса
 function toggleDevicesList() {
     const devicesList = document.getElementById('devices-list');
     devicesList.style.maxHeight = devicesList.style.maxHeight ? null : devicesList.scrollHeight + "px";

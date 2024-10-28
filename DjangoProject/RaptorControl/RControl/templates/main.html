@@ -34,9 +34,6 @@
             RHEL <span class="os-count">(1)</span>
         </div>
         </div>
-        <div class="tab" onclick="toggleDevices('ubuntu')">
-            Ubuntu <span class="os-count">(2)</span>
-        </div>
     </div>
 </div>
 
@@ -51,7 +48,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Host Name</th>
-                <th scope="col">Uptime</th>
                 <th scope="col">Boot Time</th>
                 <th scope="col">Processes</th>
                 <th scope="col">OS</th>
@@ -65,7 +61,6 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ device.hostname }}</td>
-                <td>{{ device.uptime }}</td>
                 <td>{{ device.boot_time }}</td>
                 <td>{{ device.procs }}</td>
                 <td>{{ device.os }}</td>

@@ -3,7 +3,6 @@ from django.db import models
 
 class DeviceHost(models.Model):
     hostname = models.CharField(max_length=255)
-    uptime = models.IntegerField()
     boot_time = models.DateTimeField()
     procs = models.IntegerField()
     os = models.CharField(max_length=50)
