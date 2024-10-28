@@ -4,7 +4,6 @@ import grpc
 import json
 from .models import DeviceHost, DevicesClient
 from pyvelociraptor import api_pb2, api_pb2_grpc
-import os.path
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 import yaml
@@ -101,15 +100,16 @@ def fetch_devices(request):
               FROM clients(count=100000)"""
 
         run(config, query, env_dict)
+        testing()
 
-        # Предположим, вы собираете devices и clients в словарь
+
         devices = list(DeviceHost.objects.values())  # Пример получения данных
         clients = list(DevicesClient.objects.values())  # Пример получения данных
 
         return JsonResponse({'devices': devices, 'clients': clients})
 
     except Exception as e:
-        print("Ошибка в fetch_devices:", e)  # Логируем ошибку
-        return JsonResponse({'error': str(e)}, status=500)  # Возвращаем ошибку в формате JSON
+        print("Ошибка в fetch_devices:", e)
+        return JsonResponse({'error': str(e)}, status=500)
 
 

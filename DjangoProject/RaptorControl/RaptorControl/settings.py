@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'RControl',
     'users',
+    'api_core'
+
 ]
 
 MIDDLEWARE = [
