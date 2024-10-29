@@ -12,16 +12,17 @@ def main_view(request):
     devices = DeviceHost.objects.all()
     clients = DevicesClient.objects.all()
     username = request.session.get('username', None)
-    fetch_devices(request)
+    get_devices_data(request)
     return render(request, 'main.html', {'devices': devices, 'devices_client': clients, 'username': username})
 
 
 
-def fetch_devices(request):
+def get_devices_data(request):
     try:
-        config_path = os.path.join(os.path.dirname(__file__), "api_keys/api-admin.config.yaml")
+        config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
         query = """SELECT * FROM info()"""
         env_dict = {"Foo": "Bar"}
+        print(config_path)
 
         with open(config_path, 'r') as config_file:
             config = yaml.safe_load(config_file)
@@ -40,13 +41,13 @@ def fetch_devices(request):
         run(config, query, env_dict)
 
 
-        devices = list(DeviceHost.objects.values())  # Пример получения данных
-        clients = list(DevicesClient.objects.values())  # Пример получения данных
+        devices = list(DeviceHost.objects.values())
+        clients = list(DevicesClient.objects.values())
 
         return JsonResponse({'devices': devices, 'clients': clients})
 
     except Exception as e:
-        print("Ошибка в fetch_devices:", e)
+        print("Ошибка в get_devices_data:", e)
         return JsonResponse({'error': str(e)}, status=500)
 
 

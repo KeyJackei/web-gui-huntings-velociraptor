@@ -8,7 +8,9 @@ from dateutil import parser
 
 
 #Сохранение данных в Postgresql
-#TODO: сделать вывод часового пояса по Asia/Yekaterinburg (понять почему в базе не по гринвичу хранится)
+#TODO: сделать проверку на повторение клиентов по IP адресу
+
+#TODO: Пофиксить обновление статуса, когда устройства не в сети и в сети
 def save_devices_data(device_data):
 
     #Status by default is inactive.
@@ -71,4 +73,4 @@ def run(config, query, env_dict):
         for response in stub.Query(request):
             if response.Response:
                 package = json.loads(response.Response)
-                save_devices_data(package)
+        save_devices_data(package)

@@ -1,7 +1,7 @@
 // Вызов функции API velociraptor для добавления текущих машин в общий список
 
 function fetchDevices() {
-    fetch('fetch_devices/')  // Отправляем запрос на сервер
+    fetch('get_devices_data/')  // Отправляем запрос на сервер
         .then(response => {
             if (response.ok) {
                 return response.json();  // Если всё ок, возвращаем JSON
@@ -38,6 +38,7 @@ function updateDeviceTable(devices, clients) {
                 <td>${device.platform}</td>
                 <td>${device.kernel_version}</td>
                 <td>${device.arch}</td>
+                <td>${device.status}</td>
             </tr>
         `;
         deviceTableBody.insertAdjacentHTML('beforeend', deviceRow);
@@ -54,6 +55,7 @@ function updateDeviceTable(devices, clients) {
                 <td>${client.release}</td>
                 <td>${client.last_ip}</td>
                 <td>${convertToLocalTime(client.last_seen_at)}</td>
+                <td>${client.status}</td>
             </tr>
         `;
         clientTableBody.insertAdjacentHTML('beforeend', clientRow);
@@ -62,7 +64,7 @@ function updateDeviceTable(devices, clients) {
 
 fetchDevices()
 
-setInterval(fetchDevices, 10000000);
+setInterval(fetchDevices, 10000);
 
 function convertToLocalTime(utcTime) {
     const date = new Date(utcTime)
