@@ -10,6 +10,12 @@ from dateutil import parser
 #Сохранение данных в Postgresql
 #TODO: сделать вывод часового пояса по Asia/Yekaterinburg (понять почему в базе не по гринвичу хранится)
 def save_devices_data(device_data):
+
+    #Status by default is inactive.
+    #If we got information from API about client or host, status will be active
+    DeviceHost.objects.update(status='Inactive')
+    DevicesClient.objects.update(status='Inactive')
+
     for device in device_data:
         if 'client_id' in device:
             # Парсим строку с датой
@@ -24,7 +30,8 @@ def save_devices_data(device_data):
                     'os': device['OS'],
                     'release': device['Release'],
                     'last_ip': device['LastIP'],
-                    'last_seen_at': last_seen_at,  # Не строка
+                    'last_seen_at': last_seen_at,  # Not a string
+                    'status': 'Active',
                 }
             )
         else:
@@ -40,6 +47,7 @@ def save_devices_data(device_data):
                     'platform': device['Platform'],
                     'kernel_version': device['KernelVersion'],
                     'arch': device['Architecture'],
+                    'status': 'Active'
                 }
            )
 

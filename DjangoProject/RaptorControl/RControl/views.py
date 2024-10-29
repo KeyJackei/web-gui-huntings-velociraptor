@@ -13,7 +13,7 @@ def main_view(request):
     clients = DevicesClient.objects.all()
     username = request.session.get('username', None)
     fetch_devices(request)
-    return render(request, 'main.html', {'devices': devices, 'devices_client': clients,'username': username})
+    return render(request, 'main.html', {'devices': devices, 'devices_client': clients, 'username': username})
 
 
 

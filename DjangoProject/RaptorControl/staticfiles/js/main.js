@@ -62,7 +62,7 @@ function updateDeviceTable(devices, clients) {
 
 fetchDevices()
 
-setInterval(fetchDevices, 10000);
+setInterval(fetchDevices, 10000000);
 
 function convertToLocalTime(utcTime) {
     const date = new Date(utcTime)

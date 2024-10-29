@@ -54,6 +54,7 @@
                 <th scope="col">Platform</th>
                 <th scope="col">Kernel Version</th>
                 <th scope="col">Architecture</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody id="device-table-body-server">
@@ -67,6 +68,7 @@
                 <td>{{ device.platform }}</td>
                 <td>{{ device.kernel_version }}</td>
                 <td>{{ device.arch }}</td>
+                <td>{{ device.status }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -83,6 +85,7 @@
             <th scope="col">Release</th>
             <th scope="col">Last IP</th>
             <th scope="col">Last Seen At</th>
+            <th scope="col">Status</th>
         </tr>
         </thead>
         <tbody id="client-table-body">
@@ -95,6 +98,7 @@
             <td>{{ client.release }}</td>
             <td>{{ client.last_ip }}</td>
             <td>{{ client.last_seen_at }}</td>
+            <td>{{ client.status }}</td>
         </tr>
         {% endfor %}
         </tbody>
