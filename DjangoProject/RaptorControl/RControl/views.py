@@ -22,7 +22,6 @@ def get_devices_data(request):
         config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
         query = """SELECT * FROM info()"""
         env_dict = {"Foo": "Bar"}
-        print(config_path)
 
         with open(config_path, 'r') as config_file:
             config = yaml.safe_load(config_file)
