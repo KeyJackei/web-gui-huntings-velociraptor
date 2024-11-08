@@ -39,6 +39,7 @@ function updateDeviceTable(devices, clients) {
                 <td>${device.kernel_version}</td>
                 <td>${device.arch}</td>
                 <td>${device.status}</td>
+                <td>${convertToLocalTime(device.uptime)}</td>
             </tr>
         `;
         deviceTableBody.insertAdjacentHTML('beforeend', deviceRow);

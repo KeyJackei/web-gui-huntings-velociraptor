@@ -1,6 +1,6 @@
 from django.db import models
 
-
+#TODO: разобраться с uptime
 class DeviceHost(models.Model):
     hostname = models.CharField(max_length=255)
     boot_time = models.DateTimeField()
@@ -10,6 +10,7 @@ class DeviceHost(models.Model):
     kernel_version = models.CharField(max_length=50)
     arch = models.CharField(max_length=50)
     status = models.CharField(max_length=10, default='Inactive')
+    uptime = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.hostname

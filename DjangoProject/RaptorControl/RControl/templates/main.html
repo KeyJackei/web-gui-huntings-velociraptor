@@ -55,6 +55,7 @@
                 <th scope="col">Kernel Version</th>
                 <th scope="col">Architecture</th>
                 <th scope="col">Status</th>
+                <th scope="col>">Last Seen At</th>
             </tr>
         </thead>
         <tbody id="device-table-body-server">
@@ -69,6 +70,7 @@
                 <td>{{ device.kernel_version }}</td>
                 <td>{{ device.arch }}</td>
                 <td>{{ device.status }}</td>
+                <td>{{ device.uptime }}</td>
             </tr>
             {% endfor %}
         </tbody>
