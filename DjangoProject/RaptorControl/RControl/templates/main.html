@@ -54,14 +54,13 @@
                 <th scope="col">Platform</th>
                 <th scope="col">Kernel Version</th>
                 <th scope="col">Architecture</th>
-                <th scope="col">Status</th>
-                <th scope="col>">Last Seen At</th>
+                <th scope="col">Uptime</th>
             </tr>
         </thead>
-        <tbody id="device-table-body-server">
+        <tbody class="device-table-body">
             {% for device in devices %}
             <tr>
-                <td>{{ forloop.counter }}</td>
+                <td>{{ device.id }}</td>
                 <td>{{ device.hostname }}</td>
                 <td>{{ device.boot_time }}</td>
                 <td>{{ device.procs }}</td>
@@ -69,11 +68,11 @@
                 <td>{{ device.platform }}</td>
                 <td>{{ device.kernel_version }}</td>
                 <td>{{ device.arch }}</td>
-                <td>{{ device.status }}</td>
                 <td>{{ device.uptime }}</td>
             </tr>
             {% endfor %}
         </tbody>
+        
     </table>
 
     <h1 class="ml-5 mt-5">Client list</h1>

@@ -9,7 +9,6 @@ class DeviceHost(models.Model):
     platform = models.CharField(max_length=50)
     kernel_version = models.CharField(max_length=50)
     arch = models.CharField(max_length=50)
-    status = models.CharField(max_length=10, default='Inactive')
     uptime = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
@@ -22,7 +21,7 @@ class DevicesClient(models.Model):
     release = models.CharField(max_length=50)
     last_ip = models.CharField(max_length=50)
     last_seen_at = models.DateTimeField()
-    status = models.CharField(max_length=10, default='Inactive')
+    status = models.CharField(max_length=20, default='Inactive')
 
     def __str__(self):
         return self.hostname

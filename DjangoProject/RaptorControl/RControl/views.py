@@ -28,16 +28,16 @@ def get_devices_data(request):
 
         run(config, query, env_dict)
 
-        # query = """SELECT client_id,
-        #              os_info.fqdn as HostName,
-        #              os_info.system as OS,
-        #              os_info.release as Release,
-        #              timestamp(epoch=last_seen_at/ 1000000).String as LastSeenAt,
-        #              last_ip AS LastIP,
-        #              last_seen_at AS _LastSeenAt
-        #       FROM clients(count=100000)"""
-        #
-        # run(config, query, env_dict)
+        query = """SELECT client_id,
+                     os_info.fqdn as HostName,
+                     os_info.system as OS,
+                     os_info.release as Release,
+                     timestamp(epoch=last_seen_at/ 1000000).String as LastSeenAt,
+                     last_ip AS LastIP,
+                     last_seen_at AS _LastSeenAt
+              FROM clients(count=100000)"""
+
+        run(config, query, env_dict)
 
 
         devices = list(DeviceHost.objects.values())

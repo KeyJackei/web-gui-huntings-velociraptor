@@ -6,6 +6,8 @@ from RControl.models import DeviceHost, DevicesClient
 from pyvelociraptor import api_pb2, api_pb2_grpc
 from dateutil import parser
 
+INACTIVITY_THRESHOLD = 15
+
 # Helper Functions
 def get_ip_without_port(last_ip):
     """Extract IP address from 'IP:port' format."""
@@ -15,7 +17,7 @@ def get_ip_without_port(last_ip):
 def delete_repeat_clients(device_data):
     """Delete existing clients with matching IPs from the database."""
     for device in device_data:
-        if 'LastIP' in device:
+        if 'LastIP' in device and 'HostID' not in device:  # Исключаем хосты, проверяем только клиентов
             current_ip = get_ip_without_port(device['LastIP'])
             matching_clients = DevicesClient.objects.filter(last_ip__startswith=current_ip)
             if matching_clients.exists():
@@ -27,6 +29,10 @@ def delete_repeat_clients(device_data):
 
 def save_device_client(device):
     """Save or update client device information in the database."""
+    if 'LastIP' not in device:
+        print(f"Error: 'LastIP' not found for device {device['HostName']}")
+        return None
+
     last_seen_at = parser.isoparse(device['LastSeenAt']).replace(tzinfo=pytz.UTC)
 
     client, created = DevicesClient.objects.update_or_create(
@@ -37,11 +43,12 @@ def save_device_client(device):
             'release': device['Release'],
             'last_ip': device['LastIP'],
             'last_seen_at': last_seen_at,
-            'status': 'Active',  # Default active
+            'status': 'Connected',  # Default active
         }
     )
     print(f"Client updated: {client.hostname}, Status: {client.status}")
     return client.id
+
 
 
 def save_device_host(device):
@@ -50,6 +57,7 @@ def save_device_host(device):
     uptime_seconds = device['Uptime']
     last_seen_at = boot_time + datetime.timedelta(seconds=uptime_seconds)
 
+    # Update or create host device, without status field
     host, created = DeviceHost.objects.update_or_create(
         hostname=device['Hostname'],
         defaults={
@@ -60,34 +68,72 @@ def save_device_host(device):
             'platform': device['Platform'],
             'kernel_version': device['KernelVersion'],
             'arch': device['Architecture'],
-            'status': 'Active'  # Default active
         }
     )
-    print(f"Host updated: {host.hostname}, Status: {host.status}")
+    print(f"Host updated: {host.hostname}")
     return host.id
 
 
 def update_device_status_based_on_data(device_data):
-    """Update device status based on the presence of data in the incoming device array."""
+    """Update device status based on time difference, only for clients."""
     # Get all devices from the database and create a set of their IPs (without ports)
-    existing_devices = DevicesClient.objects.all()
-    existing_ips = {get_ip_without_port(device.last_ip) for device in existing_devices}
+    existing_clients = DevicesClient.objects.all()
+    existing_client_ips = {get_ip_without_port(device.last_ip) for device in existing_clients}
 
-    # Create a set of IPs from incoming data (ignoring ports)
-    incoming_ips = {get_ip_without_port(device['LastIP']) for device in device_data if 'LastIP' in device}
+    # Create a set of IPs from incoming data (ignoring ports) for clients
+    incoming_client_ips = {get_ip_without_port(device['LastIP']) for device in device_data if
+                           'LastIP' in device and 'HostID' not in device}
 
-    # Check for new devices (in incoming data but not in database)
-    new_devices = incoming_ips - existing_ips
+    # Check for new clients (in incoming data but not in database)
+    new_client_ips = incoming_client_ips - existing_client_ips
     for device in device_data:
-        device_ip = get_ip_without_port(device['LastIP'])
-        if device_ip in new_devices:
-            save_device_client(device)
-            print(f"New device added: {device['HostName']} with IP: {device_ip}")
+        if 'LastIP' in device and 'HostID' not in device:  # Process only clients
+            device_ip = get_ip_without_port(device['LastIP'])
+            if device_ip in new_client_ips:
+                save_device_client(device)
+                print(f"New client added: {device['HostName']} with IP: {device_ip}")
 
-    # Mark devices as inactive (in database but not in incoming data)
-    inactive_ips = existing_ips - incoming_ips
-    DevicesClient.objects.filter(last_ip__in=[f"{ip}:" for ip in inactive_ips]).update(status='Inactive')
-    print(f"Devices marked as inactive: {inactive_ips}")
+    # Mark clients as inactive (in database but not in incoming data) based on time difference
+    current_time = datetime.datetime.now(pytz.UTC)
+    for client in existing_clients:
+        last_seen_at = client.last_seen_at
+        if (current_time - last_seen_at).total_seconds() > INACTIVITY_THRESHOLD:
+            # Mark client as disconnected if inactive for more than the threshold
+            client.status = 'Disconnected'
+            client.save()
+            print(f"Client {client.hostname} marked as disconnected.")
+
+    # Mark clients as inactive if they are not in the incoming data
+    inactive_client_ips = existing_client_ips - incoming_client_ips
+    DevicesClient.objects.filter(last_ip__in=[f"{ip}:" for ip in inactive_client_ips]).update(status='Inactive')
+    print(f"Clients marked as inactive: {inactive_client_ips}")
+
+    # No processing for hosts in this version
+    # Hosts are not marked as inactive or active
+
+
+# def update_device_status_based_on_data(device_data):
+#     """Update device status based on the presence of data in the incoming device array."""
+#     # Get all devices from the database and create a set of their IPs (without ports)
+#     existing_devices = DevicesClient.objects.all()
+#     existing_ips = {get_ip_without_port(device.last_ip) for device in existing_devices}
+#
+#     # Create a set of IPs from incoming data (ignoring ports)
+#     incoming_ips = {get_ip_without_port(device['LastIP']) for device in device_data if 'LastIP' in device}
+#
+#     # Check for new devices (in incoming data but not in database)
+#     new_devices = incoming_ips - existing_ips
+#     print(new_devices)
+#     for device in device_data:
+#         device_ip = get_ip_without_port(device['LastIP'])
+#         if device_ip in new_devices:
+#             save_device_client(device)
+#             print(f"New device added: {device['HostName']} with IP: {device_ip}")
+#
+#     # Mark devices as inactive (in database but not in incoming data)
+#     inactive_ips = existing_ips - incoming_ips
+#     DevicesClient.objects.filter(last_ip__in=[f"{ip}:" for ip in inactive_ips]).update(status='Inactive')
+#     print(f"Devices marked as inactive: {inactive_ips}")
 
 
 def save_devices_data(device_data):
