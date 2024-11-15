@@ -31,36 +31,47 @@ function updateDeviceTable(devices, clients) {
     console.log('Устройства:', devices);
     console.log('Клиенты:', clients);
 
-    const deviceTableBody = document.getElementById('device-table-body');
-    const clientTableBody = document.getElementById('client-table-body');
+    const deviceTableBody = document.getElementById('device-table-body-server');  // Тело таблицы хостов
+    const clientTableBody = document.getElementById('client-table-body');  // Тело таблицы клиентов
 
-    // Очистка текущих данных в таблице
-    deviceTableBody.innerHTML = '';
-    clientTableBody.innerHTML = '';
+    deviceTableBody.innerHTML = ''; // Очищаем таблицу устройств
+    clientTableBody.innerHTML = ''; // Очищаем таблицу клиентов
 
-    // Заполнение таблицы устройств
-    devices.forEach(device => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${device.host_name}</td>
-            <td>${device.os}</td>
-            <td>${convertToLocalTime(device.last_seen)}</td>
+    devices.forEach((device, index) => {  // Обновляем таблицу хостов
+        console.log("Добавляем устройство:", device);  // Логируем добавляемые устройства
+        const deviceRow = `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${device.hostname}</td>
+                <td>${convertToLocalTime(device.boot_time)}</td>
+                <td>${device.procs}</td>
+                <td>${device.os}</td>
+                <td>${device.platform}</td>
+                <td>${device.kernel_version}</td>
+                <td>${device.arch}</td>
+                <td>${convertToLocalTime(device.uptime)}</td>
+            </tr>
         `;
-        deviceTableBody.appendChild(row);
+        deviceTableBody.insertAdjacentHTML('beforeend', deviceRow);
     });
 
-    // Заполнение таблицы клиентов
-    clients.forEach(client => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${client.ip}</td>
-            <td>${client.device_host}</td>
-            <td>${convertToLocalTime(client.last_seen)}</td>
+    clients.forEach((client, index) => {  // Обновляем таблицу клиентов
+        console.log("Добавляем клиента:", client);  // Логируем добавляемых клиентов
+        const clientRow = `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${client.client_id}</td>
+                <td>${client.hostname}</td>
+                <td>${client.os}</td>
+                <td>${client.release}</td>
+                <td>${client.last_ip}</td>
+                <td>${convertToLocalTime(client.last_seen_at)}</td>
+                <td>${client.status}</td>
+            </tr>
         `;
-        clientTableBody.appendChild(row);
+        clientTableBody.insertAdjacentHTML('beforeend', clientRow);
     });
 }
-
 
 fetchDevices()
 
