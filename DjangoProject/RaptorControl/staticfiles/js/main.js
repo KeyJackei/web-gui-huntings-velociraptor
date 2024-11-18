@@ -60,7 +60,9 @@ function updateDeviceTable(devices, clients) {
         const clientRow = `
             <tr>
                 <td>${index + 1}</td>
-                <td>${client.client_id}</td>
+                <td>
+                    <a href="#" onclick="showClientDetails('${client.client_id}')">${client.client_id}</a>
+                </td>
                 <td>${client.hostname}</td>
                 <td>${client.os}</td>
                 <td>${client.release}</td>
@@ -73,9 +75,38 @@ function updateDeviceTable(devices, clients) {
     });
 }
 
+function updateDeviceCounts() {
+    fetch('get_devices_counts/')
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                console.error('Ошибка:', response.statusText);
+            }
+        })
+        .then(data => {
+            console.log('Данные о количестве: ', data);
+            // Обновляем данные на странице
+            document.getElementById('active-count').textContent = `(${data.connected_count})`;
+            document.getElementById('inactive-count').textContent = `(${data.disconnected_count})`;
+            document.getElementById('total-count').textContent = `(${data.total_count})`
+            // Обновляем общее количество устройств
+            //const totalCountElement = document.querySelectorAll('total-count');
+            // totalCountElement.forEach(element => {
+            //     element.textContent = `(${data.total_count})`;
+            // });
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных:', error);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', updateDeviceCounts);
+
 fetchDevices()
 
 setInterval(fetchDevices, 10000);
+setInterval(updateDeviceCounts, 10000);
 
 function convertToLocalTime(utcTime) {
     const date = new Date(utcTime);  // Убедитесь, что сервер передает ISO строку
@@ -106,6 +137,58 @@ function toggleDropdown() {
     const dropdown = document.getElementById('user-dropdown');
     dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
 }
+
+
+//Функция для отображение окна с подробной информации о клиенте
+
+// Функция для открытия модального окна
+function openModal() {
+    const modal = document.getElementById('client-details-modal');
+    modal.style.display = "block";
+
+    // Закрыть модальное окно при нажатии на кнопку закрытия
+    const closeModalBtn = document.getElementById('close-modal');
+    closeModalBtn.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // Закрыть модальное окно при клике за пределами модального окна
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
+// Пример вызова функции открытия модального окна
+function showClientDetails(clientID) {
+    openModal();
+
+    // В будущем здесь можно будет наполнить окно данными
+    console.log("Загрузка данных клиента с ID:", clientID);
+}
+
+// Добавление кликов по строкам таблицы клиентов
+document.getElementById('client-table-body').addEventListener('click', event => {
+    const row = event.target.closest('tr[data-client-id]');
+    if (row) {
+        const clientID = row.getAttribute('data-client-id');
+        showClientDetails(clientID);
+    }
+});
+
+// Функция для получения CSRF токена
+function getCsrfToken() {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'csrftoken') {
+            return value;
+        }
+    }
+    return '';
+}
+
 
 window.onclick = function(event) {
     if (!event.target.matches('.user-panel *')) {

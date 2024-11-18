@@ -50,7 +50,6 @@ def save_device_client(device):
     return client.id
 
 
-
 def save_device_host(device):
     """Save or update host device information in the database."""
     boot_time = datetime.datetime.fromtimestamp(device['BootTime'], tz=pytz.UTC)

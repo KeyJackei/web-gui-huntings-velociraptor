@@ -1,3 +1,7 @@
+from threading import activeCount, active_count
+
+from psycopg2 import connect
+
 from .models import DeviceHost, DevicesClient
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
@@ -15,7 +19,23 @@ def main_view(request):
     get_devices_data(request)
     return render(request, 'main.html', {'devices': devices, 'devices_client': clients, 'username': username})
 
+#TODO: function for get info about client in modal window
+def get_client_details(request):
+    pass
 
+#Counting connected and disconnected clients
+def get_devices_count(request):
+    connected_count = DevicesClient.objects.filter(status='Connected').count()
+    disconnected_count = DevicesClient.objects.filter(status='Disconnected').count()
+    total_count = DevicesClient.objects.count()
+
+    data = {
+        'connected_count': connected_count,
+        'disconnected_count': disconnected_count,
+        'total_count': total_count
+    }
+
+    return JsonResponse(data)
 
 def get_devices_data(request):
     try:
