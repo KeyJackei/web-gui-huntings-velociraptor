@@ -90,11 +90,6 @@ function updateDeviceCounts() {
             document.getElementById('active-count').textContent = `(${data.connected_count})`;
             document.getElementById('inactive-count').textContent = `(${data.disconnected_count})`;
             document.getElementById('total-count').textContent = `(${data.total_count})`
-            // Обновляем общее количество устройств
-            //const totalCountElement = document.querySelectorAll('total-count');
-            // totalCountElement.forEach(element => {
-            //     element.textContent = `(${data.total_count})`;
-            // });
         })
         .catch(error => {
             console.error('Ошибка при получении данных:', error);
