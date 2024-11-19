@@ -62,7 +62,6 @@ def save_device_host(device):
         defaults={
             'uptime': last_seen_at,
             'boot_time': boot_time,
-            'procs': device['Procs'],
             'os': device['OS'],
             'platform': device['Platform'],
             'kernel_version': device['KernelVersion'],

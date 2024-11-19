@@ -17,24 +17,26 @@
         Устройства <span class="indicator"></span>
     </h2>
     <div class="active-list" id="active-list">
-        <div class="tab">
+        <div class="tab" onclick="filterDevices('active')">
             Active <span id="active-count"></span>
             <span class="indicator active"></span>
         </div>
-        <div class="tab">
+        <div class="tab" onclick="filterDevices('inactive')">
             Inactive <span id="inactive-count"></span>
             <span class="indicator inactive"></span>
         </div>
-        <div class="tab">
-            Total <span id="total-count"></span> <!-- Здесь добавлен id для обновления общего количества -->
+        <div class="tab" onclick="filterDevices('total')">
+            Total <span id="total-count"></span>
+            <span class="indicator total"></span>
         </div>
     </div>
+    <!--  -->
     <div class="devices-list" id="devices-list">
         <div class="tab" onclick="toggleDevices('oracle')">
             Oracle <span class="os-count">()</span>
         </div>
         <div class="tab" onclick="toggleDevices('rhel')">
-            RHEL <span class="os-count">()</span>
+            Fedora <span class="os-count">()</span>
         </div>
     </div>
 </div>
@@ -52,7 +54,6 @@
                 <th scope="col">#</th>
                 <th scope="col">Host Name</th>
                 <th scope="col">Boot Time</th>
-                <th scope="col">Processes</th>
                 <th scope="col">OS</th>
                 <th scope="col">Platform</th>
                 <th scope="col">Kernel Version</th>
@@ -66,7 +67,6 @@
                 <td>{{ device.id }}</td>
                 <td>{{ device.hostname }}</td>
                 <td>{{ device.boot_time }}</td>
-                <td>{{ device.procs }}</td>
                 <td>{{ device.os }}</td>
                 <td>{{ device.platform }}</td>
                 <td>{{ device.kernel_version }}</td>

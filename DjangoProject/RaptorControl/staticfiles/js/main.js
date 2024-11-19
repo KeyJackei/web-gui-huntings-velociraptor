@@ -44,7 +44,6 @@ function updateDeviceTable(devices, clients) {
                 <td>${index + 1}</td>
                 <td>${device.hostname}</td>
                 <td>${convertToLocalTime(device.boot_time)}</td>
-                <td>${device.procs}</td>
                 <td>${device.os}</td>
                 <td>${device.platform}</td>
                 <td>${device.kernel_version}</td>
@@ -95,6 +94,34 @@ function updateDeviceCounts() {
             console.error('Ошибка при получении данных:', error);
         });
 }
+
+function filterDevices(status) {
+    const tableBody = document.getElementById('client-table-body');
+    tableBody.innerHTML = ''; // Очищаем таблицу
+
+    fetch(`get_filtered_device/?status=${status}`)
+        .then(response => response.json())
+        .then(data => {
+            data.devices.forEach((device, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>
+                        <a href="#" onclick="showClientDetails('${device.client_id}')">${device.client_id}</a>
+                    </td>
+                    <td>${device.hostname}</td>
+                    <td>${device.os}</td>
+                    <td>${device.release}</td>
+                    <td>${device.last_ip}</td>
+                    <td>${device.last_seen_at}</td>
+                    <td>${device.status}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching devices:', error));
+}
+
 
 document.addEventListener('DOMContentLoaded', updateDeviceCounts);
 
@@ -172,18 +199,6 @@ document.getElementById('client-table-body').addEventListener('click', event => 
     }
 });
 
-// Функция для получения CSRF токена
-function getCsrfToken() {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        const [name, value] = cookie.trim().split('=');
-        if (name === 'csrftoken') {
-            return value;
-        }
-    }
-    return '';
-}
-
 
 window.onclick = function(event) {
     if (!event.target.matches('.user-panel *')) {
@@ -198,3 +213,15 @@ window.onclick = function(event) {
 }
 
 
+//TODO: try later
+// // Функция для получения CSRF токена
+// function getCsrfToken() {
+//     const cookies = document.cookie.split(';');
+//     for (let cookie of cookies) {
+//         const [name, value] = cookie.trim().split('=');
+//         if (name === 'csrftoken') {
+//             return value;
+//         }
+//     }
+//     return '';
+// }
