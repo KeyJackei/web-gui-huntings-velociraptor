@@ -222,3 +222,28 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+.larger-font {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.selector-wrapper {
+    background-color: #343a40; /* Фон ячейки (темный) */
+    display: inline-block; /* Ограничивает размер по содержимому */
+    border-radius: 5px; /* Добавляет скругленные углы */
+    padding: 5px; /* Добавляет внутренние отступы */
+}
+
+.time-selector {
+    background-color: #343a40; /* Фон селектора */
+    color: #ffffff; /* Цвет текста */
+    border: 1px solid #555; /* Цвет границы */
+    border-radius: 4px; /* Скругление углов */
+    width: auto; /* Убирает растяжение */
+}
+
+.time-selector:focus {
+    outline: none; /* Убирает стандартный фокус */
+    border-color: #007bff; /* Цвет границы при фокусе */
+}

@@ -166,6 +166,11 @@ function toggleDropdown() {
     dropdown.style.display = isVisible ? 'none' : 'block';
 }
 
+// Function to change the time interval of a request to the server
+function changeTimeRequest(time) {
+    pass;
+}
+
 // Function to close the modal window
 // This function hides the modal when the close button is clicked.
 document.getElementById('close-modal').onclick = function() {
