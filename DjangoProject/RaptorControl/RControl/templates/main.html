@@ -30,17 +30,15 @@
             <span class="indicator total"></span>
         </div>
     </div>
-    <!--  -->
     <div class="devices-list" id="devices-list">
-        <div class="tab" onclick="toggleDevices('oracle')">
+        <div class="tab" onclick="filterDevices('oracle')">
             Oracle <span class="os-count">()</span>
         </div>
-        <div class="tab" onclick="toggleDevices('rhel')">
+        <div class="tab" onclick="filterDevices('rhel')">
             Fedora <span class="os-count">()</span>
         </div>
     </div>
 </div>
-
 
 <!-- Main Content -->
 <div class="content">
@@ -62,20 +60,8 @@
             </tr>
         </thead>
         <tbody id="device-table-body-server">
-            {% for device in devices %}
-            <tr>
-                <td>{{ device.id }}</td>
-                <td>{{ device.hostname }}</td>
-                <td>{{ device.boot_time }}</td>
-                <td>{{ device.os }}</td>
-                <td>{{ device.platform }}</td>
-                <td>{{ device.kernel_version }}</td>
-                <td>{{ device.arch }}</td>
-                <td>{{ device.uptime }}</td>
-            </tr>
-            {% endfor %}
+            <!-- Данные будут загружены с сервера -->
         </tbody>
-        
     </table>
 
     <h1 class="ml-5 mt-5">Client list</h1>
@@ -93,24 +79,9 @@
         </tr>
         </thead>
         <tbody id="client-table-body">
-            {% for client in devices_client %}
-            <tr data-client-id="{{ client.client_id }}">
-                <td>{{ forloop.counter }}</td>
-                <td>
-                    <a href="#" onclick="showClientDetails('{{ client.client_id }}')">Подробнее</a>
-                </td>
-                <td>{{ client.hostname }}</td>
-                <td>{{ client.os }}</td>
-                <td>{{ client.release }}</td>
-                <td>{{ client.last_ip }}</td>
-                <td>{{ client.last_seen_at }}</td>
-                <td>{{ client.status }}</td>
-            </tr>
-            {% endfor %}
+            <!-- Данные будут загружены с сервера -->
         </tbody>
-        
     </table>
-
 </div>
 
 <!-- User Panel -->
@@ -131,9 +102,8 @@
     </div>
 </div>
 
-
 <script src="{% static 'js/main.js' %}"></script>
-<link rel="stylesheet" href="{% static 'css/css/bootstrap.min.css' %}">
-<script src="{% static 'js/js/bootstrap.bundle.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/css_bootstrap/bootstrap.min.css' %}">
+<script src="{% static 'js/js_bootstrap/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
