@@ -19,10 +19,6 @@ def main_view(request):
 def get_client_details(request):
     pass
 
-#TODO: get time update and send to js function
-def change_time_request(request):
-    pass
-
 def get_filtered_device(request):
     status = request.GET.get('status', 'total')
 

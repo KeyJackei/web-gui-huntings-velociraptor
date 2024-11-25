@@ -1,3 +1,6 @@
+// Global value for change interval update
+let fetchInterval;
+
 // Function to handle fetch requests and return JSON data
 // This function is used to fetch data from the server and handle errors.
 async function fetchData(url) {
@@ -168,8 +171,27 @@ function toggleDropdown() {
 
 // Function to change the time interval of a request to the server
 function changeTimeRequest(time) {
-    pass;
+    // Clear the previous interval
+    if (fetchInterval) {
+        clearInterval(fetchInterval);
+    }
+
+    // Setup new interval
+    fetchInterval = setInterval(() => {
+        fetchDevices();
+        updateDeviceCounts();  
+    }, time * 1000);
 }
+
+
+// Function to initially load data when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchDevices();  // Загрузка данных при загрузке страницы
+    updateDeviceCounts();  // Обновление счётчиков
+
+    // Setup initial interval
+    changeTimeRequest(10);
+});
 
 // Function to close the modal window
 // This function hides the modal when the close button is clicked.
@@ -177,13 +199,3 @@ document.getElementById('close-modal').onclick = function() {
     const modal = document.getElementById('client-details-modal');
     modal.style.display = "none";  // Hide the modal window
 };
-
-// Initialization function that runs when the page is loaded
-// This function sets up the device counts and fetches the initial data
-// when the page is loaded, and sets up periodic updates.
-document.addEventListener('DOMContentLoaded', () => {
-    updateDeviceCounts();
-    fetchDevices();
-    setInterval(fetchDevices, 10000);  // Fetch devices every 10 seconds
-    setInterval(updateDeviceCounts, 10000);  // Update device counts every 10 seconds
-});
