@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'raptorcontroldatabase',
         'USER': 'key',
-        'PASSWORD': config('DB_PASS'),
+        'PASSWORD': config('DB_PASSWORD'),
         'HOST': 'localhost',  # или IP-адрес сервера
         'PORT': '5432',       # стандартный порт для PostgreSQL
     }
