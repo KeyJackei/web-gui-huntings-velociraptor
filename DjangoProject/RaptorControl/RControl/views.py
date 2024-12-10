@@ -84,6 +84,6 @@ def get_devices_data(request):
 
     except Exception as e:
         print("Ошибка в get_devices_data:", e)
-        return JsonResponse({'error': str(e)}, status=500)
+        return JsonResponse({'error': 'Server comminication failed'}, status=200)
 
 

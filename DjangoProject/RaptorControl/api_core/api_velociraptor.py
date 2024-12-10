@@ -17,7 +17,7 @@ def get_ip_without_port(last_ip):
 def delete_repeat_clients(device_data):
     """Delete existing clients with matching IPs from the database."""
     for device in device_data:
-        if 'LastIP' in device and 'HostID' not in device:  # Исключаем хосты, проверяем только клиентов
+        if 'LastIP' in device and 'HostID' not in device:  # Checking only clinets
             current_ip = get_ip_without_port(device['LastIP'])
             matching_clients = DevicesClient.objects.filter(last_ip__startswith=current_ip)
             if matching_clients.exists():
@@ -105,33 +105,6 @@ def update_device_status_based_on_data(device_data):
     inactive_client_ips = existing_client_ips - incoming_client_ips
     DevicesClient.objects.filter(last_ip__in=[f"{ip}:" for ip in inactive_client_ips]).update(status='Inactive')
     print(f"Clients marked as inactive: {inactive_client_ips}")
-
-    # No processing for hosts in this version
-    # Hosts are not marked as inactive or active
-
-
-# def update_device_status_based_on_data(device_data):
-#     """Update device status based on the presence of data in the incoming device array."""
-#     # Get all devices from the database and create a set of their IPs (without ports)
-#     existing_devices = DevicesClient.objects.all()
-#     existing_ips = {get_ip_without_port(device.last_ip) for device in existing_devices}
-#
-#     # Create a set of IPs from incoming data (ignoring ports)
-#     incoming_ips = {get_ip_without_port(device['LastIP']) for device in device_data if 'LastIP' in device}
-#
-#     # Check for new devices (in incoming data but not in database)
-#     new_devices = incoming_ips - existing_ips
-#     print(new_devices)
-#     for device in device_data:
-#         device_ip = get_ip_without_port(device['LastIP'])
-#         if device_ip in new_devices:
-#             save_device_client(device)
-#             print(f"New device added: {device['HostName']} with IP: {device_ip}")
-#
-#     # Mark devices as inactive (in database but not in incoming data)
-#     inactive_ips = existing_ips - incoming_ips
-#     DevicesClient.objects.filter(last_ip__in=[f"{ip}:" for ip in inactive_ips]).update(status='Inactive')
-#     print(f"Devices marked as inactive: {inactive_ips}")
 
 
 def save_devices_data(device_data):

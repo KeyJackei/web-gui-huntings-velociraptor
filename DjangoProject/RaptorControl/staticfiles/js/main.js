@@ -17,6 +17,7 @@ async function fetchData(url) {
     }
 }
 
+
 // Function to update the device and client tables on the page
 // This function takes the data and columns to generate a table dynamically.
 function updateTable(tableBody, items, columns) {
@@ -34,6 +35,44 @@ function updateTable(tableBody, items, columns) {
 
 // Main function to fetch device data and update the device table
 // This function fetches data from the API and updates the device and client tables on the page.
+// async function fetchDevices() {
+//     try {
+//         const data = await fetchData('get_devices_data/');
+//         if (data.devices && data.clients) {
+//             const deviceTableBody = document.getElementById('device-table-body-server');
+//             const clientTableBody = document.getElementById('client-table-body');
+
+//             // Update the devices table
+//             updateTable(deviceTableBody, data.devices, [
+//                 (_, i) => i + 1,  // Index
+//                 device => device.hostname,
+//                 device => convertToLocalTime(device.boot_time),
+//                 device => device.os,
+//                 device => device.platform,
+//                 device => device.kernel_version,
+//                 device => device.arch,
+//                 device => convertToLocalTime(device.uptime)
+//             ]);
+
+//             // Update the clients table
+//             updateTable(clientTableBody, data.clients, [
+//                 (_, i) => i + 1,
+//                 client => `<a href="#" onclick="showClientDetails('${client.client_id}')">${client.client_id}</a>`,
+//                 client => client.hostname,
+//                 client => client.os,
+//                 client => client.release,
+//                 client => client.last_ip,
+//                 client => convertToLocalTime(client.last_seen_at),
+//                 client => client.status
+//             ]);
+//         } else {
+//             console.error('Некорректная структура данных:', data);
+//         }
+//     } catch (error) {
+//         console.error('Ошибка при обновлении данных устройств:', error);
+//     }
+// }
+
 async function fetchDevices() {
     try {
         const data = await fetchData('get_devices_data/');
@@ -69,8 +108,14 @@ async function fetchDevices() {
         }
     } catch (error) {
         console.error('Ошибка при обновлении данных устройств:', error);
+
+        // В случае ошибки подключения, показываем всплывающее сообщение
+        if (error.message.includes("Connection refused")) {
+            showMessage('connection-error-message', 10000);  // Показываем сообщение на 10 секунд
+        }
     }
 }
+
 
 // Function to update active/inactive device counts
 // This function fetches the count of active and inactive devices from the API
@@ -183,6 +228,16 @@ function changeTimeRequest(time) {
     }, time * 1000);
 }
 
+// NEW: Function to show a message for a specific element (e.g., connection error)
+function showMessage(elementId, duration = 5000) {
+    const messageElement = document.getElementById(elementId);
+    if (messageElement) {
+        messageElement.style.display = 'block'; // Show the message
+        setTimeout(() => {
+            messageElement.style.display = 'none'; // Hide it after duration
+        }, duration);
+    }
+}
 
 // Function to initially load data when the page loads
 document.addEventListener('DOMContentLoaded', () => {
