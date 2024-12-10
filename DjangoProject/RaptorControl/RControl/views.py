@@ -76,7 +76,6 @@ def get_devices_data(request):
 
         run(config, query, env_dict)
 
-
         devices = list(DeviceHost.objects.values())
         clients = list(DevicesClient.objects.values())
 
@@ -84,6 +83,6 @@ def get_devices_data(request):
 
     except Exception as e:
         print("Ошибка в get_devices_data:", e)
-        return JsonResponse({'error': 'Server comminication failed'}, status=200)
+        return JsonResponse({'error': 'Server communication failed'}, status=200)
 
 
