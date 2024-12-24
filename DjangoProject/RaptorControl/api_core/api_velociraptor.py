@@ -78,11 +78,8 @@ class DeleteRepeatClientsStrategy(DeviceStrategy):
 
         # Извлекаем IP без порта
         current_ip = get_ip_without_port(device['LastIP'])
-
-        # Находим всех клиентов с таким IP
         matching_clients = DevicesClient.objects.filter(last_ip__startswith=current_ip)
 
-        # Если такие клиенты есть, удаляем их
         if matching_clients.exists():
             matching_clients.delete()
             print(f"Clients with IP {current_ip} deleted.")
@@ -100,10 +97,8 @@ class UpdateStatusStrategy(DeviceStrategy):
         client = DevicesClient.objects.filter(client_id=device['client_id']).first()
 
         if client:
-            # Получаем текущее время
             current_time = datetime.datetime.now(pytz.UTC)
 
-            # Рассчитываем разницу во времени с последнего обновления
             time_difference = (current_time - client.last_seen_at).total_seconds()
 
             # Если устройство неактивно дольше заданного времени, обновляем статус на 'Disconnected'
@@ -218,74 +213,4 @@ def run(config, query, env_dict):
                      print(f"Error: An unexpected error occurred - {e}")
 
 
-# # Main Function to Save Devices
-# # Основная функция теперь использует фасад
-# def save_devices_data(device_data):
-#     """Main function to save device data and update inactive statuses."""
-#     facade = DeviceProcessorFacade()
-#     facade.save_all_devices(device_data)  # Теперь фасад сам всё обрабатывает
-
-
-# class DeviceContext:
-#     def __init__(self, strategy: DeviceStrategy):
-#         self.strategy = strategy
-#
-#     def execute(self, device):
-#         return self.strategy.save_device(device)
-
-
-# class DeviceProcessorFacade:
-#     """
-#     Фасад для управления стратегиями обработки данных устройств.
-#     """
-#     def __init__(self):
-#         # Стратегии
-#         self.strategies = {
-#             'save_client': ClientDeviceStrategy(),
-#             'save_host': HostDeviceStrategy(),
-#             'delete_repeat_clients': DeleteRepeatClientsStrategy(),
-#             'update_status': UpdateStatusStrategy(),
-#         }
-#
-#     def process_clients(self, device_data):
-#         """
-#         Обрабатывает только данные клиентов.
-#         """
-#         self.strategies['delete_repeat_clients'].save_device(device_data)  # Удаление повторяющихся клиентов
-#         active_clients = []
-#         for device in device_data:
-#             if 'client_id' in device:
-#                 client_id = self.strategies['save_client'].save_device(device)  # Сохранение клиента
-#                 print(client_id)
-#                 active_clients.append(client_id)
-#         return active_clients
-#
-#     def process_hosts(self, device_data):
-#         """
-#         Обрабатывает только данные хостов.
-#         """
-#         active_hosts = []
-#         for device in device_data:
-#             if 'HostID' in device:
-#                 host_id = self.strategies['save_host'].save_device(device)  # Сохранение хоста
-#                 active_hosts.append(host_id)
-#         return active_hosts
-#
-#     def update_device_status(self, device_data):
-#         """
-#         Обновляет статус устройств.
-#         """
-#         self.strategies['update_status'].save_device(device_data)
-#
-#     def save_all_devices(self, device_data):
-#         """
-#         Основной метод фасада для обработки данных всех устройств.
-#         """
-#         print("Deleting duplicate clients...")
-#         self.process_clients(device_data)
-#         print("Processing host devices...")
-#         self.process_hosts(device_data)
-#         print("Updating device statuses...")
-#         self.update_device_status(device_data)
-#         print("Processing completed.")
 

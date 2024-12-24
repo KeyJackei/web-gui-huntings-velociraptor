@@ -1,6 +1,6 @@
 from django.db import models
 
-#TODO: разобраться с uptime
+
 class DeviceHost(models.Model):
     hostname = models.CharField(max_length=255)
     boot_time = models.DateTimeField()
