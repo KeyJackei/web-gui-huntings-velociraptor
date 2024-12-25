@@ -22,7 +22,6 @@ class DeviceStrategy(ABC):
         pass
 
 
-
 class ClientDeviceStrategy(DeviceStrategy):
     def save_device(self, device):
         """Save or update client device information in the database."""
@@ -40,7 +39,7 @@ class ClientDeviceStrategy(DeviceStrategy):
                 'release': device['Release'],
                 'last_ip': device['LastIP'],
                 'last_seen_at': last_seen_at,
-                'status': 'Connected',  # Default active
+                'status': 'Online',  # Default active
             }
         )
         print(f"Client updated: {client.hostname}, Status: {client.status}")
@@ -89,7 +88,7 @@ class DeleteRepeatClientsStrategy(DeviceStrategy):
 
 class UpdateStatusStrategy(DeviceStrategy):
     def save_device(self, device):
-        """Обновляет статус устройства на 'Disconnected' если оно не активно."""
+        """Обновляет статус устройства на 'Offline' если оно не активно."""
         if 'client_id' not in device:
             print(f"Error: 'client_id' not found for device {device['HostName']}")
             return None
@@ -101,11 +100,11 @@ class UpdateStatusStrategy(DeviceStrategy):
 
             time_difference = (current_time - client.last_seen_at).total_seconds()
 
-            # Если устройство неактивно дольше заданного времени, обновляем статус на 'Disconnected'
+            # Если устройство неактивно дольше заданного времени, обновляем статус на 'Offline'
             if time_difference > INACTIVITY_THRESHOLD:
-                client.status = 'Disconnected'
+                client.status = 'Offline'
                 client.save()
-                print(f"Client {client.hostname} marked as disconnected.")
+                print(f"Client {client.hostname} marked as offline.")
 
 
 class DeviceProcessorFacade:
