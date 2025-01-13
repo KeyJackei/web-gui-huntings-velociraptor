@@ -20,18 +20,50 @@ async function fetchData(url) {
 
 // Function to update the device and client tables on the page
 // This function takes the data and columns to generate a table dynamically.
+
 function updateTable(tableBody, items, columns) {
-    tableBody.innerHTML = ''; // Clear the current table content
+    tableBody.innerHTML = ''; // Очистка содержимого таблицы
+
     items.forEach((item, index) => {
         const row = document.createElement('tr');
+
+        // Добавляем ячейку с чекбоксом в начало строки
+        const checkboxCell = document.createElement('td');
+        checkboxCell.classList.add('text-center'); // Для выравнивания по центру
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.classList.add('row-checkbox');
+        checkbox.dataset.rowIndex = index; // Привязываем индекс строки
+        checkboxCell.appendChild(checkbox);
+        row.appendChild(checkboxCell);
+
+        // Генерация остальных ячеек на основе `columns`
         columns.forEach(column => {
             const cell = document.createElement('td');
-            cell.innerHTML = column(item, index); // Use callback to get column content
+            cell.innerHTML = column(item, index); // Используем callback для содержимого ячейки
             row.appendChild(cell);
         });
-        tableBody.appendChild(row);
+
+        tableBody.appendChild(row); // Добавляем строку в таблицу
     });
 }
+
+
+
+
+
+// function updateTable(tableBody, items, columns) {
+//     tableBody.innerHTML = ''; // Clear the current table content
+//     items.forEach((item, index) => {
+//         const row = document.createElement('tr');
+//         columns.forEach(column => {
+//             const cell = document.createElement('td');
+//             cell.innerHTML = column(item, index); // Use callback to get column content
+//             row.appendChild(cell);
+//         });
+//         tableBody.appendChild(row);
+//     });
+// }
 
 // Main function to fetch device data and update the device table
 // This function fetches data from the API and updates the device and client tables on the page.
@@ -239,13 +271,21 @@ function showMessage(elementId, duration = 5000) {
     }
 }
 
+// Функция для активации/деактивации кнопки
+function toggleActionButton() {
+    const checkboxes = document.querySelectorAll('#device-table-body-server .row-checkbox:checked');
+    const actionButton = document.getElementById('perform-action-button');
+    actionButton.disabled = checkboxes.length === 0; // Кнопка активна, если выбрано хотя бы одно устройство
+}
+
+
 // Function to initially load data when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     fetchDevices();  // Загрузка данных при загрузке страницы
     updateDeviceCounts();  // Обновление счётчиков
 
     // Setup initial interval
-    changeTimeRequest(10);
+    changeTimeRequest(300);
 });
 
 // Function to close the modal window
@@ -254,3 +294,10 @@ document.getElementById('close-modal').onclick = function() {
     const modal = document.getElementById('client-details-modal');
     modal.style.display = "none";  // Hide the modal window
 };
+
+// Обработчик событий на таблицу устройств
+document.getElementById('device-table-body-server').addEventListener('change', event => {
+    if (event.target.classList.contains('row-checkbox')) {
+        toggleActionButton();
+    }
+});

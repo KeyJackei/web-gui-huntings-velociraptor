@@ -286,4 +286,8 @@ body {
     padding: 10px;
     z-index: 1000;
 }
-  
+
+.row-checkbox {
+    margin: 0 auto;
+    display: block;
+}
