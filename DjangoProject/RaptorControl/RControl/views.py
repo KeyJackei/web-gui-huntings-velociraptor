@@ -1,5 +1,5 @@
-from .models import DeviceHost, DevicesClient
-from django.http import HttpResponse, JsonResponse
+from .models import DeviceHost, DevicesClient, QueryVQL
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import yaml
 import os.path
@@ -54,6 +54,14 @@ def get_devices_count(request):
 
     return JsonResponse(data)
 
+# Получение запроса VQL из базы
+def get_query_by_name(name):
+    try:
+        record = QueryVQL.objects.get(name=name)
+        return record.query_vql
+    except QueryVQL.DoesNotExist:
+        return None
+
 def get_devices_data(request):
     try:
         config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
@@ -65,14 +73,7 @@ def get_devices_data(request):
 
         run(config, query, env_dict)
 
-        query = """SELECT client_id,
-                     os_info.fqdn as HostName,
-                     os_info.system as OS,
-                     os_info.release as Release,
-                     timestamp(epoch=last_seen_at/ 1000000).String as LastSeenAt,
-                     last_ip AS LastIP,
-                     last_seen_at AS _LastSeenAt
-              FROM clients()"""
+        query = get_query_by_name('get_clients_info')
 
         run(config, query, env_dict)
 

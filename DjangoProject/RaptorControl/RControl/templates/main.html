@@ -18,11 +18,11 @@
     </h2>
     <div class="active-list" id="active-list">
         <div class="tab" onclick="filterDevices('active')">
-            Active <span id="active-count"></span>
+            Online<span id="active-count"></span>
             <span class="indicator active"></span>
         </div>
         <div class="tab" onclick="filterDevices('inactive')">
-            Inactive <span id="inactive-count"></span>
+            Offline<span id="inactive-count"></span>
             <span class="indicator inactive"></span>
         </div>
         <div class="tab" onclick="filterDevices('total')">
@@ -41,7 +41,7 @@
             <tr>
                 <th scope="col" class="bg-dark text-center align-middle border-end">Server</th>
                 <th scope="col" class="bg-dark text-center align-middle border-end">
-                    Get a data
+                    Обновить данные о клиентах
                     <button onclick="fetchDevices()" class="btn btn-link">
                         <i class="fas fa-sync-alt"></i>
                     </button>
@@ -53,9 +53,6 @@
                             name="change time request"
                             id="change-time-request"
                             onchange="changeTimeRequest(this.value)">
-                            <option value="10">10 секунд</option>
-                            <option value="30">30 секунд</option>
-                            <option value="60">1 минута</option>
                             <option value="300">5 минут</option>
                             <option value="900">15 минут</option>
                             <option value="1800">30 минут</option>

@@ -7,12 +7,26 @@ from RControl.models import DeviceHost, DevicesClient
 from pyvelociraptor import api_pb2, api_pb2_grpc
 from dateutil import parser
 
+from RControl.models import QueryVQL
 
 INACTIVITY_THRESHOLD = 15
+
+#Добавление запросов в таблицу запросов VQL для последующего вызова по имени
+def queryWriter(name, query):
+    QueryVQL.objects.create(name=name, query_vql=query)
 
 def get_ip_without_port(last_ip):
     """Extract IP address from 'IP:port' format."""
     return last_ip.split(':')[0]
+
+# Проверка валидности устройств
+def is_valid_device(device):
+    required_fields = ['client_id', 'HostName', 'OS', 'Release', 'LastSeenAt', 'LastIP']
+    if not all(field in device and device[field] for field in required_fields):
+        return False
+    if device['client_id'].lower == 'server' or device['HostName'].lower == 'server':
+        return False
+    return True
 
 
 class DeviceStrategy(ABC):
@@ -126,17 +140,20 @@ class DeviceProcessorFacade:
         """
         active_clients = []
         for device in device_data:
-            if 'client_id' in device:
-                # Удаляем дубли клиентов перед сохранением
-                self.client_strategies['delete_repeat_clients'].save_device(device)
+            #if 'client_id' in device:
+            if not is_valid_device(device):
+                print(f'Пропущен некорректный клиент: {device}')
+                continue
+            # Удаляем дубли клиентов перед сохранением
+            self.client_strategies['delete_repeat_clients'].save_device(device)
 
-                # Сохраняем данные клиента
-                client_id = self.client_strategies['save_client'].save_device(device)
-                print(client_id)
-                active_clients.append(client_id)
+            # Сохраняем данные клиента
+            client_id = self.client_strategies['save_client'].save_device(device)
+            print(client_id)
+            active_clients.append(client_id)
 
-                # Обновляем статус клиента
-                self.client_strategies['update_status'].save_device(device)
+            # Обновляем статус клиента
+            self.client_strategies['update_status'].save_device(device)
         return active_clients
 
     def process_hosts(self, device_data):
@@ -167,8 +184,6 @@ class DeviceProcessorFacade:
         print("Processing completed.")
 
 
-
-# Пример использования фасада в функции run
 def save_devices_data_facade(device_data):
     """
     Обрабатывает данные устройств с использованием фасада.
