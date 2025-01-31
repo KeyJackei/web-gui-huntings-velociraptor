@@ -153,6 +153,7 @@ async function fetchDevices() {
 // This function fetches the count of active and inactive devices from the API
 // and updates the corresponding counters on the page.
 async function updateDeviceCounts() {
+    console.log('Обновление счётчика')
     try {
         const data = await fetchData('get_devices_counts/');
         document.getElementById('active-count').textContent = `(${data.connected_count})`;
@@ -166,6 +167,7 @@ async function updateDeviceCounts() {
 // Function to filter devices by status (active/inactive)
 // This function fetches devices with a specific status and updates the clients table.
 async function filterDevices(status) {
+    console.log(`Фильтрация по статусу: ${status}`)
     try {
         const data = await fetchData(`get_filtered_device/?status=${status}`);
         const tableBody = document.getElementById('client-table-body');

@@ -34,25 +34,31 @@ def get_filtered_device(request):
     ))
 
     for device in devices_data:
-        device['last_seen_at'] = device['last_seen_at'].strftime('%Y-%m-%d %H:%M:%S')
+        if device['last_seen_at']:
+            device['last_seen_at'] = device['last_seen_at'].strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            device['last_seen_at'] = "N/A"
 
     return JsonResponse({'devices': devices_data})
 
 
 
 #Counting connected and disconnected clients
-def get_devices_count(request):
-    connected_count = DevicesClient.objects.filter(status='Connected').count()
-    disconnected_count = DevicesClient.objects.filter(status='Disconnected').count()
+def get_devices_counts(request):
+    connected_count = DevicesClient.objects.filter(status='Online').count()
+    disconnected_count = DevicesClient.objects.filter(status='Offline').count()
     total_count = DevicesClient.objects.count()
 
-    data = {
+    data = JsonResponse({
         'connected_count': connected_count,
         'disconnected_count': disconnected_count,
         'total_count': total_count
-    }
+    })
+    data["Cache-Control"] = 'no-cache, no-store, must-revalidate'
+    data['Pragma'] = 'no-cache'
+    data['Expires'] = '0'
 
-    return JsonResponse(data)
+    return data
 
 # Получение запроса VQL из базы
 def get_query_by_name(name):
