@@ -48,63 +48,6 @@ function updateTable(tableBody, items, columns) {
     });
 }
 
-
-
-
-
-// function updateTable(tableBody, items, columns) {
-//     tableBody.innerHTML = ''; // Clear the current table content
-//     items.forEach((item, index) => {
-//         const row = document.createElement('tr');
-//         columns.forEach(column => {
-//             const cell = document.createElement('td');
-//             cell.innerHTML = column(item, index); // Use callback to get column content
-//             row.appendChild(cell);
-//         });
-//         tableBody.appendChild(row);
-//     });
-// }
-
-// Main function to fetch device data and update the device table
-// This function fetches data from the API and updates the device and client tables on the page.
-// async function fetchDevices() {
-//     try {
-//         const data = await fetchData('get_devices_data/');
-//         if (data.devices && data.clients) {
-//             const deviceTableBody = document.getElementById('device-table-body-server');
-//             const clientTableBody = document.getElementById('client-table-body');
-
-//             // Update the devices table
-//             updateTable(deviceTableBody, data.devices, [
-//                 (_, i) => i + 1,  // Index
-//                 device => device.hostname,
-//                 device => convertToLocalTime(device.boot_time),
-//                 device => device.os,
-//                 device => device.platform,
-//                 device => device.kernel_version,
-//                 device => device.arch,
-//                 device => convertToLocalTime(device.uptime)
-//             ]);
-
-//             // Update the clients table
-//             updateTable(clientTableBody, data.clients, [
-//                 (_, i) => i + 1,
-//                 client => `<a href="#" onclick="showClientDetails('${client.client_id}')">${client.client_id}</a>`,
-//                 client => client.hostname,
-//                 client => client.os,
-//                 client => client.release,
-//                 client => client.last_ip,
-//                 client => convertToLocalTime(client.last_seen_at),
-//                 client => client.status
-//             ]);
-//         } else {
-//             console.error('Некорректная структура данных:', data);
-//         }
-//     } catch (error) {
-//         console.error('Ошибка при обновлении данных устройств:', error);
-//     }
-// }
-
 async function fetchDevices() {
     try {
         const data = await fetchData('get_devices_data/');
@@ -188,33 +131,32 @@ async function filterDevices(status) {
 
 // Function to display details of a selected client
 // This function fetches and displays detailed information about a client in a modal.
-async function showClientDetails(clientID) {
+async function showClientDetails() {
     try {
         // Example client data (this should come from the server)
-        const data = {
-            client_id: clientID,
-            hostname: "Example Host",
-            os: "Ubuntu 20.04",
-            release: "20.04 LTS",
-            last_ip: "192.168.1.10",
-            last_seen_at: "2024-11-20T12:34:56Z",  // Example in ISO format
-            status: "Connected",
-            uptime: "48 hours"
-        };
-        
         // Get the client details container
         const clientDetailsDiv = document.getElementById('client-details');
-        
+        const data = await fetchData(`get_client_details`);
+
         // Fill the modal with client data
         clientDetailsDiv.innerHTML = `
-            <p><strong>Client ID:</strong> ${data.client_id}</p>
+           <p><strong>Client ID:</strong> ${data.client_id}</p>
             <p><strong>Host Name:</strong> ${data.hostname}</p>
             <p><strong>OS:</strong> ${data.os}</p>
             <p><strong>Release:</strong> ${data.release}</p>
-            <p><strong>Last IP:</strong> ${data.last_ip}</p>
+            <p><strong>Machine:</strong> ${data.machine}</p>
+            <p><strong>FQDN:</strong> ${data.fqdn}</p>
+            <p><strong>MAC Addresses:</strong> ${data.mac_addresses.join(', ')}</p>
+            <p><strong>First Seen At:</strong> ${convertToLocalTime(data.first_seen_at)}</p>
             <p><strong>Last Seen At:</strong> ${convertToLocalTime(data.last_seen_at)}</p>
-            <p><strong>Status:</strong> ${data.status}</p>
-            <p><strong>Uptime:</strong> ${data.uptime}</p>
+            <p><strong>Last IP:</strong> ${data.last_ip}</p>
+            <p><strong>Last Interrogate Flow ID:</strong> ${data.last_interrogate_flow_id}</p>
+            <p><strong>Last Interrogate Artifact Name:</strong> ${data.last_interrogate_artifact_name}</p>
+            <p><strong>Labels:</strong> ${data.labels.join(', ')}</p>
+            <p><strong>Last Hunt Timestamp:</strong> ${data.last_hunt_timestamp}</p>
+            <p><strong>Last Event Table Version:</strong> ${data.last_event_table_version}</p>
+            <p><strong>Last Label Timestamp:</strong> ${data.last_label_timestamp}</p>
+            <p><strong>In Flight Flows:</strong> ${JSON.stringify(data.in_flight_flows, null, 2)}</p>
         `;
         
         // Open the modal window

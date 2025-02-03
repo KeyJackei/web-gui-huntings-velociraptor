@@ -1,4 +1,4 @@
-from .models import DeviceHost, DevicesClient, QueryVQL
+from .models import DeviceHost, QueryVQL, DevicesClient
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import yaml
@@ -17,11 +17,13 @@ def main_view(request):
 
 #TODO: function for get info about client in modal window
 def get_client_details(request):
-    pass
+    fields = DevicesClient._meta.get_fields()
+    field_names = [field.name for field in fields]
+
+    return JsonResponse({'fields': field_names})
 
 def get_filtered_device(request):
     status = request.GET.get('status', 'total')
-
     if status == 'active':
         devices = DevicesClient.objects.filter(status='Connected')
     elif status == 'inactive':
@@ -54,9 +56,7 @@ def get_devices_counts(request):
         'disconnected_count': disconnected_count,
         'total_count': total_count
     })
-    data["Cache-Control"] = 'no-cache, no-store, must-revalidate'
-    data['Pragma'] = 'no-cache'
-    data['Expires'] = '0'
+
 
     return data
 
@@ -70,8 +70,9 @@ def get_query_by_name(name):
 
 def get_devices_data(request):
     try:
+        #Возможно ошибки
         config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
-        query = """SELECT * FROM info()"""
+        query = get_query_by_name('get_server_info')
         env_dict = {"Foo": "Bar"}
 
         with open(config_path, 'r') as config_file:
@@ -80,7 +81,6 @@ def get_devices_data(request):
         run(config, query, env_dict)
 
         query = get_query_by_name('get_clients_info')
-
         run(config, query, env_dict)
 
         devices = list(DeviceHost.objects.values())

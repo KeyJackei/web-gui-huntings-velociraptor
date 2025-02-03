@@ -15,6 +15,7 @@ INACTIVITY_THRESHOLD = 15
 def queryWriter(name, query):
     QueryVQL.objects.create(name=name, query_vql=query)
 
+
 def get_ip_without_port(last_ip):
     """Extract IP address from 'IP:port' format."""
     return last_ip.split(':')[0]
@@ -45,6 +46,13 @@ class ClientDeviceStrategy(DeviceStrategy):
 
         last_seen_at = parser.isoparse(device['LastSeenAt']).replace(tzinfo=pytz.UTC)
 
+        # Проверяем, есть ли нужные данные в устройстве
+        first_seen_at = parser.isoparse(device['FirstSeenAt']).replace(tzinfo=pytz.UTC) if 'FirstSeenAt' in device else None
+        mac_addresses = device.get('MacAddresses', [])
+        last_hunt_timestamp = device.get('LastHuntTimestamp', 0)
+
+
+
         client, created = DevicesClient.objects.update_or_create(
             client_id=device['client_id'],
             defaults={
@@ -53,11 +61,20 @@ class ClientDeviceStrategy(DeviceStrategy):
                 'release': device['Release'],
                 'last_ip': device['LastIP'],
                 'last_seen_at': last_seen_at,
-                'status': 'Online',  # Default active
+                'status': 'Online',
+                'first_seen_at': first_seen_at,
+                'fqdn': device['FQDN'],
+                'last_hunt_timestamp': last_hunt_timestamp,
+                'last_interrogate_artifact_name': device['LastInterrogateArtifactName'],
+                'last_interrogate_flow_id': device['LastInterrogateFlowId'],
+                'machine': device['machine'],
+                'mac_addresses': device['mac_addresses'],
+
             }
         )
         print(f"Client updated: {client.hostname}, Status: {client.status}")
         return client.id
+
 
 
 
@@ -216,7 +233,6 @@ def run(config, query, env_dict):
             if response.Response:
                 try:
                     package = json.loads(response.Response)
-                    print(package)
                     save_devices_data_facade(package)  # Используем улучшенную функцию
                     print(package)
                     print(len(package))

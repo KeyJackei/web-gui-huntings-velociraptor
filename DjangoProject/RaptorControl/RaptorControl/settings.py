@@ -17,9 +17,8 @@ from django.conf.global_settings import STATICFILES_DIRS, MEDIA_ROOT, MEDIA_URL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-print(BASE_DIR)
 
-#TODO: использовать для иконок
+# TODO: использовать для иконок
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'RControl/static/media')
 
@@ -47,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'RControl',
     'users',
-    'api_core'
+    'api_core',
+    'Make_hunts'
 
 ]
 
