@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import artifacts_view
+
+from .views import make_hunts
 
 urlpatterns = [
-    path("", artifacts_view, name="make_hunts"),
-    path("api/artifacts/", artifacts_api, name="artifacts_api"),
+    path("", make_hunts, name="make_hunts"),
+
 ]

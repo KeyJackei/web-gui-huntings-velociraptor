@@ -63,7 +63,7 @@ class ClientDeviceStrategy(DeviceStrategy):
                 'last_seen_at': last_seen_at,
                 'status': 'Online',
                 'first_seen_at': first_seen_at,
-                'fqdn': device['FQDN'],
+                'fqdn': device['Fqdn'],
                 'last_hunt_timestamp': last_hunt_timestamp,
                 'last_interrogate_artifact_name': device['LastInterrogateArtifactName'],
                 'last_interrogate_flow_id': device['LastInterrogateFlowId'],
