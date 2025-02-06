@@ -1,79 +1,38 @@
-/* Стили для таблицы артефактов */
 .artifact-search-table {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    position: fixed;
+    top: 60px; 
+    overflow-y: auto;
+    max-height: 1000px; /* Устанавливаем максимальную высоту таблицы */
+    border-radius: 5px;
+    
+    
 }
 
-.artifact-search-table .table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.artifact-search-table .table-sm td,
-.artifact-search-table .table-sm th {
+.artifact-search-table th, .artifact-search-table td {
     padding: 8px;
-}
-
-.artifact-search-table .table-hover tr:hover {
-    background-color: #f1f1f1; /* Цвет при наведении */
-}
-
-/* Стили для кнопки с артефактом */
-.link-button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    width: 100%;
     font-size: 16px;
-    color: #007bff; /* Цвет текста кнопки */
-    padding: 10px;
-    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #333;
+    color: #312f2f;
+    text-align: left;
 }
 
-.link-button:hover {
-    background-color: #f0f0f0;
+.artifact-search-table button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    font-size: 16px;
+    padding: 1px;
+    padding-left: 10px;
+    cursor: default;
 }
 
-.link-button:focus {
-    outline: none;
+.artifact-search-table button:hover {
+    background-color: #181818;  /* Слегка коричневый цвет */
 }
 
-.link-button .built-in-icon {
-    display: inline-block;
-    margin-left: 10px;
-    color: #007bff; /* Цвет иконки */
-}
-
-/* Сделать иконку невидимой, если это нужно */
-.link-button .invisible {
-    visibility: hidden;
-}
-
-/* Стили для SVG иконки */
-.svg-inline--fa {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-}
-
-/* Стили для таблицы с артефактами при отсутствии данных */
-.artifact-search-table .table tbody tr.no-data td {
-    text-align: center;
-    color: #888;
-    font-style: italic;
-    padding: 20px 0;
-}
-
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-    .link-button {
-        font-size: 14px; /* Уменьшаем шрифт на маленьких экранах */
-    }
-
-    .artifact-search-table .table {
-        font-size: 14px; /* Уменьшаем шрифт таблицы */
-    }
+#artifact-search-table {
+    display: flex;
+    justify-content: flex-end;
 }

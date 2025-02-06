@@ -13,8 +13,9 @@ INACTIVITY_THRESHOLD = 15
 
 #Добавление запросов в таблицу запросов VQL для последующего вызова по имени
 def queryWriter(name, query):
-    QueryVQL.objects.create(name=name, query_vql=query)
+    QueryVQL.objects.update_or_create(name=name, query_vql=query)
 
+queryWriter(name="get_clients_info", query="SELECT * FROM clients()")
 
 def get_ip_without_port(last_ip):
     """Extract IP address from 'IP:port' format."""
@@ -48,8 +49,10 @@ class ClientDeviceStrategy(DeviceStrategy):
 
         # Проверяем, есть ли нужные данные в устройстве
         first_seen_at = parser.isoparse(device['FirstSeenAt']).replace(tzinfo=pytz.UTC) if 'FirstSeenAt' in device else None
-        mac_addresses = device.get('MacAddresses', [])
         last_hunt_timestamp = device.get('LastHuntTimestamp', 0)
+        fqdn = device.get('fqdn', '')
+        last_interrogate_artifact_name = device.get('last_interrogate_artifact_name', "")
+        last_interrogate_flow_id = device.get('last_interrogate_flow_id', "")
 
 
 
@@ -63,10 +66,10 @@ class ClientDeviceStrategy(DeviceStrategy):
                 'last_seen_at': last_seen_at,
                 'status': 'Online',
                 'first_seen_at': first_seen_at,
-                'fqdn': device['Fqdn'],
+                'fqdn': fqdn,
                 'last_hunt_timestamp': last_hunt_timestamp,
-                'last_interrogate_artifact_name': device['LastInterrogateArtifactName'],
-                'last_interrogate_flow_id': device['LastInterrogateFlowId'],
+                'last_interrogate_artifact_name': last_interrogate_artifact_name,
+                'last_interrogate_flow_id': last_interrogate_flow_id,
                 'machine': device['machine'],
                 'mac_addresses': device['mac_addresses'],
 
