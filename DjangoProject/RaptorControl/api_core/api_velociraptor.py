@@ -74,7 +74,10 @@ class ClientDeviceStrategy(DeviceStrategy):
                 'first_seen_at': first_seen_at,
                 'fqdn': fqdn,
                 'machine': device['os_info'].get('machine', ''),
-                'mac_addresses': mac_addresses
+                'mac_addresses': mac_addresses,
+                'last_interrogate_flow_id': device['last_interrogate_flow_id'],
+                'last_interrogate_artifact_name': device['last_interrogate_artifact_name'],
+                'last_hunt_timestamp': device['last_hunt_timestamp']
             }
         )
         print(f"Client updated: {client.hostname}, Status: {client.status}")
