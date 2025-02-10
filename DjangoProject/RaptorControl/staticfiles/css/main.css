@@ -66,10 +66,10 @@ body {
 }
 
 .content {
-    margin-left: 230px; 
+    margin-left: 110px; 
     padding: 20px;
     color: #000000; 
-    width: calc(100% - 220px); 
+    width: calc(100% - 110px); 
     box-sizing: border-box; 
 }
 
@@ -114,7 +114,7 @@ body {
 /* Панель, верхняя панель над таблицей с выводом данных о сервере */
 #tools-top-panel {
     position: sticky;
-    left: 250px; /* Размещаем правее sidebar */
+    left: 110px; /* Размещаем правее sidebar */
     top: 0;
     width: 500px; 
     z-index: 1000;
@@ -131,9 +131,9 @@ body {
 
 /* Основной контент, чтобы он не прилипал к левому краю */
 .main-content {
-    margin-left: 550px; /* Отступ справа от панели */
+    margin-left: 500px; /*Отступ справа от панели */
     padding: 20px;
-}
+} 
 
 
 /* Стили для панели пользователя */
@@ -208,7 +208,6 @@ body {
     background-color: #121213; /* Темный цвет при наведении */
 }
 
-/* Style for modal window */
 
 /* Стили для модального окна */
 .modal {

@@ -5,7 +5,7 @@ import json
 from abc import ABC, abstractmethod
 from RControl.models import DeviceHost, DevicesClient
 from pyvelociraptor import api_pb2, api_pb2_grpc
-from dateutil import parser
+
 
 from RControl.models import QueryVQL
 
@@ -13,7 +13,7 @@ INACTIVITY_THRESHOLD = 15
 
 #Добавление запросов в таблицу запросов VQL для последующего вызова по имени
 def queryWriter(name, query):
-    QueryVQL.objects.update_or_create(name=name, query_vql=query)
+    QueryVQL.objects.update_or_create(name=name ,query_vql=query)
 
 queryWriter(name="get_clients_info", query="SELECT * FROM clients()")
 
@@ -23,11 +23,20 @@ def get_ip_without_port(last_ip):
 
 # Проверка валидности устройств
 def is_valid_device(device):
-    required_fields = ['client_id', 'HostName', 'OS', 'Release', 'LastSeenAt', 'LastIP']
+    required_fields = ['client_id', 'os_info', 'last_seen_at', 'last_ip']
+
+    # Проверяем, есть ли все необходимые ключи
     if not all(field in device and device[field] for field in required_fields):
         return False
-    if device['client_id'].lower == 'server' or device['HostName'].lower == 'server':
+
+    # Проверяем, что os_info содержит нужные данные
+    if 'hostname' not in device['os_info'] or not device['os_info']['hostname']:
         return False
+
+    # Проверка, что client_id и hostname не равны "server"
+    if device['client_id'].lower() == 'server' or device['os_info']['hostname'].lower() == 'server':
+        return False
+
     return True
 
 
@@ -40,45 +49,36 @@ class DeviceStrategy(ABC):
 
 class ClientDeviceStrategy(DeviceStrategy):
     def save_device(self, device):
-        """Save or update client device information in the database."""
-        if 'LastIP' not in device:
-            print(f"Error: 'LastIP' not found for device {device['HostName']}")
+        if 'last_ip' not in device:
+            print(f"Error: 'last_ip' not found for device {device['os_info']['hostname']}")
             return None
 
-        last_seen_at = parser.isoparse(device['LastSeenAt']).replace(tzinfo=pytz.UTC)
+        last_seen_at = datetime.datetime.utcfromtimestamp(device['last_seen_at'] / 1e6).replace(tzinfo=pytz.UTC)
 
-        # Проверяем, есть ли нужные данные в устройстве
-        first_seen_at = parser.isoparse(device['FirstSeenAt']).replace(tzinfo=pytz.UTC) if 'FirstSeenAt' in device else None
-        last_hunt_timestamp = device.get('LastHuntTimestamp', 0)
-        fqdn = device.get('fqdn', '')
-        last_interrogate_artifact_name = device.get('last_interrogate_artifact_name', "")
-        last_interrogate_flow_id = device.get('last_interrogate_flow_id', "")
-
-
+        first_seen_at = datetime.datetime.utcfromtimestamp(device['first_seen_at'] / 1e6).replace(
+            tzinfo=pytz.UTC) if 'first_seen_at' in device else None
+        fqdn = device.get('os_info', {}).get('fqdn', '')
+        mac_addresses = device['os_info'].get('mac_addresses', [])
+        if isinstance(mac_addresses, str):
+            mac_addresses = [mac.strip() for mac in mac_addresses.split(",")]
 
         client, created = DevicesClient.objects.update_or_create(
             client_id=device['client_id'],
             defaults={
-                'hostname': device['HostName'],
-                'os': device['OS'],
-                'release': device['Release'],
-                'last_ip': device['LastIP'],
+                'hostname': device['os_info']['hostname'],
+                'os': device['os_info']['system'],
+                'release': device['os_info']['release'],
+                'last_ip': device['last_ip'],
                 'last_seen_at': last_seen_at,
                 'status': 'Online',
                 'first_seen_at': first_seen_at,
                 'fqdn': fqdn,
-                'last_hunt_timestamp': last_hunt_timestamp,
-                'last_interrogate_artifact_name': last_interrogate_artifact_name,
-                'last_interrogate_flow_id': last_interrogate_flow_id,
-                'machine': device['machine'],
-                'mac_addresses': device['mac_addresses'],
-
+                'machine': device['os_info'].get('machine', ''),
+                'mac_addresses': mac_addresses
             }
         )
         print(f"Client updated: {client.hostname}, Status: {client.status}")
         return client.id
-
-
 
 
 class HostDeviceStrategy(DeviceStrategy):
@@ -105,12 +105,12 @@ class HostDeviceStrategy(DeviceStrategy):
 class DeleteRepeatClientsStrategy(DeviceStrategy):
     def save_device(self, device):
         """Удаляет повторяющихся клиентов с одинаковым IP-адресом."""
-        if 'LastIP' not in device:
-            print(f"Error: 'LastIP' not found for device {device['HostName']}")
+        if 'last_ip' not in device:
+            print(f"Error: 'last_ip' not found for device {device['os_info']['hostname']}")
             return None
 
         # Извлекаем IP без порта
-        current_ip = get_ip_without_port(device['LastIP'])
+        current_ip = get_ip_without_port(device['last_ip'])
         matching_clients = DevicesClient.objects.filter(last_ip__startswith=current_ip)
 
         if matching_clients.exists():
