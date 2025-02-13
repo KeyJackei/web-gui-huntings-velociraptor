@@ -1,4 +1,4 @@
-from .models import DeviceHost, QueryVQL, DevicesClient
+from .models import DeviceHost, DevicesClient
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import yaml
@@ -61,12 +61,6 @@ def get_devices_counts(request):
     return data
 
 # Получение запроса VQL из базы
-def get_query_by_name(name):
-    try:
-        record = QueryVQL.objects.get(name=name)
-        return record.query_vql
-    except QueryVQL.DoesNotExist:
-        return None
 
 def get_devices_data(request):
     try:
