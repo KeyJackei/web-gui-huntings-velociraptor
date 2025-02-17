@@ -40,21 +40,20 @@
 
 #code-editor-container {
     position: relative; /* Остаётся в потоке документа */
-    width: 70%;
-    margin-left: 180px;
+    width: 73%;
+    margin-left: 110px;
     margin-top: 200px;
     padding: 10px;
-    background: #1e1e1e;
+    /* background: #1e1e1e; */
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-height: 500px; /* Ограничение высоты */
+    max-height: 550px; /* Ограничение высоты */
     overflow: hidden; /* Скрывает скролл на контейнере */
     z-index: 10;
 }
 
 .CodeMirror {
     height: 500px !important; /* Высота редактора */
-    font-size: 14px; /* Увеличенный шрифт */
 }
 
 .CodeMirror-scroll {

@@ -18,7 +18,7 @@ function showCodeEditor(code) {
     } else {
         window.editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
             mode: "yaml",
-            theme: "darcula",
+            theme: "eclipse",
             lineNumbers: true,
         });
         window.editor.setValue(code);
