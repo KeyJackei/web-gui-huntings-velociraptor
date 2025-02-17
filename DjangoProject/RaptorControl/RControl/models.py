@@ -32,3 +32,8 @@ class DevicesClient(models.Model):
 
     def __str__(self):
         return self.hostname
+
+class QueryVQL(models.Model):
+    name = models.CharField(max_length=128)
+    query = models.TextField()
+

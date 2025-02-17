@@ -1,0 +1,10 @@
+[
+    {
+        "name": "get_clients_info",
+        "query": "select * from clients()"
+    },
+    {
+        "name": "get_server_info",
+        "query": "select * from info()"
+    }
+]

@@ -1,9 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-from django.db import models
-
 class QueryVQL(models.Model):
     name = models.CharField(max_length=255, unique=True, db_index=True)
     query_vql = models.TextField()  # Многострочный запрос

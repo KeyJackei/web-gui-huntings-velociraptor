@@ -1,9 +1,16 @@
-from .models import DeviceHost, DevicesClient
+from .models import DeviceHost, DevicesClient, QueryVQL
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import yaml
 import os.path
 from api_core.api_velociraptor import run
+
+def get_query_by_name(name):
+    try:
+        record = QueryVQL.objects.get(name=name)
+        return record.query
+    except QueryVQL.DoesNotExist:
+        return None
 
 
 def main_view(request):
@@ -64,7 +71,6 @@ def get_devices_counts(request):
 
 def get_devices_data(request):
     try:
-        #Возможно ошибки
         config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
         query = get_query_by_name('get_server_info')
         env_dict = {"Foo": "Bar"}

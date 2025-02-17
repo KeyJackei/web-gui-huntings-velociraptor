@@ -17,28 +17,27 @@ def load_artifacts(apps, schema_editor):
 
         # Чтение файла построчно
         for line in lines:
-            line = line.strip()  # Убираем лишние пробелы и символы новой строки
+            line = line.strip()
             if not line:
-                continue  # Пропускаем пустые строки
+                continue
 
             if line.startswith("name:"):
-                # Если встречаем строку с name, сохраняем текущий артефакт в БД
+
                 if artifact_name:
-                    query_vql = "\n".join(artifact_query)  # Собираем всё тело запроса
+                    query_vql = "\n".join(artifact_query)
                     QueryVQL.objects.get_or_create(
                         name=artifact_name,
                         defaults={"query_vql": query_vql},
                     )
 
-                # Начинаем новый артефакт
-                artifact_name = line.split(":", 1)[1].strip()  # Извлекаем имя артефакта
-                artifact_query = []  # Сброс содержимого запроса
+
+                artifact_name = line.split(":", 1)[1].strip()
+                artifact_query = []
 
             else:
-                # Добавляем текущую строку в запрос
                 artifact_query.append(line)
 
-        # Не забываем сохранить последний артефакт
+
         if artifact_name:
             query_vql = "\n".join(artifact_query)
             QueryVQL.objects.get_or_create(
