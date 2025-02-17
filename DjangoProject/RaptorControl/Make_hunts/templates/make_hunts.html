@@ -8,6 +8,10 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/make_hunts.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/darcula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/yaml/yaml.min.js"></script>
 </head>
 <body>
 
@@ -33,20 +37,26 @@
         </div>
 </div>
 
+<div id="code-editor-container" style="display: none;">
+    <textarea id="code-editor"></textarea>
+</div>
+
 
 <div class="artifact-search-table table table-dark table-striped" id="artifact-search-table" >
     <table class="table-sm table-hover">
         <tbody>
             {% for art in artifact %}
             <tr class="text-center">
-                <td><button>{{ art.name }}</button></td>
-            </tr>
+                <td><button onclick="loadArtifact('{{ art.name }}')">{{ art.name }}</button></td>
+            </tr>           
             {% endfor %}
         </tbody>
     </table>
 </div>
 
+
 <link rel="stylesheet" href="{% static 'css/css_bootstrap/bootstrap.min.css' %}">
+<script src="{% static 'js/artifact.js' %}"></script>
 <script src="{% static 'js/js_bootstrap/bootstrap.bundle.min.js' %}"></script>
 
 </body>

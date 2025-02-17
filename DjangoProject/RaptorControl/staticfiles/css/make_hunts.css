@@ -2,7 +2,7 @@
     position: fixed;
     top: 60px; 
     overflow-y: auto;
-    max-height: 1000px; /* Устанавливаем максимальную высоту таблицы */
+    max-height: 900px; /* Устанавливаем максимальную высоту таблицы */
     border-radius: 5px;
     
     
@@ -29,10 +29,35 @@
 }
 
 .artifact-search-table button:hover {
-    background-color: #181818;  /* Слегка коричневый цвет */
+    background-color: #181818;
 }
 
 #artifact-search-table {
     display: flex;
     justify-content: flex-end;
+}
+
+
+#code-editor-container {
+    position: relative; /* Остаётся в потоке документа */
+    width: 70%;
+    margin-left: 180px;
+    margin-top: 200px;
+    padding: 10px;
+    background: #1e1e1e;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-height: 500px; /* Ограничение высоты */
+    overflow: hidden; /* Скрывает скролл на контейнере */
+    z-index: 10;
+}
+
+.CodeMirror {
+    height: 500px !important; /* Высота редактора */
+    font-size: 14px; /* Увеличенный шрифт */
+}
+
+.CodeMirror-scroll {
+    max-height: 1000px; /* Ограничение высоты области прокрутки */
+    overflow-y: auto; /* Вертикальный скролл */
 }
