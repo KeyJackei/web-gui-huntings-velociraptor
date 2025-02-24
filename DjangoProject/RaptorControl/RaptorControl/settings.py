@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'RControl',
     'users',
     'api_core',
-    'Make_hunts'
+    'Make_hunts',
+    'Requests',
 
 ]
 

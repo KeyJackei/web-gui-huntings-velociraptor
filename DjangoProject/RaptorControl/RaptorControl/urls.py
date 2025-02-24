@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('users.urls')),
     path('main/', include('RControl.urls')),
     path('make_hunts/', include('Make_hunts.urls')),
+    path('requests/', include('Requests.urls'))
 
 ]
