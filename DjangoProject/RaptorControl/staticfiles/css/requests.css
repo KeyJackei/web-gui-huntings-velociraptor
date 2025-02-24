@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0; /* Убираем отступы по умолчанию */
+}
+
+.command-container {
+    width: 300%; /* Занимает всю ширину страницы */
+    max-width: 800px; /* Максимальная ширина для удобства чтения */
+    margin: 0 auto; /* Центрируем контейнер */
+    display: flex; /* Используем flexbox для выравнивания */
+}
+
+#command-input {
+    flex: 1; /* Занимает всю доступную ширину */
+    border: 1px solid #ccc;
+    outline: none;
+    padding: 10px;
+    resize: none; /* Запрет изменения размера */
+    border-radius: 5px 0 0 5px; /* Скругляем левый верхний и нижний угол */
+}
+
+#execute-button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0 5px 5px 0; /* Скругляем правый верхний и нижний угол */
+    cursor: pointer;
+}
+
+#execute-button:hover {
+    background-color: #b31500;
+}

@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,7 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}Запросы{% endblock %}
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/requests.css' %}">
 </head>
 <body>
@@ -34,6 +34,10 @@
 {% endblock %}
 
 {% block content %}
+<div class="command-container">
+    <textarea id="command-input" placeholder="Введите команду..." rows="1"></textarea>
+    <button id="execute-button">Выполнить</button>
+</div>
 {% endblock %}
 
 {% block source %}
