@@ -36,16 +36,23 @@ def request_processing(config, query, env_dict):
 
 
 def flatten_dict(data):
-    """Преобразует вложенные словари и списки в удобочитаемый формат."""
+    """Рекурсивно преобразует вложенные словари и списки в удобочитаемый формат."""
     flat_data = {}
 
     for key, value in data.items():
         if isinstance(value, dict):
-            # Распаковываем словарь как "ключ: значение"
-            flat_data[key] = ", ".join(f"{k}: {v}" for k, v in value.items())
+            # Рекурсивно разворачиваем вложенные словари
+            nested_flat = flatten_dict(value)
+            flat_data[key] = ", ".join(f"{k}: {v}" for k, v in nested_flat.items())
         elif isinstance(value, list):
-            # Преобразуем списки в строку
-            flat_data[key] = ", ".join(map(str, value))
+            # Если в списке есть словари, тоже разворачиваем их
+            flat_list = []
+            for item in value:
+                if isinstance(item, dict):
+                    flat_list.append(", ".join(f"{k}: {v}" for k, v in flatten_dict(item).items()))
+                else:
+                    flat_list.append(str(item))
+            flat_data[key] = "; ".join(flat_list)  # Используем ; как разделитель между объектами в списке
         else:
             flat_data[key] = value
 

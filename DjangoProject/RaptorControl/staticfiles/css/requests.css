@@ -56,3 +56,24 @@ body {
 #execute-button:hover {
     background-color: #1eb300;
 }
+
+/* Контейнер таблицы с ограничением ширины */
+#results-container {
+    max-width: calc(100% - 250px); /* Ограничение по ширине, учитывая sidebar */
+    margin-left: 50px; /* Сдвиг, чтобы не перекрывал sidebar */
+    overflow-x: auto; /* Горизонтальная прокрутка, если контент выходит за пределы */
+    padding: 10px;
+}
+
+/* Таблица адаптивная */
+#results-table {
+    width: 100%;
+    min-width: 600px; /* Минимальная ширина таблицы */
+    border-collapse: collapse;
+}
+
+/* Контейнер с прокруткой */
+#results-container {
+    overflow-x: auto;
+    white-space: nowrap;
+}
