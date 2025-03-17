@@ -10,31 +10,40 @@
     <link rel="stylesheet" href="{% static 'css/make_hunts.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/eclipse.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/yaml/yaml.min.js"></script>
 </head>
 <body>
 
 <div class="sidebar" id="sidebar">
-        <h2 class="toggle-header-name" id="toggle-header-name"></h2>
-        <h2 class="toggle-header" onclick="toggleDevicesList()">
-            <span class="indicator"></span>
-        </h2>
-        <div class="active-list" id="active-list">
-            <div class="tab" onclick="filterDevices('active')">
-                Online<span id="active-count"></span>
-                <span class="indicator active"></span>
-            </div>
-            <div class="tab" onclick="filterDevices('inactive')">
-                Offline<span id="inactive-count"></span>
-                <span class="indicator inactive"></span>
-            </div>
-            <div class="tab" onclick="filterDevices('total')">
-                Total <span id="total-count"></span>
-                <span class="indicator total"></span>
-            </div>
+    <h2 class="toggle-header-name" id="toggle-header-name"></h2>
+        <span class="indicator"></span>
+    </h2>
+    <div class="active-list" id="active-list">
+        <div class="tab" onclick="filterDevices('active')">
+            Online<span id="active-count"></span>
+            <span class="indicator active"></span>
         </div>
+        <div class="tab" onclick="filterDevices('inactive')">
+            Offline<span id="inactive-count"></span>
+            <span class="indicator inactive"></span>
         </div>
+        <div class="tab" onclick="filterDevices('total')">
+            Total <span id="total-count"></span>
+            <span class="indicator total"></span>
+        </div>
+    </div> 
+    <div class="nav-list">
+        <div class="tab">
+            <a href="{% url 'requests' %}" class="nav-link">
+                <i class="fas fa-share"></i> Requests
+            </a>
+        </div>
+        <div class="tab">
+            <a href="{% url 'make_hunts' %}" class="nav-link"><i class="fas fa-crosshairs"></i> Hunts</a>
+        </div>
+        <div class="tab">
+            <a href="{% url 'main' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+        </div>
+    </div>
 </div>
 
 <div id="code-editor-container" style="display: none;">
@@ -54,7 +63,8 @@
     </table>
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/yaml/yaml.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/css_bootstrap/bootstrap.min.css' %}">
 <script src="{% static 'js/artifact.js' %}"></script>
 <script src="{% static 'js/js_bootstrap/bootstrap.bundle.min.js' %}"></script>

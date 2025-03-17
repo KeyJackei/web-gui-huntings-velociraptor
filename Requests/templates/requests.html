@@ -14,47 +14,57 @@
 </head>
 <body>
 
-<!-- Боковая панель -->
+
 <div class="sidebar" id="sidebar">
     <h2 class="toggle-header-name" id="toggle-header-name"></h2>
-    <h2 class="toggle-header" onclick="toggleDevicesList()">
         <span class="indicator"></span>
     </h2>
     <div class="active-list" id="active-list">
         <div class="tab" onclick="filterDevices('active')">
-            Online <span id="active-count"></span>
+            Online<span id="active-count"></span>
             <span class="indicator active"></span>
         </div>
         <div class="tab" onclick="filterDevices('inactive')">
-            Offline <span id="inactive-count"></span>
+            Offline<span id="inactive-count"></span>
             <span class="indicator inactive"></span>
         </div>
         <div class="tab" onclick="filterDevices('total')">
             Total <span id="total-count"></span>
             <span class="indicator total"></span>
         </div>
+    </div> 
+    <div class="nav-list">
+        <div class="tab">
+            <a href="{% url 'requests' %}" class="nav-link">
+                <i class="fas fa-share"></i> Requests
+            </a>
+        </div>
+        <div class="tab">
+            <a href="{% url 'make_hunts' %}" class="nav-link"><i class="fas fa-crosshairs"></i> Hunts</a>
+        </div>
+        <div class="tab">
+            <a href="{% url 'main' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+        </div>
     </div>
 </div>
 
-    <!-- Поле ввода команды -->
-    <div class="command-container">
-        <textarea id="command-input" placeholder="Введите команду..."></textarea>
-        <button id="execute-button">Выполнить</button>
-    </div>
+<div class="command-container">
+    <textarea id="command-input" placeholder="Введите команду..."></textarea>
+    <button id="execute-button">Выполнить</button>
+</div>
 
-    <!-- Контейнер таблицы -->
-    <div id="results-container" class="hidden">
-        <table id="results-table" class="table table-dark table-striped">
-            <thead>
-                <tr id="table-header"></tr>
-            </thead>
-            <tbody id="table-body"></tbody>
-        </table>
-    </div>
 
-    <!-- JS скрипты -->
-    <script defer src="{% static 'js/requests.js' %}"></script>
-    <script src="{% static 'js/js_bootstrap/bootstrap.bundle.min.js' %}"></script>
+<div id="results-container" class="hidden">
+    <table id="results-table" class="table table-dark table-striped">
+        <thead>
+            <tr id="table-header"></tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+</div>
+
+<script defer src="{% static 'js/requests.js' %}"></script>
+<script src="{% static 'js/js_bootstrap/bootstrap.bundle.min.js' %}"></script>
 
 </body>
 </html>
