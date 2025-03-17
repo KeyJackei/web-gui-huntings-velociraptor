@@ -314,3 +314,22 @@ body {
     margin: 0 auto;
     display: block;
 }
+
+.nav-list {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid #444;
+}
+
+.nav-link {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.nav-link:hover {
+    background: #555;
+    border-radius: 5px;
+}

@@ -13,7 +13,6 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <h2 class="toggle-header-name" id="toggle-header-name"></h2>
-    <h2 class="toggle-header" onclick="toggleDevicesList()">
         <span class="indicator"></span>
     </h2>
     <div class="active-list" id="active-list">
@@ -29,9 +28,22 @@
             Total <span id="total-count"></span>
             <span class="indicator total"></span>
         </div>
+    </div> 
+    
+    <div class="nav-list">
+        <div class="tab">
+            <a href="{% url 'requests' %}" class="nav-link">
+                <i class="fas fa-share"></i> Requests
+            </a>
+        </div>
+        <div class="tab">
+            <a href="{% url 'make_hunts' %}" class="nav-link"><i class="fas fa-crosshairs"></i> Hunts</a>
+        </div>
     </div>
-    </div>
+    
+
 </div>
+
 
 <!-- Main Content -->
 <div class="content">

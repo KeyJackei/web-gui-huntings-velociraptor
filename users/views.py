@@ -1,5 +1,5 @@
 from .models import Users
-from django.contrib.auth import logout, authenticate
+from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
 from django.contrib import messages

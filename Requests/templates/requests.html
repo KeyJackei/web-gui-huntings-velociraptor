@@ -14,27 +14,27 @@
 </head>
 <body>
 
-    <!-- Боковая панель -->
-    <div class="sidebar" id="sidebar">
-        <h2 class="toggle-header-name" id="toggle-header-name"></h2>
-        <h2 class="toggle-header" onclick="toggleDevicesList()">
-            <span class="indicator"></span>
-        </h2>
-        <div class="active-list" id="active-list">
-            <div class="tab" onclick="filterDevices('active')">
-                Online <span id="active-count"></span>
-                <span class="indicator active"></span>
-            </div>
-            <div class="tab" onclick="filterDevices('inactive')">
-                Offline <span id="inactive-count"></span>
-                <span class="indicator inactive"></span>
-            </div>
-            <div class="tab" onclick="filterDevices('total')">
-                Total <span id="total-count"></span>
-                <span class="indicator total"></span>
-            </div>
+<!-- Боковая панель -->
+<div class="sidebar" id="sidebar">
+    <h2 class="toggle-header-name" id="toggle-header-name"></h2>
+    <h2 class="toggle-header" onclick="toggleDevicesList()">
+        <span class="indicator"></span>
+    </h2>
+    <div class="active-list" id="active-list">
+        <div class="tab" onclick="filterDevices('active')">
+            Online <span id="active-count"></span>
+            <span class="indicator active"></span>
+        </div>
+        <div class="tab" onclick="filterDevices('inactive')">
+            Offline <span id="inactive-count"></span>
+            <span class="indicator inactive"></span>
+        </div>
+        <div class="tab" onclick="filterDevices('total')">
+            Total <span id="total-count"></span>
+            <span class="indicator total"></span>
         </div>
     </div>
+</div>
 
     <!-- Поле ввода команды -->
     <div class="command-container">
