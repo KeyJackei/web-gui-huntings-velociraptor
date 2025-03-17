@@ -1,3 +1,8 @@
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const inputField = document.getElementById("command-input");
     const executeButton = document.getElementById("execute-button");

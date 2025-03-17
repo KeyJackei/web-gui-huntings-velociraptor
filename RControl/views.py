@@ -68,7 +68,6 @@ def get_devices_counts(request):
         'total_count': total_count
     })
 
-
     return data
 
 # Получение запроса VQL из базы

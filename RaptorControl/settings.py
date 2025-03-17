@@ -89,8 +89,8 @@ WSGI_APPLICATION = 'RaptorControl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'raptorcontroldatabase',
-        'USER': 'key',
+        'NAME': config('NAME'),
+        'USER': config('USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': 'localhost',  # или IP-адрес сервера
         'PORT': '5432',       # стандартный порт для PostgreSQL
