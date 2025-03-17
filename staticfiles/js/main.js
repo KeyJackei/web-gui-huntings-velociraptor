@@ -110,10 +110,16 @@ async function updateDeviceCounts() {
 // Function to filter devices by status (active/inactive)
 // This function fetches devices with a specific status and updates the clients table.
 async function filterDevices(status) {
-    console.log(`Фильтрация по статусу: ${status}`)
+    console.log(`Фильтрация по статусу: ${status}`);
+    console.log(`Отправка запроса: get_filtered_device/?status=${status}`);
+
     try {
         const data = await fetchData(`get_filtered_device/?status=${status}`);
+
+        console.log('Ответ API:', data); // Проверяем, что API действительно вернул клиентов
+
         const tableBody = document.getElementById('client-table-body');
+
         updateTable(tableBody, data.devices, [
             (_, i) => i + 1,
             device => `<a href="#" onclick="showClientDetails('${device.client_id}')">${device.client_id}</a>`,

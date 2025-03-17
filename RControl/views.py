@@ -31,12 +31,16 @@ def get_client_details(request):
 
 def get_filtered_device(request):
     status = request.GET.get('status', 'total')
-    if status == 'active':
-        devices = DevicesClient.objects.filter(status='Connected')
-    elif status == 'inactive':
-        devices = DevicesClient.objects.filter(status='Disconnected')
-    else:
+
+    status_map = {
+        'active': 'Online',
+        'inactive': 'Offline'
+    }
+
+    if status == 'total':
         devices = DevicesClient.objects.all()
+    else:
+        devices = DevicesClient.objects.filter(status=status_map.get(status, ''))
 
     devices_data = list(devices.values(
         'client_id', 'hostname', 'os', 'release', 'last_ip', 'last_seen_at', 'status'

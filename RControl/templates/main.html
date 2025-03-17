@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Control{% endblock %}</title>
+    <title>Control</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
@@ -35,7 +35,6 @@
 
 <!-- Main Content -->
 <div class="content">
-    {% block content %}
     <table class="table table-dark table-striped" id="tools-top-panel">
         <thead>
             <tr>
@@ -135,12 +134,12 @@
 <div id="server-success-message" class="server-success-message">
     Связь с сервером восстановлена
 </div>
-{% endblock %}
 
-{% block source %}
+
+
 <script src="{% static 'js/main.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/css_bootstrap/bootstrap.min.css' %}">
 <script src="{% static 'js/js_bootstrap/bootstrap.bundle.min.js' %}"></script>
-{% endblock %}
+
 </body>
 </html>

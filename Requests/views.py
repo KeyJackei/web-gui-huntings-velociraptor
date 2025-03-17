@@ -23,7 +23,6 @@ def get_response(request):
 
         results = request_processing(config, query, env_dict)
 
-        # Обрабатываем каждый элемент списка через flatten_dict
         parsed_results = [flatten_dict(item) for item in results]
         print(parsed_results)
 
