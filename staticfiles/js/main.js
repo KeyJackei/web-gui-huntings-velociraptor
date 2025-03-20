@@ -70,7 +70,7 @@ async function fetchDevices() {
             // Update the clients table
             updateTable(clientTableBody, data.clients, [
                 (_, i) => i + 1,
-                client => `<a href="#" onclick="showClientDetails('${client.client_id}')">${client.client_id}</a>`,
+                client => `<button type="button" class="btn btn-outline-info" onclick="fetchClientDetails('${client.client_id}')">${client.client_id}</button>`,
                 client => client.hostname,
                 client => client.os,
                 client => client.release,
@@ -84,7 +84,6 @@ async function fetchDevices() {
     } catch (error) {
         console.error('Ошибка при обновлении данных устройств:', error);
 
-        // В случае ошибки подключения, показываем всплывающее сообщение
         if (error.message.includes("Connection refused")) {
             showMessage('connection-error-message', 10000);  // Показываем сообщение на 10 секунд
         }
@@ -122,7 +121,7 @@ async function filterDevices(status) {
 
         updateTable(tableBody, data.devices, [
             (_, i) => i + 1,
-            device => `<a href="#" onclick="showClientDetails('${device.client_id}')">${device.client_id}</a>`,
+            device => `<button type="button" class="btn btn-outline-info" onclick="fetchClientDetails('${device.client_id}')">${device.client_id}</button>`,
             device => device.hostname,
             device => device.os,
             device => device.release,
@@ -135,42 +134,43 @@ async function filterDevices(status) {
     }
 }
 
-// Function to display details of a selected client
-// This function fetches and displays detailed information about a client in a modal.
-async function showClientDetails() {
+async function fetchClientDetails(clientID) {
     try {
-        // Example client data (this should come from the server)
-        // Get the client details container
-        const clientDetailsDiv = document.getElementById('client-details');
-        const data = await fetchData(`get_client_details`);
+        const client = await fetchData(`get_client_details/${clientID}/`);
 
-        // Fill the modal with client data
-        clientDetailsDiv.innerHTML = `
-           <p><strong>Client ID:</strong> ${data.client_id}</p>
-            <p><strong>Host Name:</strong> ${data.hostname}</p>
-            <p><strong>OS:</strong> ${data.os}</p>
-            <p><strong>Release:</strong> ${data.release}</p>
-            <p><strong>Machine:</strong> ${data.machine}</p>
-            <p><strong>FQDN:</strong> ${data.fqdn}</p>
-            <p><strong>MAC Addresses:</strong> ${data.mac_addresses.join(', ')}</p>
-            <p><strong>First Seen At:</strong> ${convertToLocalTime(data.first_seen_at)}</p>
-            <p><strong>Last Seen At:</strong> ${convertToLocalTime(data.last_seen_at)}</p>
-            <p><strong>Last IP:</strong> ${data.last_ip}</p>
-            <p><strong>Last Interrogate Flow ID:</strong> ${data.last_interrogate_flow_id}</p>
-            <p><strong>Last Interrogate Artifact Name:</strong> ${data.last_interrogate_artifact_name}</p>
-            <p><strong>Labels:</strong> ${data.labels.join(', ')}</p>
-            <p><strong>Last Hunt Timestamp:</strong> ${data.last_hunt_timestamp}</p>
-            <p><strong>Last Event Table Version:</strong> ${data.last_event_table_version}</p>
-            <p><strong>Last Label Timestamp:</strong> ${data.last_label_timestamp}</p>
-            <p><strong>In Flight Flows:</strong> ${JSON.stringify(data.in_flight_flows, null, 2)}</p>
-        `;
-        
-        // Open the modal window
-        openModal(clientID);
+        if (!client.clientID) {
+            console.error("Ошибка: клиент не найден");
+        }
+
+        fillClientModal(client);
+        openModal();
+
     } catch (error) {
-        console.error('Ошибка при получении данных клиента:', error);
+        console.error("Ошибка загрузки данных клиента", error);
     }
 }
+
+
+// Function to display details of a selected client
+// This function fetches and displays detailed information about a client in a modal.
+function fillClientModal(client) {
+    const modalContent = document.getElementById('client-details-content');
+    modalContent.innerHTML = `
+        <p><strong>Client ID:</strong> ${client.client_id}</p>
+        <p><strong>Hostname:</strong> ${client.hostname}</p>
+        <p><strong>OS:</strong> ${client.os} (${client.release})</p>
+        <p><strong>Last IP:</strong> ${client.last_ip}</p>
+        <p><strong>Last Seen:</strong> ${client.last_seen_at}</p>
+        <p><strong>Status:</strong> ${client.status}</p>
+        <p><strong>Machine:</strong> ${client.machine}</p>
+        <p><strong>FQDN:</strong> ${client.fqdn}</p>
+        <p><strong>MAC Addresses:</strong> ${client.mac_addresses.join(', ')}</p>
+        <p><strong>Last Interrogate Flow ID:</strong> ${client.last_interrogate_flow_id}</p>
+        <p><strong>Last Interrogate Artifact Name:</strong> ${client.last_interrogate_artifact_name}</p>
+        <p><strong>Last Hunt Timestamp:</strong> ${client.last_hunt_timestamp}</p>
+    `;
+}
+
 
 // Function to convert UTC time to local time format
 // This function converts UTC time (ISO format) to the local time format.
@@ -181,9 +181,8 @@ function convertToLocalTime(utcTime) {
 
 // Function to open a modal window to display client details
 // This function displays the modal with the client details information.
-function openModal(clientID) {
-    const modal = document.getElementById('client-details-modal');
-    modal.style.display = "block";  // Show the modal window
+function openModal() {
+    document.getElementById('client-details-modal').style.display = 'block';
 }
 
 // Function to toggle the visibility of the dropdown menu
@@ -240,10 +239,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Function to close the modal window
 // This function hides the modal when the close button is clicked.
-document.getElementById('close-modal').onclick = function() {
+document.getElementById('close-modal').addEventListener('click', () => {
+    document.getElementById('client-details-modal').style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
     const modal = document.getElementById('client-details-modal');
-    modal.style.display = "none";  // Hide the modal window
-};
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
 
 // Обработчик событий на таблицу устройств
 document.getElementById('device-table-body-server').addEventListener('change', event => {

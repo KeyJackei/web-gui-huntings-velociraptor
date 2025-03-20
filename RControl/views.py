@@ -1,6 +1,8 @@
+from ansible_collections.awx.awx.plugins.modules.workflow_job_template import response
+
 from .models import DeviceHost, DevicesClient, QueryVQL
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 import yaml
 import os.path
 from api_core.api_velociraptor import run
@@ -23,11 +25,27 @@ def main_view(request):
     return render(request, 'main.html', {'devices': devices, 'devices_client': clients, 'username': username})
 
 #TODO: function for get info about client in modal window
-def get_client_details(request):
-    fields = DevicesClient._meta.get_fields()
-    field_names = [field.name for field in fields]
+def get_client_details(request, client_id):
+    client = get_object_or_404(DevicesClient, client_id=client_id)
+    data = {
+        "client_id": client.client_id,
+        "hostname": client.hostname,
+        "os": client.os,
+        "release": client.release,
+        "last_ip": client.last_ip,
+        "last_seen_at": client.last_seen_at.strftime('%Y-%m-%d %H:%M:%S'),
+        "status": client.status,
+        "machine": client.machine,
+        "fqdn": client.fqdn,
+        "mac_addresses": client.mac_addresses,
+        "last_interrogate_flow_id": client.last_interrogate_flow_id,
+        "last_interrogate_artifact_name": client.last_interrogate_artifact_name,
+        "last_hunt_timestamp": client.last_hunt_timestamp,
+    }
 
-    return JsonResponse({'fields': field_names})
+    print(data)
+    return JsonResponse(data)
+
 
 def get_filtered_device(request):
     status = request.GET.get('status', 'total')
