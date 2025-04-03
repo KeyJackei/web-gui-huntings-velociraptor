@@ -1,5 +1,3 @@
-from ansible_collections.awx.awx.plugins.modules.workflow_job_template import response
-
 from .models import DeviceHost, DevicesClient, QueryVQL
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
