@@ -11,7 +11,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os.path
 from pathlib import Path
-from decouple import config
+from decouple import Config, RepositoryEnv
+import os
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+env_file = os.path.join(BASE_DIR, 'RaptorControl', '.env')  # путь до вашего файла
+
+config = Config(repository=RepositoryEnv(env_file))
 
 from django.conf.global_settings import STATICFILES_DIRS, MEDIA_ROOT, MEDIA_URL
 
