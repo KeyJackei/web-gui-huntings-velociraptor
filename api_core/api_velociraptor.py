@@ -4,16 +4,13 @@ import grpc
 import json
 from abc import ABC, abstractmethod
 from RControl.models import DeviceHost, DevicesClient
-from pyvelociraptor import api_pb2, api_pb2_grpc
+from .grpc import api_pb2_grpc, api_pb2
+import importlib
 
+importlib.reload(api_pb2)
+importlib.reload(api_pb2_grpc)
 
 INACTIVITY_THRESHOLD = 15
-
-#TODO: Перенести в миграции
-# def queryWriter(name, query):
-#     QueryVQL.objects.update_or_create(name=name ,query_vql=query)
-#
-# queryWriter(name="get_clients_info", query="SELECT * FROM clients()")
 
 def get_ip_without_port(last_ip):
     """Extract IP address from 'IP:port' format."""

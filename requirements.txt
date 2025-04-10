@@ -9,7 +9,6 @@ psycopg2
 pycparser
 python-decouple
 pytz
-pyvelociraptor
 PyYAML
 setuptools
 sqlparse

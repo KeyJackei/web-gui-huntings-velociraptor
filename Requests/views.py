@@ -21,7 +21,12 @@ def get_response(request):
         with open(config_path, 'r') as config_file:
             config = yaml.safe_load(config_file)
 
-        results = request_processing(config, query, env_dict)
+
+        results = request_processing(config, query, env_dict, "C.e4075d0d0a94c495")
+
+
+        if isinstance(results, list) and results and "error" in results[0]:
+            return JsonResponse({"success": False, "error": results[0]["error"]})
 
         parsed_results = [flatten_dict(item) for item in results]
         print(parsed_results)
