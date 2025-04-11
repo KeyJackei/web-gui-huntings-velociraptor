@@ -13,3 +13,4 @@ pyvelociraptor
 PyYAML
 setuptools
 sqlparse
+gunicorn
