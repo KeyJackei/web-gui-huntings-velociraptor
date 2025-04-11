@@ -1,3 +1,4 @@
 *.env
 *.idea
-*api-admin.config.yaml
+api_core/api_keys/*
+!api_core/api_keys/.gitkeep
