@@ -214,7 +214,7 @@ def save_devices_data_facade(device_data):
     facade.save_all_devices(device_data)
 
 
-# Пример использования фасада в функции run
+#TODO: Вынести в класс
 def run(config, query, env_dict):
     """Выполняет gRPC запрос и обрабатывает ответ через фасад."""
     creds = grpc.ssl_channel_credentials(

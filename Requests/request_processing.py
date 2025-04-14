@@ -2,6 +2,8 @@ from pyvelociraptor import api_pb2, api_pb2_grpc
 import grpc
 import json
 
+
+#TODO: Вынести в класс
 def request_processing(config, query, env_dict):
     """Выполняет gRPC запрос и возвращает JSON-ответ."""
     creds = grpc.ssl_channel_credentials(

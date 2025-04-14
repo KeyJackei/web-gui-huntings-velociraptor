@@ -1,4 +1,6 @@
 *.env
-*.idea
+*.idea/
+*.pyc
+__pycache__/
 api_core/api_keys/*
 !api_core/api_keys/.gitkeep

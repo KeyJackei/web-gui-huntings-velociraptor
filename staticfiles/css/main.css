@@ -284,19 +284,6 @@ body {
     z-index: 1000;
 }
 
-/* #server-error-message {
-    animation: slideDown 0.5s ease-out;
-  }
-  
-  @keyframes slideDown {
-    from {
-      top: -50px;
-    }
-    to {
-      top: 0;
-    }
-  } */
-
 .server-success-message {
     display: none;
     position: fixed;

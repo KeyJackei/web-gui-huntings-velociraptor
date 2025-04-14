@@ -91,8 +91,8 @@ DATABASES = {
         'NAME': config('NAME'),
         'USER': config('USER'),
         'PASSWORD': config('DB_PASSWORD'),
-        'HOST': 'localhost',  # или IP-адрес сервера
-        'PORT': '5432',       # стандартный порт для PostgreSQL
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

@@ -7,7 +7,6 @@ def load_artifacts(apps, schema_editor):
     QueryVQL = apps.get_model("Make_hunts", "QueryVQL")
     file_path = "Make_hunts/fixtures/artifacts.txt"
 
-    # Инициализация переменных для артефакта
     artifact_name = None
     artifact_query = []
 
@@ -15,7 +14,6 @@ def load_artifacts(apps, schema_editor):
         with open(file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
 
-        # Чтение файла построчно
         for line in lines:
             line = line.strip()
             if not line:
@@ -45,9 +43,9 @@ def load_artifacts(apps, schema_editor):
                 defaults={"query_vql": query_vql},
             )
 
-        print(f"✅ Загружено артефактов из файла")
+        print(f" Загружено артефактов из файла")
     except Exception as e:
-        print(f"❌ Ошибка загрузки артефактов: {e}")
+        print(f"Ошибка загрузки артефактов: {e}")
 
 class Migration(migrations.Migration):
 

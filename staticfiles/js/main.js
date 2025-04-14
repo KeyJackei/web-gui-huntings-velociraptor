@@ -1,5 +1,6 @@
 // Global value for change interval update
 let fetchInterval;
+let selectedClient = null;
 
 // Function to handle fetch requests and return JSON data
 // This function is used to fetch data from the server and handle errors.
@@ -134,21 +135,39 @@ async function filterDevices(status) {
     }
 }
 
-async function fetchClientDetails(clientID) {
+async function fetchClientDetails(client_id) {
     try {
-        const client = await fetchData(`get_client_details/${clientID}/`);
+        const client = await fetchData(`get_client_details/${client_id}/`);
 
-        if (!client.clientID) {
+        if (!client.client_id) {
             console.error("Ошибка: клиент не найден");
+            return;
         }
+
+        selectedClient = {
+            client_id: client.client_id,
+            hostname: client.hostname
+        };
 
         fillClientModal(client);
         openModal();
 
+        const btn = document.getElementById('create-request-btn');
+        btn.disabled = false;
+
+        // Сохраняем в sessionStorage
+        btn.onclick = () => {
+            sessionStorage.setItem('client_id', client.client_id);
+            sessionStorage.setItem('hostname', client.hostname);
+            window.location.href = '/requests/';
+        };
+
     } catch (error) {
-        console.error("Ошибка загрузки данных клиента", error);
+        console.error("Ошибка загрузки клиента", error);
     }
 }
+
+
 
 
 // Function to display details of a selected client

@@ -11,17 +11,16 @@ body {
 }
 
 .command-container {
-    width: 100%; /* Контейнер остается центрированным */
-    max-width: 1500px; /* Максимальная ширина */
-    height: auto; /* Авто-высота */
-    margin: 10px auto; /* Центрируем по горизонтали */
+    width: 100%;
+    max-width: 1100px; /* +300px */
+    margin: 20px auto 0 130px; /* auto по правому краю, 60px отступ слева */
     padding: 10px;
     display: flex;
     background-color: #1e1e1e;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    position: relative;
 }
+
 
 #command-input {
     flex-grow: 1;
@@ -76,4 +75,27 @@ body {
 #results-container {
     overflow-x: auto;
     white-space: nowrap;
+}
+
+#client-info {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 600px;
+    padding: 0 10px;
+    z-index: 999;
+    text-align: center;
+}
+
+#client-info .alert {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #e7f1ff;
+    color: #004085;
+    border: 1px solid #b8daff;
+    border-radius: 6px;
+    display: inline-block;
+    white-space: nowrap; /* Чтобы кнопка не переносилась */
 }
