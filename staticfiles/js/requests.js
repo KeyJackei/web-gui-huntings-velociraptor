@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     //  отображение клиента
     let clientId = sessionStorage.getItem('client_id');
     let hostname = sessionStorage.getItem('hostname');
+    let codeMirrorInstance = null;
+    
 
     if (!clientId || !hostname) {
         try {
@@ -91,4 +93,40 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         tableContainer.classList.remove("hidden");
     }
+
+    window.loadArtifact = function(artifactName) {
+        fetch(`/requests/get_artifact_description/?name=${encodeURIComponent(artifactName)}`)
+            .then(response => response.json())
+            .then(data => {
+                const modal = document.getElementById('artifact-modal');
+                document.getElementById('artifact-title').textContent = artifactName;
+                modal.style.display = 'flex';
+
+                if (codeMirrorInstance) {
+                    codeMirrorInstance.setValue(data.query_vql || 'Нет описания.');
+                } else {
+                    codeMirrorInstance = CodeMirror(document.getElementById("artifact-editor"), {
+                        value: data.query_vql || 'Нет описания.',
+                        mode: "yaml",
+                        theme: "dracula",
+                        lineNumbers: true,
+                        readOnly: true,
+                        viewportMargin: Infinity
+                    });
+                }
+
+                document.getElementById('run-artifact-btn').onclick = () => {
+                    const vql = codeMirrorInstance.getValue();
+                    console.log(`Выполняем VQL:\n${vql}`);
+                    // Здесь будет логика выполнения
+                };
+
+                document.getElementById('artifact-close').addEventListener('click', () => {
+                    document.getElementById('artifact-modal').style.display = 'none';
+                });
+                
+            })
+            .catch(err => console.error("Ошибка получения описания артефакта:", err));
+    };
+    
 });

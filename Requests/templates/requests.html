@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="{% static 'css/css_bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/requests.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/dracula.min.css">
 </head>
 <body>
 
@@ -74,9 +76,25 @@
     </table>
 </div>
 
+<div id="artifact-modal" class="modal">
+    <div class="modal-content artifact-modal">
+        <div class="modal-header-controls">
+            <button class="btn btn-outline-danger btn-sm" id="artifact-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="btn btn-success btn-sm" id="run-artifact-btn">
+                <i class="fas fa-play"></i> Выполнить
+            </button>
+        </div>
+        <h4 id="artifact-title" class="mt-2">Артефакт</h4>
+        <div id="artifact-editor" class="codemirror-wrapper"></div>
+    </div>
+</div>
 
 <script defer src="{% static 'js/requests.js' %}"></script>
 <script src="{% static 'js/js_bootstrap/bootstrap.bundle.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/yaml/yaml.min.js"></script>
 
 </body>
 </html>

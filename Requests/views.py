@@ -10,9 +10,6 @@ def requests_page(request):
     artifacts = QueryVQL.objects.all()
     return render(request, 'requests.html', {'artifact': artifacts})
 
-# def list_of_artifacts(request):
-#     return render(request, "requests.html", {'artifact': artifacts})
-
 def get_response(request):
     query = request.GET.get("query", "").strip()
 
@@ -34,3 +31,12 @@ def get_response(request):
 
     except Exception as e:
         return JsonResponse({"success": False, "error": str(e)})
+
+def get_artifacts_description(request):
+    name = request.GET.get('name')
+    try:
+        artifact = QueryVQL.objects.get(name=name)
+        return JsonResponse({'query_vql': artifact.query_vql})
+    except QueryVQL.DoesNotExist:
+        return JsonResponse({'error': 'Артефакт не найден'})
+

@@ -133,3 +133,95 @@ body {
 .artifact-search-table button:hover {
     background-color: #181818;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.modal-content.artifact-modal {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+    width: 95vw; /* Было 90vw */
+    max-width: 1500px; /* Ограничим, если экран большой */
+    height: 85vh;
+    padding: 30px 40px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden; /* 🔒 ничего не скроллится */
+}
+
+
+.modal-header-controls {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+#artifact-title {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#artifact-description {
+    flex-grow: 1;
+    width: 100%;
+    resize: none;
+    background-color: #2d2d2d;
+    color: #00ff99;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    line-height: 1.5;
+    overflow-y: auto;
+}
+
+.codemirror-wrapper {
+    flex-grow: 1;
+    overflow: hidden; /* не даём вылезать */
+}
+
+.codemirror-wrapper .CodeMirror {
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+    border-radius: 6px;
+    box-sizing: border-box;
+    overflow: auto; /* ✨ теперь скроллится только содержимое */
+    padding: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    color: #888;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: black;
+}
