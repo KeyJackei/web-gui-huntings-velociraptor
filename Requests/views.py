@@ -3,11 +3,15 @@ from django.shortcuts import render
 import os
 import yaml
 from .request_processing import request_processing, flatten_dict
-
+from .models import QueryVQL
 
 # Create your views here.
 def requests_page(request):
-    return render(request, 'requests.html')
+    artifacts = QueryVQL.objects.all()
+    return render(request, 'requests.html', {'artifact': artifacts})
+
+# def list_of_artifacts(request):
+#     return render(request, "requests.html", {'artifact': artifacts})
 
 def get_response(request):
     query = request.GET.get("query", "").strip()
