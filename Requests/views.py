@@ -2,10 +2,13 @@ from django.http import JsonResponse
 from django.shortcuts import render
 import os
 import yaml
-from .request_processing import request_processing, flatten_dict
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+from .request_processing import request_processing, flatten_dict, generate_vql_query
 from .models import QueryVQL
 
-# Create your views here.
+
 def requests_page(request):
     artifacts = QueryVQL.objects.all()
     return render(request, 'requests.html', {'artifact': artifacts})
@@ -39,4 +42,28 @@ def get_artifacts_description(request):
         return JsonResponse({'query_vql': artifact.query_vql})
     except QueryVQL.DoesNotExist:
         return JsonResponse({'error': 'Артефакт не найден'})
+
+@csrf_exempt
+def run_artifact_view(request):
+    try:
+        data = json.loads(request.body)
+        client_id = data.get("client_id")
+        artifact = data.get("artifact")
+        print(f"Получен запрос: client_id={client_id}, artifact={artifact}")
+    except Exception as e:
+        return JsonResponse({"success": False, "error": f"Ошибка парсинга JSON: {str(e)}"})
+
+    query = generate_vql_query(client_id, artifact)
+
+    config_path = os.path.join(os.path.dirname("api_core/"), "api_keys/api-admin.config.yaml")
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+
+    env_dict = {}
+    result = request_processing(config, query, env_dict)
+
+    print("Результат выполнения запроса:", result)
+
+    return JsonResponse({"success": True, "results": result})
+
 

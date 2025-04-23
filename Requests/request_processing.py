@@ -5,6 +5,7 @@ import json
 
 #TODO: Вынести в класс
 def request_processing(config, query, env_dict):
+    print("----------requesting-----------")
     """Выполняет gRPC запрос и возвращает JSON-ответ."""
     creds = grpc.ssl_channel_credentials(
         root_certificates=config["ca_certificate"].encode("utf8"),
@@ -33,6 +34,7 @@ def request_processing(config, query, env_dict):
                     return {"error": "Ошибка: не удалось декодировать JSON"}
                 except Exception as e:
                     return {"error": f"Ошибка: {str(e)}"}
+        print(results)
 
         return results
 
@@ -59,3 +61,13 @@ def flatten_dict(data):
             flat_data[key] = value
 
     return flat_data
+
+
+def generate_vql_query(client_id: str, artifact: str) -> str:
+    print('---------------generate-----------------')
+    return f"""
+    LET collection <= collect_client(client_id='{client_id}', artifacts='{artifact}', env=dict())
+    LET _ <= SELECT * FROM watch_monitoring(artifact='System.Flow.Completion') 
+             WHERE FlowId = collection.flow_id LIMIT 1
+    SELECT * FROM source(client_id=collection.request.client_id, flow_id=collection.flow_id, artifact='{artifact}')
+    """.strip()

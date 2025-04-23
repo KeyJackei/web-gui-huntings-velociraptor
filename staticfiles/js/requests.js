@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-
     const inputField = document.getElementById("command-input");
     const executeButton = document.getElementById("execute-button");
     const tableContainer = document.getElementById("results-container");
@@ -95,13 +94,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     window.loadArtifact = function(artifactName) {
+        const modal = document.getElementById('artifact-modal');
         fetch(`/requests/get_artifact_description/?name=${encodeURIComponent(artifactName)}`)
             .then(response => response.json())
             .then(data => {
-                const modal = document.getElementById('artifact-modal');
                 document.getElementById('artifact-title').textContent = artifactName;
                 modal.style.display = 'flex';
-
+    
                 if (codeMirrorInstance) {
                     codeMirrorInstance.setValue(data.query_vql || 'Нет описания.');
                 } else {
@@ -114,17 +113,46 @@ document.addEventListener("DOMContentLoaded", async () => {
                         viewportMargin: Infinity
                     });
                 }
-
+    
+                //Выполнение запроса по кнопке
                 document.getElementById('run-artifact-btn').onclick = () => {
-                    const vql = codeMirrorInstance.getValue();
-                    console.log(`Выполняем VQL:\n${vql}`);
-                    // Здесь будет логика выполнения
+                    const artifactName = document.getElementById('artifact-title').textContent;
+                    const clientId = sessionStorage.getItem('client_id');
+    
+                    if (!clientId) {
+                        alert("Клиент не выбран.");
+                        return;
+                    }
+    
+                    fetch("/requests/run_artifact_view/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            client_id: clientId,
+                            artifact: artifactName
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('info server:', data)
+                        if (data.success) {
+                            renderTable(data.results);
+                            modal.style.display = 'none';
+                        } else {
+                            alert("Ошибка выполнения: " + (data.error || "Неизвестная ошибка"));
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Ошибка запроса:", err);
+                    });
                 };
-
+    
                 document.getElementById('artifact-close').addEventListener('click', () => {
-                    document.getElementById('artifact-modal').style.display = 'none';
+                    modal.style.display = 'none';
                 });
-                
+    
             })
             .catch(err => console.error("Ошибка получения описания артефакта:", err));
     };
