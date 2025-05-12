@@ -2,6 +2,9 @@
 
 from django.db import migrations
 
+from Requests.models import QueryVQL
+
+
 def load_artifacts(apps, schema_editor):
     QueryVQL = apps.get_model("Requests", "QueryVQL")
     file_path = "Requests/fixtures/artifacts.txt"
@@ -45,6 +48,35 @@ def load_artifacts(apps, schema_editor):
     except Exception as e:
         print(f"Ошибка загрузки артефактов: {e}")
 
+def unload_artifacts(apps, schema_editor):
+    QueryVQL = apps.get_model("Requests", "QueryVQL")
+    file_path ="Requests/fixtures/artifacts.txt"
+
+    artifact_name = None
+    artifact_name_to_delete = []
+
+    try:
+        with open(file_path, "r") as f:
+            lines = f.readlines()
+
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startwith("name:"):
+                if artifact_name:
+                    artifact_name_to_delete.append(artifact_name)
+        if artifact_name:
+            artifact_name_to_delete.append(artifact_name)
+
+        QueryVQL.objects.filter(name__in=artifact_name_to_delete).delete()
+
+    except Exception as e:
+        print(f"Ошибка удаления: {e}")
+
+
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -52,5 +84,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(load_artifacts),
+        migrations.RunPython(load_artifacts, unload_artifacts),
     ]
