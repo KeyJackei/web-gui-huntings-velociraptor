@@ -411,7 +411,7 @@ type: SERVER
 
 parameters:
     - name: QueryType
-      type: choices 
+      type: choices
       description: The type of query--hash or IP
       default: hash
       choices:
@@ -455,7 +455,7 @@ sources:
             timestamp(epoch=VTData.data.attributes.first_seen_itw_date) AS FirstSeen,
             timestamp(epoch=VTData.data.attributes.first_submission_date) AS FirstSubmitted,
             timestamp(epoch=VTData.data.attributes.last_analysis_date) AS LastAnalysis,
-            VTData.data.attributes.as_owner AS Owner, 
+            VTData.data.attributes.as_owner AS Owner,
             VTData.data.attributes.whois AS WhoIs,
             VTData.data.attributes.crowdsourced_yara_results AS YARAResults,
             VTData AS _Data
@@ -3067,14 +3067,14 @@ sources:
     media_item_description.duration / 1000 / 60 AS 'Duration (Minutes)',
     audio_info.bitrate / 1000 AS 'Bitrate (kbps)',
     CASE
-    
+
     WHEN video_info.video_360 = 0 THEN
     'No'
     WHEN video_info.video_360 = 1 THEN
     'Yes'
     END AS Video360,
     CASE
-    
+
     WHEN video_info.hdr = 0 THEN
     'No'
     WHEN video_info.hdr = 1 THEN
@@ -3300,28 +3300,28 @@ sources:
     cookies.name AS Name,
     cookies.path AS Path,
     CASE
-    
+
     WHEN cookies.is_secure = 1 THEN
     'Yes'
     WHEN cookies.is_secure = 0 THEN
     'No'
     END AS IsSecure,
     CASE
-    
+
     WHEN cookies.is_httponly = 1 THEN
     'Yes'
     WHEN cookies.is_httponly = 0 THEN
     'No'
     END AS IsHttpOnly,
     CASE
-    
+
     WHEN cookies.has_expires = 1 THEN
     'Yes'
     WHEN cookies.has_expires = 0 THEN
     'No'
     END AS HasExpiration,
     CASE
-    
+
     WHEN cookies.is_persistent = 1 THEN
     'Yes'
     WHEN cookies.is_persistent = 0 THEN
@@ -3357,7 +3357,7 @@ sources:
     datetime( downloads.last_access_time / 1000000 + ( strftime( '%s', '1601-01-01' ) ), 'unixepoch', 'localtime' ) AS LastAccessTime,
     downloads.last_modified AS LastModified,
     CASE
-    
+
     WHEN downloads.state = 0 THEN
     'In Progress'
     WHEN downloads.state = 1 THEN
@@ -3370,7 +3370,7 @@ sources:
     'Interrupted'
     END AS State,
     CASE
-    
+
     WHEN downloads.danger_type = 0 THEN
     'Not Dangerous'
     WHEN downloads.danger_type = 1 THEN
@@ -3393,7 +3393,7 @@ sources:
     'Whitelisted by Policy'
     END AS DangerType,
     CASE
-    
+
     WHEN downloads.interrupt_reason = 0 THEN
     'No Interrupt'
     WHEN downloads.interrupt_reason = 1 THEN
@@ -3506,7 +3506,7 @@ sources:
     urls.visit_count AS VisitCount,
     urls.typed_count AS TypedCount,
     CASE
-    
+
     WHEN urls.hidden = 1 THEN
     'Yes'
     WHEN urls.hidden = 0 THEN
@@ -3583,14 +3583,14 @@ sources:
     playback.url AS URL,
     playback.watch_time_s AS WatchTimeSeconds,
     CASE
-    
+
     WHEN playback.has_video = 1 THEN
     'Yes'
     WHEN playback.has_video = 0 THEN
     'No'
     END AS HasVideo,
     CASE
-    
+
     WHEN playback.has_audio = 1 THEN
     'Yes'
     WHEN playback.has_audio = 0 THEN
@@ -3831,14 +3831,14 @@ sources:
     nonlocal_resources.url AS URL,
     nonlocal_resources.server_path AS ServerPath,
     CASE
-    
+
     WHEN nonlocal_resources.is_dir = 0 THEN
     'No'
     WHEN nonlocal_resources.is_dir = 1 THEN
     'Yes'
     END AS IsDirectory,
     CASE
-    
+
     WHEN nonlocal_resources.is_share = 0 THEN
     'No'
     WHEN nonlocal_resources.is_share = 1 THEN
@@ -3866,7 +3866,7 @@ sources:
     recents.batch_key AS BatchKey,
     recents.event_type AS EventType,
     CASE
-    
+
     WHEN recents.is_local = 0 THEN
     'No'
     WHEN recents.is_local = 1 THEN
@@ -3916,7 +3916,7 @@ sources:
     starred_items.account_id AS AccountID,
     starred_items.server_path AS ServerPath,
     CASE
-    
+
     WHEN starred_items.is_starred = 0 THEN
     'No'
     WHEN starred_items.is_starred = 1 THEN
@@ -4016,7 +4016,7 @@ sources:
     LET IdentifyValue = 7
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -4226,7 +4226,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -4256,7 +4256,7 @@ sources:
     LET IdentifyValue = 7
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -4466,7 +4466,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -4496,7 +4496,7 @@ sources:
     LET IdentifyValue = 7
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -4706,7 +4706,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -4736,7 +4736,7 @@ sources:
     LET IdentifyValue = 7
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -4946,7 +4946,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -4976,7 +4976,7 @@ sources:
     LET IdentifyValue = 7
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -5186,7 +5186,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -5216,7 +5216,7 @@ sources:
     LET IdentifyValue = 7
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -5426,7 +5426,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -5456,7 +5456,7 @@ sources:
     LET IdentifyValue = 4
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -5665,7 +5665,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -5694,7 +5694,7 @@ sources:
     LET IdentifyValue = 4
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -5903,7 +5903,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -5932,7 +5932,7 @@ sources:
     LET IdentifyValue = 4
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -6141,7 +6141,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -6170,7 +6170,7 @@ sources:
     LET IdentifyValue = 4
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -6379,7 +6379,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -6408,7 +6408,7 @@ sources:
     LET IdentifyValue = 4
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -6617,7 +6617,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -6646,7 +6646,7 @@ sources:
     LET IdentifyValue = 4
     LET SQLQuery = '''SELECT
     CASE
-    
+
     WHEN
     events_persisted.sid = 'S-1-0' THEN
     'S-1-0 (Null Authority)'
@@ -6855,7 +6855,7 @@ sources:
     events_persisted.event_keywords AS Keywords,
     provider_groups.group_guid AS GroupGUID,
     CASE
-    
+
     WHEN events_persisted.is_core = 0 THEN
     'No'
     WHEN events_persisted.is_core = 1 THEN
@@ -6916,7 +6916,7 @@ sources:
     Bookmarks.id AS ID,
     Bookmarks.parent AS ParentID,
     CASE
-    
+
     WHEN Bookmarks.type = 1 THEN
     'URL'
     WHEN Bookmarks.type = 2 THEN
@@ -6954,14 +6954,14 @@ sources:
     datetime( moz_cookies.lastAccessed / 1000000, 'UNIXEPOCH', 'localtime' ) AS "Last Accessed Time",
     datetime( moz_cookies.expiry, 'UNIXEPOCH', 'localtime' ) AS Expiration,
     CASE
-    
+
     WHEN moz_cookies.isSecure = 0 THEN
     'No'
     WHEN moz_cookies.isSecure = 1 THEN
     'Yes'
     END AS IsSecure,
     CASE
-    
+
     WHEN moz_cookies.isHttpOnly = 0 THEN
     'No'
     WHEN moz_cookies.isHttpOnly = 1 THEN
@@ -7078,7 +7078,7 @@ sources:
     moz_places.title AS Title,
     moz_places.description AS Description,
     CASE
-    
+
     WHEN moz_historyvisits.visit_type = 1 THEN
     'TRANSITION_LINK'
     WHEN moz_historyvisits.visit_type = 2 THEN
@@ -7099,14 +7099,14 @@ sources:
     'TRANSITION_RELOAD'
     END AS VisitType,
     CASE
-    
+
     WHEN moz_places.hidden = 0 THEN
     'No'
     WHEN moz_places.hidden = 1 THEN
     'Yes'
     END AS Hidden,
     CASE
-    
+
     WHEN moz_places.typed = 0 THEN
     'No'
     WHEN moz_places.typed = 1 THEN
@@ -7141,14 +7141,14 @@ sources:
     fschanges.path AS Path,
     fschanges.name AS Name,
     CASE
-    
+
     WHEN fschanges.is_folder = 0 THEN
     'No'
     WHEN fschanges.is_folder = 1 THEN
     'Yes'
     END AS IsFolder,
     CASE
-    
+
     WHEN fschanges.affects_gdoc = 0 THEN
     'No'
     WHEN fschanges.affects_gdoc = 1 THEN
@@ -7157,14 +7157,14 @@ sources:
     datetime( modified, 'unixepoch' ) AS ModifiedTime,
     fschanges.size AS SizeInBytes,
     CASE
-    
+
     WHEN fschanges.shared = 0 THEN
     'No'
     WHEN fschanges.shared = 1 THEN
     'Yes'
     END AS Shared,
     CASE
-    
+
     WHEN doc_type = 0 THEN
     'Folder'
     WHEN doc_type = 1 THEN
@@ -7207,7 +7207,7 @@ sources:
     filename AS 'Filename',
     datetime( modified, 'unixepoch' ) AS 'ModifiedTime',
     CASE
-    
+
     WHEN acl_role = 0 THEN
     'Private/Google Drive Owner'
     WHEN acl_role = 1 THEN
@@ -7216,7 +7216,7 @@ sources:
     'Can View' ELSE 'From Elsewhere'
     END AS 'ACL Role',
     CASE
-    
+
     WHEN doc_type = 0 THEN
     'Folder'
     WHEN doc_type = 1 THEN
@@ -7237,14 +7237,14 @@ sources:
     size AS 'Size in bytes',
     checksum AS 'MD5 Hash',
     CASE
-    
+
     WHEN shared = 1 THEN
     'Shared'
     WHEN shared = 0 THEN
     'Not Shared'
     END AS 'Shared Status',
     CASE
-    
+
     WHEN removed = 0 THEN
     'Not Removed'
     WHEN removed = 1 THEN
@@ -7268,12 +7268,12 @@ sources:
     filename AS Filename,
     datetime( modified, 'unixepoch' ) AS ModifiedTime,
     CASE
-    
+
     WHEN acl_role = 0 THEN
     'Google Drive Owner' ELSE 'From Elsewhere'
     END AS ACLRole,
     CASE
-    
+
     WHEN doc_type = 0 THEN
     'Folder'
     WHEN doc_type = 1 THEN
@@ -7294,14 +7294,14 @@ sources:
     size AS 'SizeInBytes',
     checksum AS Checksum,
     CASE
-    
+
     WHEN shared = 1 THEN
     'Shared'
     WHEN shared = 0 THEN
     'Not Shared'
     END AS SharedStatus,
     CASE
-    
+
     WHEN removed = 1 THEN
     'Yes'
     WHEN removed = 0 THEN
@@ -7331,7 +7331,7 @@ sources:
     local_entry.checksum AS Checksum,
     local_entry.size AS SizeInBytes,
     CASE
-    
+
     WHEN is_folder = 0 THEN
     'No'
     WHEN is_folder = 1 THEN
@@ -7589,21 +7589,21 @@ sources:
     	Source,
     	size AS "Size (Bytes)",
     CASE
-    
+
     		WHEN IsFolder = 0 THEN
     		'No'
     		WHEN IsFolder = 1 THEN
     		'Yes'
     	END AS IsFolder,
     CASE
-    
+
     		WHEN Marked = 0 THEN
     		'No'
     		WHEN Marked = 1 THEN
     		'Yes'
     	END AS Marked,
     CASE
-    
+
     		WHEN Hidden = 0 THEN
     		'No'
     		WHEN Hidden = 1 THEN
@@ -7791,7 +7791,7 @@ sources:
     Notification.HandlerId AS HandlerId,
     NotificationHandler.PrimaryId AS Application,
     CASE
-    
+
     WHEN NotificationHandler.ParentId THEN
     NotificationHandler.ParentId ELSE ''
     END AS Parent,
@@ -7803,44 +7803,44 @@ sources:
     Notification."Group" AS "Group",
     datetime( ( Notification.ArrivalTime - 116444736000000000 ) / 10000000, 'unixepoch' ) AS ArrivalTime,
     CASE
-    
+
     WHEN Notification.ExpiryTime = 0 THEN
     'Expired' ELSE datetime( ( Notification.ExpiryTime - 116444736000000000 ) / 10000000, 'unixepoch' )
     END AS ExpirationTime,
     NotificationHandler.CreatedTime AS HandlerCreated,
     NotificationHandler.ModifiedTime AS HandlerModified,
     CASE
-    
+
     WHEN NotificationHandler.WNSId NOTNULL THEN
     NotificationHandler.WNSId ELSE ''
     END AS WNSId,
     CASE
-    
+
     WHEN NotificationHandler.WNFEventName NOTNULL THEN
     NotificationHandler.WNFEventName ELSE ''
     END AS WNFEventName,
     CASE
-    
+
     WHEN WNSPushChannel.ChannelId NOTNULL THEN
     WNSPushChannel.ChannelId ELSE ''
     END AS ChannelID,
     CASE
-    
+
     WHEN WNSPushChannel.Uri NOTNULL THEN
     WNSPushChannel.Uri ELSE ''
     END AS URI,
     CASE
-    
+
     WHEN WNSPushChannel.CreatedTime NOTNULL THEN
     datetime( ( WNSPushChannel.CreatedTime - 116444736000000000 ) / 10000000, 'unixepoch' ) ELSE ''
     END AS WNSCreatedTime,
     CASE
-    
+
     WHEN WNSPushChannel.ExpiryTime NOTNULL THEN
     datetime( ( WNSPushChannel.ExpiryTime - 116444736000000000 ) / 10000000, 'unixepoch' ) ELSE ''
     END AS WNSExpirationTime,
     CASE
-    
+
     WHEN hex( Notification.ActivityId ) = '00000000000000000000000000000000' THEN
     '' ELSE hex( Notification.ActivityId )
     END AS ActivityId
@@ -7895,7 +7895,7 @@ sources:
     contact.family_name AS FamilyName,
     contact.name_suffix AS Suffix,
     CASE
-    
+
     WHEN contactdate.date_type = 1 THEN
     'Birthday'
     WHEN contactdate.date_type = 2 THEN
@@ -7906,7 +7906,7 @@ sources:
     contactdate.label AS DateLabel,
     contactdate.display_date AS DisplayDate,
     CASE
-    
+
     WHEN contacturl.type = 1 THEN
     'HomePage'
     WHEN contacturl.type = 3 THEN
@@ -7919,7 +7919,7 @@ sources:
     contacturl.label AS URLLabel,
     contacturl.url_address AS URLAddress,
     CASE
-    
+
     WHEN emailaddress.type = 1 THEN
     'Home'
     WHEN emailaddress.type = 2 THEN
@@ -7934,7 +7934,7 @@ sources:
     phonenumber.phone_number AS PhoneNumber,
     phonenumber.display_phone_number AS DisplayPhoneNumber,
     CASE
-    
+
     WHEN phonenumber.phone_number_type = 1 THEN
     'Home'
     WHEN phonenumber.phone_number_type = 2 THEN
@@ -7952,7 +7952,7 @@ sources:
     END AS PhoneNumberType,
     phonenumber.label AS PhoneNumberLabel,
     CASE
-    
+
     WHEN postaladdress.type = 1 THEN
     'Home'
     WHEN postaladdress.type = 2 THEN
@@ -7999,21 +7999,21 @@ sources:
     json_extract ( json, '$.text' ) AS 'Text',
     json_extract ( json, '$.subText' ) AS 'SubText',
     CASE
-    
+
     WHEN json_extract ( json, '$.isClearable' ) = 0 THEN
     'No'
     WHEN json_extract ( json, '$.isClearable' ) = 1 THEN
     'Yes'
     END AS 'IsClearable',
     CASE
-    
+
     WHEN json_extract ( json, '$.isGroup' ) = 0 THEN
     'No'
     WHEN json_extract ( json, '$.isGroup' ) = 1 THEN
     'Yes'
     END AS 'IsGroup',
     CASE
-    
+
     WHEN json_extract ( json, '$.isOngoing' ) = 0 THEN
     'No'
     WHEN json_extract ( json, '$.isOngoing' ) = 1 THEN
@@ -8068,7 +8068,7 @@ sources:
     	datetime( ( "timestamp" / 10000000 ) - 11644473600, 'unixepoch' ) AS Timestamp,
     	message.from_address AS "From",
     CASE
-    
+
     		WHEN message.type = 1 THEN
     		'Received'
     		WHEN message.type = 2 THEN
@@ -8096,7 +8096,7 @@ sources:
     subscription.country_iso AS CountryISO,
     subscription.name AS WirelessProviderName,
     CASE
-    
+
     WHEN subscription.is_roaming = 0 THEN
     'No'
     WHEN subscription.is_roaming = 1 THEN
@@ -8104,35 +8104,35 @@ sources:
     END AS IsRoaming,
     subscription.number AS PhoneNumber,
     CASE
-    
+
     WHEN subscription.is_mms_enabled = 0 THEN
     'No'
     WHEN subscription.is_mms_enabled = 1 THEN
     'Yes' ELSE 'Unknown'
     END AS IsMMSEnabled,
     CASE
-    
+
     WHEN subscription.is_audio_attachment_allowed = 0 THEN
     'No'
     WHEN subscription.is_audio_attachment_allowed = 1 THEN
     'Yes' ELSE 'Unknown'
     END AS IsAudioAttachmentAllowed,
     CASE
-    
+
     WHEN subscription.is_multipart_sms_enabled = 0 THEN
     'No'
     WHEN subscription.is_multipart_sms_enabled = 1 THEN
     'Yes' ELSE 'Unknown'
     END AS IsMultiPartSMSEnabled,
     CASE
-    
+
     WHEN subscription.is_group_mms_enabled = 0 THEN
     'No'
     WHEN subscription.is_group_mms_enabled = 1 THEN
     'Yes' ELSE 'Unknown'
     END AS IsGroupMMSEnabled,
     CASE
-    
+
     WHEN subscription.should_send_multipart_sms_as_separate_messages = 0 THEN
     'No'
     WHEN subscription.should_send_multipart_sms_as_separate_messages = 1 THEN
@@ -8147,35 +8147,35 @@ sources:
     subscription.max_message_text_length AS MaxMessageTextLength,
     subscription.max_subject_length AS MaxSubjectLength,
     CASE
-    
+
     WHEN subscription.is_default_data_subscription = 0 THEN
     'No'
     WHEN subscription.is_default_data_subscription = 1 THEN
     'Yes' ELSE 'Unknown'
     END AS IsDefaultDataSubscription,
     CASE
-    
+
     WHEN subscription.is_default_sms_subscription = 0 THEN
     'No'
     WHEN subscription.is_default_sms_subscription = 1 THEN
     'Yes' ELSE 'Unknown'
     END AS IsDefaultSMSSubscription,
     CASE
-    
+
     WHEN subscription.is_default_subscription = 0 THEN
     'No'
     WHEN subscription.is_default_subscription = 1 THEN
     'Yes' ELSE 'Unknown'
     END AS IsDefaultSubscription,
     CASE
-    
+
     WHEN subscription.is_default_voice_subscription = 0 THEN
     'No'
     WHEN subscription.is_default_voice_subscription = 1 THEN
     'Yes' ELSE 'Unknown'
     END AS IsDefaultVoiceSubscription,
     CASE
-    
+
     WHEN subscription.is_rcs_supported = 0 THEN
     'No'
     WHEN subscription.is_rcs_supported = 1 THEN
@@ -8201,7 +8201,7 @@ sources:
     phone_apps.version AS 'Version',
     settings.setting_group_id AS 'GroupID',
     CASE
-    
+
     WHEN settings.setting_value = 1 THEN
     'On' ELSE 'Off'
     END AS 'Settings Value',
@@ -8269,14 +8269,14 @@ name: Generic.Detection.HashHunter
 author: "Matt Green - @mgreen27"
 description: |
     This artifact enables searching for hashes.
-    
-    The artifact takes a glob targetting input, then generates a hash for each 
+
+    The artifact takes a glob targetting input, then generates a hash for each
     file in scope to compare to several types of hash lists provided by the user.
-    
-    Note: this artifacts filters are cumulative so a hash based hit will return 
-    no results if the file is filtered out by other filters.  
-    For most performant searches leverage path, size and and date filters. By default 
-    the artifact leverages the 'auto' data accessor but can also be changed as desired.  
+
+    Note: this artifacts filters are cumulative so a hash based hit will return
+    no results if the file is filtered out by other filters.
+    For most performant searches leverage path, size and and date filters. By default
+    the artifact leverages the 'auto' data accessor but can also be changed as desired.
 
 parameters:
   - name: TargetGlob
@@ -8318,13 +8318,13 @@ sources:
                         then= split(sep='\\s+',string=SHA1List), else=Null)
       LET SHA256List <= if(condition= SHA256List,
                         then= split(sep='\\s+',string=SHA256List), else=Null)
-      
+
       -- set hash selector for optimised hash calculation
       LET HashSelector <= SELECT * FROM chain(
           a={ SELECT "MD5" AS Hash FROM scope() WHERE MD5List },
           b={ SELECT "SHA1" AS Hash FROM scope() WHERE SHA1List },
           c={ SELECT "SHA256" AS Hash FROM scope() WHERE SHA256List })
-      
+
       -- firstly find files in scope with performance
       LET find_files = SELECT * FROM if(condition=DateBefore AND DateAfter,
             then={
@@ -8334,7 +8334,7 @@ sources:
                     AND Size > SizeMin AND Size < SizeMax
                     AND ( Mtime < DateBefore OR Ctime < DateBefore OR Btime < DateBefore )
                     AND ( Mtime > DateAfter OR Ctime > DateAfter OR Btime > DateAfter )
-            }, 
+            },
             else={ SELECT * FROM  if(condition=DateBefore,
                 then={
                     SELECT OSPath, Name, Size,Mtime,Atime,Ctime,Btime
@@ -8357,14 +8357,14 @@ sources:
                     WHERE NOT IsDir AND NOT IsLink
                         AND Size > SizeMin AND Size < SizeMax
                 })})})
-      
-      
+
+
       -- lookup hash and run finl filters
       SELECT OSPath,Name,Size,
             dict(Mtime=Mtime,Atime=Atime,Ctime=Ctime,Btime=Btime) as Timestamps,
             hash(path=OSPath,hashselect=HashSelector.Hash) as Hash
         FROM if(condition= HashSelector.Hash, then= find_files)
-        WHERE 
+        WHERE
             ( Hash.MD5 in MD5List OR Hash.SHA1 in SHA1List OR Hash.SHA256 in SHA256List )
 
 
@@ -8897,24 +8897,24 @@ sources:
 name: Generic.Forensic.SQLiteHunter
 description: |
     Hunt for SQLite files.
-    
+
     SQLite has become the de-facto standard for storing application data,
     in many types of applications:
-    
+
     - Web Browsers
     - Operating Systems
     - Various applications, such as iMessage, TCC etc
-    
+
     This artifact can hunt for these artifacts in a mostly automated way.
     More info at https://github.com/Velocidex/SQLiteHunter
-    
+
     NOTE: If you want to use this artifact on just a bunch of files already
     collected (for example the files collected using the
     Windows.KapeFiles.Targets artifact) you can use the CustomGlob parameter
     (for example set it to "/tmp/unpacked/**" to consider all files in the
     unpacked directory).
-    
-    
+
+
 
 column_types:
 - name: Image
@@ -9070,7 +9070,7 @@ sources:
     FROM Rows
     WHERE Timestamp > DateAfter AND Timestamp < DateBefore
       AND (MessageText, RoomName) =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Autofill_Profiles
@@ -9085,7 +9085,7 @@ sources:
     FROM Rows
     WHERE UseDate > DateAfter AND UseDate < DateBefore
       AND (FirstName, MiddleName, LastName, EmailAddress, CompanyName, StreetAddress) =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Autofill_Masked Credit Cards
@@ -9115,10 +9115,10 @@ sources:
           SELECT * FROM ReportFolder(Data=_value, BaseName=BaseName + " | " + Data.name)
        })
     })
-    
+
     LET MatchingFiles = SELECT OSPath, parse_json(data=read_file(filename=OSPath)) AS Data
     FROM Rows
-    
+
     SELECT * FROM foreach(row=MatchingFiles, query={
       SELECT * FROM chain(
       a={
@@ -9134,7 +9134,7 @@ sources:
         FROM ReportFolder(Data=Data.roots.synced, BaseName="")
       })
     })
-    
+
 
 
 - name: Chromium Browser_Cookies
@@ -9152,7 +9152,7 @@ sources:
     FROM Rows
     WHERE LastAccessUTC > DateAfter AND LastAccessUTC < DateBefore
       AND (Name, Path) =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Extensions
@@ -9162,19 +9162,19 @@ sources:
     LET ResolveName(Message, Locale) = get(item=Locale,
           field=lowcase(string=parse_string_with_regex(regex="^__MSG_(.+)__$", string=Message).g1),
           default=Message).message || Message
-    
+
     -- Read the manifest files
     LET ManifestData = SELECT OSPath, parse_json(data=read_file(filename=OSPath)) AS Manifest
     FROM Rows
-    
+
     -- Find the Locale file to help with.
     LET LocaleData = SELECT *, if(condition=Manifest.default_locale, else=dict(),
          then=parse_json(data=read_file(
             filename=OSPath.Dirname + "_locales" + Manifest.default_locale + "messages.json"))) AS Locale
     FROM ManifestData
-    
+
     LET GetIcon(Manifest) = Manifest.icons.`128` || Manifest.icons.`64` || Manifest.icons.`32` || Manifest.icons.`16`
-    
+
     SELECT OSPath, Manifest.author.email AS Email,
       ResolveName(Message = Manifest.name, Locale=Locale) AS name,
       ResolveName(Message = Manifest.description, Locale=Locale) AS description,
@@ -9185,7 +9185,7 @@ sources:
       Manifest AS _Manifest
     FROM LocaleData
     WHERE (name, description) =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Favicons
@@ -9200,7 +9200,7 @@ sources:
       OSPath as _OSPath
     FROM Rows
     WHERE LastUpdated > DateAfter AND LastUpdated < DateBefore
-    
+
 
 
 - name: Chromium Browser History_Visits
@@ -9218,7 +9218,7 @@ sources:
     WHERE VisitTime > DateAfter
       AND VisitTime < DateBefore
       AND (URLTitle, URL) =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser History_Downloads
@@ -9236,7 +9236,7 @@ sources:
       `35`='Server Certificate Problem', `36`='Server Access Forbidden', `37`='Server Unreachable',
       `38`='Content Length Mismatch', `39`='Cross Origin Redirect', `40`='Cancelled', `41`='Browser Shutdown',
       `50`='Browser Crashed')
-    
+
     SELECT ID, GUID, CurrentPath, TargetPath, OriginalMIMEType, ReceivedBytes, TotalBytes,
       timestamp(winfiletime=(start_time * 10) || 0) AS StartTime,
       timestamp(winfiletime=(end_time * 10) || 0) AS EndTime,
@@ -9250,7 +9250,7 @@ sources:
     FROM Rows
     WHERE LastAccessTime > DateAfter AND LastAccessTime < DateBefore
       AND (SiteURL, DownloadURL, TabURL, TabReferrerURL, ReferrerURL, DownloadURL) =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser History_Keywords
@@ -9262,7 +9262,7 @@ sources:
     FROM Rows
     WHERE LastVisitedTime > DateAfter AND LastVisitedTime < DateBefore
       AND (Title, KeywordSearchTerm, URL) =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Media_History
@@ -9276,7 +9276,7 @@ sources:
     FROM Rows
     WHERE LastUpdated > DateAfter AND LastUpdated < DateBefore
       AND URL =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Media_Playback Session
@@ -9290,7 +9290,7 @@ sources:
     FROM Rows
     WHERE LastUpdated > DateAfter AND LastUpdated < DateBefore
       AND URL =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Network_Predictor
@@ -9298,14 +9298,14 @@ sources:
     LET Rows = SELECT * FROM ApplyFile(SourceName="Chromium Browser Network_Predictor")
     SELECT * FROM Rows
     WHERE UserText =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Notifications_Site Engagements
   query: |
     LET Rows = SELECT * FROM FilterFile(SourceName="Chromium Browser Notifications_Site Engagements")
     LET JSON = SELECT parse_json(data=read_file(filename=OSPath)) AS Data, OSPath FROM Rows
-    
+
     SELECT * FROM foreach(row={
       SELECT OSPath, Data.profile.content_settings.exceptions AS exceptions FROM JSON
     },  query={
@@ -9315,14 +9315,14 @@ sources:
          OSPath
       FROM items(item=exceptions.site_engagement)
     })
-    
+
 
 
 - name: Chromium Browser Notifications_App Banners
   query: |
     LET Rows = SELECT * FROM FilterFile(SourceName="Chromium Browser Notifications_App Banners")
     LET JSON = SELECT parse_json(data=read_file(filename=OSPath)) AS Data, OSPath FROM Rows
-    
+
     SELECT * FROM foreach(row={
       SELECT OSPath, Data.profile.content_settings.exceptions AS exceptions FROM JSON
     },  query={
@@ -9337,16 +9337,16 @@ sources:
          OSPath
       FROM items(item=exceptions.app_banner)
     })
-    
+
 
 
 - name: Chromium Browser Notifications_Notification Preferences
   query: |
     LET Rows = SELECT * FROM FilterFile(SourceName="Chromium Browser Notifications_Notification Preferences")
     LET ContentSettings <= array(`0`="Default",`1`="Allow",`2`="Block",`3`="Ask",`4`="Session Only",`5`="Detect Important Content")
-    
+
     LET JSON = SELECT parse_json(data=read_file(filename=OSPath)) AS Data, OSPath FROM Rows
-    
+
     SELECT * FROM foreach(row={
       SELECT OSPath, Data.profile.content_settings.exceptions AS exceptions FROM JSON
     },  query={
@@ -9356,7 +9356,7 @@ sources:
         OSPath
       FROM items(item=exceptions.notifications)
     })
-    
+
 
 
 - name: Chromium Browser Notifications_Notification Interactions
@@ -9364,7 +9364,7 @@ sources:
     LET Rows = SELECT * FROM FilterFile(SourceName="Chromium Browser Notifications_Notification Interactions")
     LET JSON = SELECT parse_json(data=read_file(filename=OSPath)) AS Data, OSPath FROM Rows
     LET S = scope()
-    
+
     SELECT * FROM foreach(row={
       SELECT OSPath, Data.profile.content_settings.exceptions AS exceptions FROM JSON
     },  query={
@@ -9375,7 +9375,7 @@ sources:
         OSPath
       FROM items(item=S.notification_interactions || dict())
     })
-    
+
 
 
 - name: Chromium Browser Shortcuts
@@ -9388,7 +9388,7 @@ sources:
     FROM Rows
     WHERE LastAccessTime > DateAfter AND LastAccessTime < DateBefore
       AND (Contents, Description) =~ FilterRegex
-    
+
 
 
 - name: Chromium Sessions_Sessions
@@ -9406,7 +9406,7 @@ sources:
     FROM Rows
     WHERE LastAccessUTC > DateAfter AND LastAccessUTC < DateBefore
       AND (Name, Path) =~ FilterRegex
-    
+
 
 
 - name: Chromium Browser Top Sites
@@ -9414,7 +9414,7 @@ sources:
     LET Rows = SELECT * FROM ApplyFile(SourceName="Chromium Browser Top Sites")
     SELECT * FROM Rows
     WHERE ( URL =~ FilterRegex OR Title =~ FilterRegex )
-    
+
 
 
 - name: Edge Browser Navigation History_Navigation History
@@ -9427,7 +9427,7 @@ sources:
     WHERE `Last Visited Time` > DateAfter
       AND `Last Visited Time` < DateBefore
       AND (Title, URL) =~ FilterRegex
-    
+
 
 
 - name: Firefox Places
@@ -9442,7 +9442,7 @@ sources:
     FROM Rows
     WHERE LastModified > DateAfter AND LastModified < DateBefore
       AND (Title, URL) =~ FilterRegex
-    
+
 
 
 - name: Firefox Places_Downloads
@@ -9455,7 +9455,7 @@ sources:
     FROM Rows
     WHERE LastModified > DateAfter AND LastModified < DateBefore
       AND Content =~ FilterRegex
-    
+
 
 
 - name: Firefox Places_History
@@ -9464,7 +9464,7 @@ sources:
     LET VisitType <= dict(`1`='TRANSITION_LINK', `2`='TRANSITION_TYPED', `3`='TRANSITION_BOOKMARK',
       `4`='TRANSITION_EMBED', `5`= 'TRANSITION_REDIRECT_PERMANENT', `6`='TRANSITION_REDIRECT_TEMPORARY',
       `7`='TRANSITION_DOWNLOAD', `8`='TRANSITION_FRAMED_LINK', `9`='TRANSITION_RELOAD')
-    
+
     SELECT VisitID, FromVisitID,
        timestamp(epoch= last_visit_date) AS LastVisitDate,
        VisitCount, URL, Title, Description,
@@ -9475,7 +9475,7 @@ sources:
     FROM Rows
     WHERE LastVisitDate > DateAfter AND LastVisitDate < DateBefore
       AND (Title, URL, Description) =~ FilterRegex
-    
+
 
 
 - name: Firefox Cookies
@@ -9491,7 +9491,7 @@ sources:
     WHERE LastAccessedTime > DateAfter
       AND LastAccessedTime < DateBefore
       AND ( Name =~ FilterRegex OR Value =~ FilterRegex )
-    
+
 
 
 - name: Firefox Downloads
@@ -9506,7 +9506,7 @@ sources:
     WHERE StartTime > DateAfter
       AND StartTime < DateBefore
       AND Name =~ FilterRegex
-    
+
 
 
 - name: Firefox Favicons
@@ -9516,7 +9516,7 @@ sources:
        timestamp(epoch= expire_ms) AS Expiration,
        OSPath
     FROM Rows
-    
+
 
 
 - name: Firefox Form History
@@ -9529,19 +9529,19 @@ sources:
     FROM Rows
     WHERE LastUsed > DateAfter AND LastUsed < DateBefore
       AND ( FieldName =~ FilterRegex OR Value =~ FilterRegex )
-    
+
 
 
 - name: IE or Edge WebCacheV01_All Data
   query: |
     LET Rows = SELECT * FROM FilterFile(SourceName="IE or Edge WebCacheV01_All Data")
     LET MatchingFiles = SELECT OSPath FROM Rows
-    
+
     LET Containers(OSPath) = SELECT Table
     FROM parse_ese_catalog(file=OSPath)
     WHERE Table =~ "Container_"
     GROUP BY Table
-    
+
     LET AllHits(OSPath) = SELECT * FROM foreach(row={
         SELECT * FROM Containers(OSPath=OSPath)
     }, query={
@@ -9550,13 +9550,13 @@ sources:
           timestamp(winfiletime=AccessedTime) AS AccessedTime, Url, *
        FROM parse_ese(file=OSPath, table=Table)
     })
-    
+
     SELECT * FROM foreach(row=MatchingFiles, query={
       SELECT * FROM AllHits(OSPath=OSPath)
     })
     WHERE AccessedTime > DateAfter AND AccessedTime < DateBefore
       AND Url =~ FilterRegex
-    
+
 
 
 - name: IE or Edge WebCacheV01_Highlights
@@ -9568,7 +9568,7 @@ sources:
     })
     WHERE AccessedTime > DateAfter AND AccessedTime < DateBefore
       AND Url =~ FilterRegex
-    
+
 
 
 - name: MacOS Applications Cache
@@ -9589,7 +9589,7 @@ sources:
     FROM Rows
     WHERE Timestamp > DateAfter AND Timestamp < DateBefore
       AND Application =~ FilterRegex
-    
+
 
 
 - name: MacOS NetworkUsage
@@ -9610,7 +9610,7 @@ sources:
       ZXOUT AS _XOut,
       Z_PK AS LiveUsageTableID
     FROM Rows
-    
+
 
 
 - name: MacOS Notes
@@ -9641,7 +9641,7 @@ sources:
     FROM Rows
     WHERE LastOpenedTime > DateAfter AND LastOpenedTime < DateBefore
       AND ( Title =~ FilterRegex OR Data =~ FilterRegex )
-    
+
 
 
 - name: MacOS XProtect Detections
@@ -9653,7 +9653,7 @@ sources:
       AND dt < DateBefore
       AND (violated_rule, exec_path, responsible_path, responsible_signing_id,
         exec_cdhash, exec_sha256, responsible_cdhash, responsible_sha256 ) =~ FilterRegex
-    
+
 
 
 - name: Windows Activities Cache_ActivityPackageId
@@ -9664,7 +9664,7 @@ sources:
       ActivityId[8:10], ActivityId[10:] ]) AS ActivityId,
       Platform, PackageName, ExpirationTime, OSPath
     FROM Rows
-    
+
 
 
 - name: Windows Activities Cache_Clipboard
@@ -9685,23 +9685,23 @@ sources:
     WHERE StartTime > DateAfter
       AND StartTime < DateBefore
       AND ClipboardPayload =~ FilterRegex
-    
+
 
 
 - name: Windows Search Service_SystemIndex_Gthr
   query: |
     LET Rows = SELECT * FROM FilterFile(SourceName="Windows Search Service_SystemIndex_Gthr")
     LET MatchingFiles = SELECT OSPath FROM Rows
-    
+
     LET FormatTimeB(T) = timestamp(winfiletime=parse_binary(
        filename=T, accessor="data", struct="uint64b"))
-    
+
     LET FormatTime(T) = timestamp(winfiletime=parse_binary(
        filename=T, accessor="data", struct="uint64"))
-    
+
     LET FormatSize(T) = parse_binary(
        filename=T, accessor="data", struct="uint64")
-    
+
     SELECT * FROM foreach(row=MatchingFiles, query={
        SELECT ScopeID, DocumentID, SDID,
           FormatTimeB(T=LastModified) AS LastModified,
@@ -9710,7 +9710,7 @@ sources:
     })
     WHERE LastModified > DateAfter AND LastModified < DateBefore
       AND FileName =~ FilterRegex
-    
+
 
 
 - name: Windows Search Service_SystemIndex_GthrPth
@@ -9721,14 +9721,14 @@ sources:
        FROM parse_ese(file=OSPath, table= "SystemIndex_GthrPth")
     })
     WHERE Name =~ FilterRegex
-    
+
 
 
 - name: Windows Search Service_SystemIndex_PropertyStore
   query: |
     LET Rows = SELECT * FROM FilterFile(SourceName="Windows Search Service_SystemIndex_PropertyStore")
     LET X = scope()
-    
+
     -- The PropertyStore columns look like
     -- <random>-ProperName so we strip the
     -- random part off to display it properly.
@@ -9736,7 +9736,7 @@ sources:
       SELECT split(sep_string="-", string=_key)[1] || _key AS _key, _value
       FROM items(item=Dict)
     })
-    
+
     LET PropStore(OSPath) = SELECT *,
        FormatTime(T=X.System_Search_GatherTime) AS System_Search_GatherTime,
        FormatSize(T=X.System_Size) AS System_Size,
@@ -9749,13 +9749,13 @@ sources:
          SELECT * FROM parse_ese(file=OSPath, table="SystemIndex_PropertyStore")
       })
     }, column="_value")
-    
+
     SELECT * FROM foreach(row=MatchingFiles, query={
        SELECT *
        FROM PropStore(OSPath=OSPath)
     })
     WHERE System_DateAccessed > DateAfter AND System_DateAccessed < DateBefore
-    
+
 
 
 - name: Windows Search Service_SystemIndex_PropertyStore_Highlights
@@ -9775,7 +9775,7 @@ sources:
        FROM PropStore(OSPath=OSPath)
     })
     WHERE System_DateAccessed > DateAfter AND System_DateAccessed < DateBefore
-    
+
 
 
 - name: Windows Search Service_BrowsingActivity
@@ -9788,7 +9788,7 @@ sources:
        FROM PropStore(OSPath=OSPath)
        WHERE Activity_ContentUri
     })
-    
+
 
 
 - name: Windows Search Service_UserActivityLogging
@@ -9804,7 +9804,7 @@ sources:
     })
     WHERE ActivityHistory_StartTime > DateAfter
       AND ActivityHistory_StartTime < DateBefore
-    
+
 
 
 
@@ -11814,7 +11814,7 @@ sources:
            SELECT *
            FROM chain(
              a_update={
-               SELECT 
+               SELECT
                       log(
                         message='Updating package index before installing auditd',
                         level='INFO')
@@ -11857,7 +11857,7 @@ sources:
            FROM if(
              condition=RemoveRules,
              then={
-               SELECT 
+               SELECT
                       log(
                         message='Removing audit rules',
                         level='INFO')
@@ -11879,7 +11879,7 @@ sources:
 
      LET Users <= memoize(
          query={
-           SELECT 
+           SELECT
                   Uid AS UID,
                   User
            FROM Artifact.Linux.Sys.Users()
@@ -11897,7 +11897,7 @@ sources:
            SELECT *
            FROM switch(
              start={
-               SELECT 
+               SELECT
                       Process.pid AS id,
                       Process.ppid AS parent_id,
                       'start' AS update_type,
@@ -11928,7 +11928,7 @@ sources:
                WHERE AuditKeyExecve IN Tags
              },
              end={
-               SELECT 
+               SELECT
                       Process.pid AS id,
                       NULL AS parent_id,
                       'exit' AS update_type,
@@ -11941,7 +11941,7 @@ sources:
              })
          })
 
-     LET SyncQuery = SELECT 
+     LET SyncQuery = SELECT
                             Pid AS id,
                             Ppid AS parent_id,
                             CreateTime AS start_time,
@@ -11972,7 +11972,7 @@ sources:
          WHERE update_type = 'stats' OR AlsoForwardUpdates
        },
        else={
-         SELECT 
+         SELECT
                 log(
                   message='auditd is not installed, and it is either set not to be installed or failed to install, aborting',
                   level='INFO')
@@ -12224,7 +12224,7 @@ description: |
   The `Duration` parameter is used to define how long (in seconds) the capture should be.  Specific interfaces can be defined using the `Interface` parameter, otherwise the artifact defaults to an interface assignment of `any`.
 
   A `BPF` (Berkeley Packet Filter) expression can also be supplied to filter the captured traffic as desired.
-  
+
   Read more about BPF expressions here: https://biot.com/capstats/bpf.html
 
 required_permissions:
@@ -12235,7 +12235,7 @@ parameters:
     type: integer
     description: Duration (in seconds) of PCAP to be recorded.
     default: 10
-  
+
   - name: Interface
     type: string
     default: any
@@ -12243,7 +12243,7 @@ parameters:
   - name: BPF
     type: string
     default:
-    
+
 precondition:
   SELECT * FROM info() where OS = 'linux'
 
@@ -12329,7 +12329,7 @@ sources:
           atoi(string=Size) As Size,
           atoi(string=UseCount) As UseCount,
           parse_string_with_regex(regex='''(?P<UsedBy>.*),''', string=UsedBy).UsedBy AS UsedBy,
-          Status, 
+          Status,
           Address
         FROM split_records(
            filenames=ProcModules,
@@ -12988,7 +12988,7 @@ parameters:
     default: "^/(proc|sys|run|snap)"
     type: regex
     description: If this regex matches the path of any directory we do not even descend inside of it.
-    
+
   - name: LocalFilesystemOnly
     default: Y
     type: bool
@@ -13116,11 +13116,11 @@ sources:
         FROM execve(
           length=1000000,
           argv=["zypper", "--xmlout", "search", "--installed-only", "--details", "--type=package"])
-      
+
       LET xml = parse_xml(
           file=str(str=zypper_output.Stdout),
           accessor="data")
-      
+
       SELECT *
       FROM foreach(
         row=xml.stream.`search-result`.`solvable-list`.solvable,
@@ -13693,7 +13693,7 @@ sources:
 
 
 name: Linux.Sys.Services
-description: Parse services from systemctl 
+description: Parse services from systemctl
 
 sources:
   - precondition: |
@@ -13701,13 +13701,13 @@ sources:
     queries:
       - |
         LET services = SELECT Stdout FROM execve(argv=['systemctl', 'list-units',  '--type=service'])
-        
+
         LET all_services = SELECT grok(grok="%{NOTSPACE:Unit}%{SPACE}%{NOTSPACE:Load}%{SPACE}%{NOTSPACE:Active}%{SPACE}%{NOTSPACE:Sub}%{SPACE}%{GREEDYDATA:Description}", data=Line) AS Parsed
         FROM parse_lines(accessor="data", filename=services.Stdout)
-        
+
         SELECT * FROM foreach(row=all_services, column="Parsed") WHERE Unit =~ ".service"
-        
-        
+
+
 
 
 name: Linux.Sys.Users
@@ -13818,7 +13818,7 @@ sources:
               Uid,
               Gid,
               Homedir,
-              Shell 
+              Shell
       FROM Artifact.Linux.Sys.Users()
       WHERE NOT Shell IN split(string=NonInteractiveExecutables, sep_string=",")
 
@@ -14205,398 +14205,6 @@ sources:
 
 
 
-name: MacOS.Applications.Chrome.History
-description: |
-  Read all User's chrome history.
-
-  ## NOTES:
-
-  This artifact is deprecated in favor of
-  Generic.Forensic.SQLiteHunter and will be removed in future
-
-
-parameters:
-  - name: historyGlobs
-    default: /Users/*/Library/Application Support/Google/Chrome/*/History
-  - name: urlSQLQuery
-    default: |
-      SELECT url as visited_url, title, visit_count,
-             typed_count, last_visit_time
-      FROM urls
-  - name: userRegex
-    default: .
-
-precondition: SELECT OS From info() where OS = 'darwin'
-
-sources:
-  - query: |
-      LET history_files = SELECT
-         parse_string_with_regex(regex="/Users/(?P<User>[^/]+)", string=OSPath).User AS User,
-         OSPath, Mtime
-      FROM glob(globs=historyGlobs)
-
-      SELECT * FROM foreach(row=history_files,
-        query={
-           SELECT User, OSPath,
-              Mtime,
-              visited_url,
-              title, visit_count, typed_count,
-              timestamp(winfiletime=last_visit_time * 10) as last_visit_time
-          FROM sqlite(
-             file=OSPath,
-             query=urlSQLQuery)
-          })
-
-
-
-name: MacOS.Applications.MRU
-description: |
-   Parse the MRU from MacOS users
-
-reference:
-  - https://mac-alias.readthedocs.io/en/latest/bookmark_fmt.html
-  - https://github.com/al45tair/mac_alias
-  - https://www.mac4n6.com/blog/2016/7/10/new-script-macmru-most-recently-used-plist-parser
-
-type: CLIENT
-
-parameters:
-   - name: FinderPlistPath
-     default: /Users/*/Library/Preferences/com.apple.finder.plist
-
-export: |
-        -- Parser for MAC Bookmark format
-        LET type_lookup <= dict(
-           `0x100`="__DataString",
-           `0x200`="__DataData",
-           `0x300`="__DataUint32",
-           `0x400`="__DataDate",
-           `0x500`="__DataBool",
-           `0x600`="__DataArray",
-           `0x700`="__DataDict",
-           `0x800`="__DataUUID",
-           `0x900`="__DataURL"
-           )
-
-        LET MRULookup <= dict(
-           `0x2040`="Volume Bookmark",
-           `0x2002`="Volume Path",
-           `0x2020`="Volume Flags",
-           `0x2030`="Volume is Root FS",
-           `0x2011`="Volume UUID",
-           `0x2012`="Volume Size",
-           `0x2013`="Volume Creation Date",
-           `0x2005`="Volume URL",
-           `0x2040`="Volume Bookmark",
-           `0x2050`="Volume Mount Point",
-           `0xf080`="Security Extension",
-           `0xf081`="Security Extension",
-           `0x1004`="Target Path",
-           `0x1005`="Target CNID Path",
-           `0xc001`="Containing Folder Index",
-           `0x1040`="Target Creation Date",
-           `0x1010`="Target Flags",
-           `0x1020`="Target Filename",
-           `0xc011`="Creator Username",
-           `0xc012`="Creator UID"
-        )
-
-        LET BookmarkProfile = '''[
-         ["Header", 0, [
-          ["Magic", 0, "String", {
-              length: 4,
-          }],
-          ["Size", 4, "uint32"],
-          ["HeaderSize", 12, "uint32"],
-          ["TOCOffset", "x=>x.HeaderSize", "uint32"],
-          ["TOC", "x=>x.TOCOffset + x.HeaderSize", "TOC"]
-         ]],
-         ["TOC", 0, [
-          ["SizeOfTOC", 0, "uint32"],
-          ["Magic", 4, "uint32"],
-          ["TOCId", 8, "uint32"],
-          ["NextTOC", 12, "uint32"],
-          ["TOCCount", 16, "uint32"],
-          ["Items", 20, "Array", {
-              type: "TOCItem",
-              count: "x=>x.TOCCount",
-          }]
-         ]],
-         ["__TOCArrayPtr", 4, [
-          ["Offset", 0, "uint32"],
-          ["Item", 0, "Profile", {
-            type: "TOCValue",
-            offset: "x=>x.Offset + 48"
-           }]
-         ]],
-         ["TOCValue", 0, [
-           ["MyOffset", 0, "Value", {
-               value: "x=>x.StartOf",
-           }],
-           ["length", 0, "uint32"],
-           ["subtype", 4, "BitField", {
-               type: "uint32",
-               start_bit: 0,
-               end_bit: 8,
-            }],
-            ["data_type", 4, "BitField", {
-               type: "uint32",
-               start_bit: 8,
-               end_bit: 32,
-            }],
-            ["data", 0, "Value", {
-               value: "x=>get(item=x, field=get(item=type_lookup, field=format(format='%#x', args=x.data_type)))",
-            }],
-            ["__DataString", 8, "String", {
-               length: "x=>x.length",
-               term: "",
-            }],
-            ["__DataData", 0, "Value", {
-               value: "x=>format(format='%x', args=x.__DataStr)",
-            }],
-            ["__DataDateFloat", 8, "float64be"],
-            ["__DataDate", 0, "Value", {
-               value: "x=>timestamp(cocoatime=x.__DataDateFloat)",
-            }],
-            ["__DataUint32", 8, "uint32"],
-            ["__DataBool", 0, "Value", {
-                value: "x=>if(condition=x.subtype, then=TRUE, else=FALSE)",
-            }],
-            ["__DataURL", 0, "Value", {
-               value: "x=>x.__DataString",
-            }],
-            ["__DataArrayOffsets", 8, "Array", {
-               count: "x=>x.length / 4",
-               type: "__TOCArrayPtr"
-            }],
-            ["__DataArray", 0, "Value", {
-               value: "x=>x.__DataArrayOffsets.Item.data",
-            }],
-         ]],
-         ["TOCItem", 12, [
-           ["ID", 0, "uint32"],
-           ["Offset", 4, "uint32"],
-           ["TOCValue", "x=>x.Offset + 48 - x.StartOf", "TOCValue"],
-         ]]
-        ]
-        '''
-
-        LET ParseBookmark(Bookmark) =
-           SELECT _value.name AS Name,
-                  get(item=MRULookup, field=format(format="%#x", args=ID)) AS Field,
-                  format(format="%#x", args=ID) AS FieldID,
-                  format(format="%#x", args=TOCValue.data_type) AS data_type,
-                  regex_replace(re="__Data", replace="",
-                        source=get(item=type_lookup,
-                        field=format(format="%#x",
-                              args=TOCValue.data_type))) AS type,
-                  TOCValue.data AS data
-
-           FROM foreach(row=parse_binary(
-                        accessor="data", filename=Bookmark,
-                        profile=BookmarkProfile, struct="Header").TOC.Items)
-
-sources:
-  - query: |
-        -- Parse the Plist file
-        SELECT * FROM foreach(row={
-          SELECT OSPath FROM glob(globs=FinderPlistPath)
-        }, query={
-          SELECT * FROM foreach(row={
-            SELECT FXRecentFolders FROM plist(file=OSPath)
-          }, query={
-            SELECT *
-            FROM foreach(row=FXRecentFolders, query={
-               SELECT *, OSPath
-               FROM ParseBookmark(Bookmark=_value.`file-bookmark`)
-            })
-          })
-        })
-
-
-
-name: MacOS.Detection.Autoruns
-description: |
-   This artifact collects evidence of autoruns. We also capture the files and upload them.
-
-   This code is based on
-   https://github.com/CrowdStrike/automactc/blob/master/modules/mod_autoruns_v102.py
-
-precondition: SELECT OS FROM info() WHERE OS =~ 'darwin'
-
-parameters:
-- name: sandboxed_loginitems
-  default: /var/db/com.apple.xpc.launchd/disabled.*.plist
-
-- name: cronTabGlob
-  default: /private/var/at//tabs/*
-
-- name: LaunchAgentsDaemonsGlob
-  default: |
-     ["/System/Library/LaunchAgents/*.plist","/Library/LaunchAgents/*.plist",
-      "/Users/*/Library/LaunchAgents/*.plist","/private/var/*/Library/LaunchAgents/*.plist",
-      "/System/Library/LaunchAgents/.*.plist","/Library/LaunchAgents/.*.plist",
-      "/Users/*/Library/LaunchAgents/.*.plist", "/private/var/*/Library/LaunchAgents/.*.plist",
-      "/System/Library/LaunchDaemons/*.plist","/Library/LaunchDaemons/*.plist",
-      "/System/Library/LaunchDaemons/.*.plist","/Library/LaunchDaemons/.*.plist"]
-
-- name: ScriptingAdditionsGlobs
-  default: |
-      ["/System/Library/ScriptingAdditions/*.osax","/Library/ScriptingAdditions/*.osax",
-       "/System/Library/ScriptingAdditions/.*.osax","/Library/ScriptingAdditions/.*.osax"]
-
-- name: StartupItemsGlobs
-  default: |
-       ["/System/Library/StartupItems/*/*","/Library/StartupItems/*/*"]
-
-- name: MiscItemsGlobs
-  default: |
-      ["/private/etc/periodic.conf", "/private/etc/periodic/*/*", "/private/etc/*.local",
-       "/private/etc/rc.common",
-       "/private/etc/emond.d/*","/private/etc/emond.d/*/*"]
-
-- name: LoginItemsGlobs
-  default: |
-      ["/Users/*/Library/Preferences/com.apple.loginitems.plist",
-       "/private/var/*/Library/Preferences/com.apple.loginitems.plist"]
-
-sources:
-- name: Sandboxed Loginitems
-  query: |
-    SELECT OSPath,
-           Mtime,
-           plist(file=OSPath) AS Disabled,
-           upload(file=OSPath) AS Upload
-    FROM glob(globs=sandboxed_loginitems)
-
-- name: crontabs
-  query: |
-    LET raw = SELECT * FROM foreach(
-          row={
-            SELECT OSPath, Name, Mtime,
-                   upload(file=OSPath) AS Upload
-            FROM glob(globs=split(string=cronTabGlob, sep=","))
-          },
-          query={
-            SELECT OSPath, Name, Mtime, Upload,
-              data, parse_string_with_regex(
-               string=data,
-               regex=[
-                 /* Regex for event (Starts with @) */
-                 "^(?P<Event>@[a-zA-Z]+)\\s+(?P<Command>.+)",
-
-                 /* Regex for regular command. */
-                 "^(?P<Minute>[^\\s]+)\\s+"+
-                 "(?P<Hour>[^\\s]+)\\s+"+
-                 "(?P<DayOfMonth>[^\\s]+)\\s+"+
-                 "(?P<Month>[^\\s]+)\\s+"+
-                 "(?P<DayOfWeek>[^\\s]+)\\s+"+
-                 "(?P<Command>.+)$"]) as Record
-
-            /* Read lines from the file and filter ones that start with "#" */
-            FROM split_records(
-               filenames=OSPath,
-               regex="\n", columns=["data"]) WHERE not data =~ "^\\s*#"
-            }) WHERE Record.Command
-
-    SELECT Record.Event AS Event,
-               Mtime,
-               Name AS User,
-               Record.Minute AS Minute,
-               Record.Hour AS Hour,
-               Record.DayOfMonth AS DayOfMonth,
-               Record.Month AS Month,
-               Record.DayOfWeek AS DayOfWeek,
-               Record.Command AS Command,
-               OSPath AS Path,
-               Upload
-    FROM raw
-
-- name: LaunchAgentsDaemons
-  query: |
-
-    LET launchd_config = SELECT OSPath, Mtime,
-           plist(file=OSPath) AS LaunchdConfig,
-           upload(file=OSPath) AS Upload
-    FROM glob(globs=parse_json_array(data=LaunchAgentsDaemonsGlob))
-
-    LET programs = SELECT OSPath, Mtime, LaunchdConfig,
-           get(member="LaunchdConfig.Program",
-               default=get(member="LaunchdConfig.ProgramArguments.0")) AS Program
-    FROM launchd_config
-
-    SELECT OSPath, Mtime, LaunchdConfig,
-           Program, hash(path=Program) AS Hash,
-           upload(file=OSPath) AS Upload
-    FROM programs
-
-- name: ScriptingAdditions
-  query: |
-    SELECT OSPath,
-           Mtime,
-           upload(file=OSPath) AS Upload
-    FROM glob(globs=parse_json_array(data=ScriptingAdditionsGlobs))
-
-- name: StartupItems
-  query: |
-    SELECT OSPath,
-           Mtime,
-           upload(file=OSPath) AS Upload
-    FROM glob(globs=parse_json_array(data=StartupItemsGlobs))
-
-- name: MiscItems
-  query: |
-    SELECT OSPath,
-           Mtime,
-           upload(file=OSPath) AS Upload
-    FROM glob(globs=parse_json_array(data=MiscItemsGlobs))
-
-- name: LoginItems
-  query: |
-    SELECT OSPath,
-           Mtime,
-           plist(file=OSPath) AS LoginItemConfig,
-           upload(file=OSPath) AS Upload
-    FROM glob(globs=parse_json_array(data=LoginItemsGlobs))
-
-
-
-name: MacOS.Detection.InstallHistory
-description: |
-  This artifact collects entries from the InstallHistory .plist file
-
-type: CLIENT
-
-author: Wes Lambert - @therealwlambert
-
-precondition: SELECT OS FROM info() WHERE OS =~ 'darwin'
-
-parameters:
-- name: InstallHistoryGlob
-  default: /Library/Receipts/InstallHistory.plist
-
-sources:
-- name: Install History
-  query: |
-    LET SWplist = SELECT OSPath FROM glob(globs=InstallHistoryGlob)
-
-    LET SoftwareDetails =
-            SELECT * FROM foreach(
-                row=plist(file=OSPath),
-                query={
-                    SELECT
-                        get(member="displayName", default="") AS DisplayName,
-                        get(member="displayVersion", default="") AS DisplayVersion,
-                        get(member="processName", default="") AS ProcessName,
-                        get(member="date", default="") AS InstallDate,
-                        get(member="contentType", default="") AS ContentType,
-                        get(member="packageIdentifiers", default="") AS PackageIdentifiers
-                    FROM scope()
-            })
-    SELECT * FROM foreach(row=SWplist, query=SoftwareDetails)
-
-
-
 name: Generic.Detection.Yara.Glob
 author: Matt Green - @mgreen27
 description: |
@@ -14885,563 +14493,6 @@ column_types:
 
 
 
-name: MacOS.Forensics.AppleDoubleZip
-description: |
-  Search for zip files containing leaked download URLs included by
-  MacOS users.
-
-  MacOS filesystem can represent extended attributes. Similarly to
-  Windows's ZoneIdentifier, when a file is downloaded on MacOS it also
-  receives an extended attribute recording where the file was
-  downloaded from. (See the `Windows.Analysis.EvidenceOfDownload`
-  artifact)
-
-  What makes MacOS different however, is that when a user adds a file
-  to a Zip file (in Finder, right click the file and select
-  "compress"), MacOS will also record the extended attributes in the
-  zip file under the __MACOSX folder.
-
-  This is a huge privacy leak because people often do not realize that
-  the source of downloads for a file is being included inside the zip
-  file, which they end up sending to other people!
-
-  Therefore this artifact can also work on other platforms because Zip
-  files created by MacOS users can end up on other systems, and
-  contain sensitive URLs embedded within them.
-
-reference:
-  - https://opensource.apple.com/source/Libc/Libc-391/darwin/copyfile.c
-  - https://datatracker.ietf.org/doc/html/rfc1740
-
-parameters:
-  - name: ZipGlob
-    description: Where to search for zip files.
-    default: /Users/*/Downloads/*.zip
-
-export: |
-    -- Offsets are aligned to 4 bytes
-    LET Align(value) = value + value - int(int=value / 4) * 4
-
-    LET Profile = '''[
-    ["Header", 0, [
-      ["Magic", 0, "uint32b"],
-      ["Version", 4, "uint32b"],
-      ["Filler", 8, "String", {
-          length: 16,
-      }],
-      ["Count", 24, "uint16b"],
-      ["Items", 26, "Array", {
-          count: "x=>x.Count",
-          type: "Entry",
-      }],
-      ["attr_header", 84, "attr_header"]
-    ]],
-    ["Entry", 12, [
-      ["ID", 0, "uint32b"],
-      ["Offset", 4, "uint32b"],
-      ["Length", 8, "uint32b"],
-      ["Value", 0, "Profile", {
-           type: "ASFinderInfo",
-           offset: "x=>x.Offset",
-      }]
-    ]],
-    ["attr_header", 0, [
-
-      # Should be ATTR
-      ["Magic", 0, "String", {
-          length: 4,
-      }],
-
-      ["total_size", 8, "uint32b"],
-      ["data_start", 12, "uint32b"],
-      ["data_length",16, "uint32b"],
-      ["flags", 32, "uint16b"],
-      ["num_attr", 34, "uint16b"],
-      ["attrs", 36, "Array", {
-          count: "x=>x.num_attr",
-          type: "attr_t",
-      }]
-    ]],
-    ["attr_t", "x=>Align(value=x.name_length + 11)", [
-     ["offset", 0, "uint32b"],
-     ["length", 4, "uint32b"],
-     ["flags", 8, "uint16b"],
-     ["name_length", 10, "uint8"],
-     ["name", 11, "String", {
-         length: "x=>x.name_length",
-     }],
-     ["data", 0, "Profile", {
-        type: "String",
-        type_options: {
-            term: "",
-            length: "x=>x.length",
-        },
-        offset: "x=>x.offset",
-     }]
-    ]]
-    ]
-    '''
-
-    LET ParseData(data) = if(condition=data =~ "^bplist",
-         then=plist(accessor="data", file=data), else=data)
-
-    LET ParseAppleDouble(double_data) = SELECT name AS Key, ParseData(data=data) AS Value
-       FROM foreach(row=parse_binary(
-            filename=double_data, accessor="data",
-            profile=Profile, struct="Header").attr_header.attrs)
-
-sources:
- - query: |
-     LET DoubleFiles = SELECT * FROM foreach(row={
-        SELECT OSPath AS ZipPath
-        FROM glob(globs=ZipGlob)
-     }, query={
-        SELECT OSPath, pathspec(parse=OSPath) AS PathSpec
-        FROM glob(
-             globs="__MACOSX/**",
-             accessor="zip",
-             root=pathspec(DelegatePath=ZipPath))
-     })
-
-     SELECT * FROM foreach(row=DoubleFiles,
-     query={
-       SELECT PathSpec.DelegatePath AS ZipFile,
-              PathSpec.Path AS Member,
-              Key, Value
-       FROM ParseAppleDouble(double_data=read_file(filename=OSPath, accessor="zip"))
-     })
-
-
-
-name: MacOS.Forensics.FSEvents
-description: |
-   This artifact parses the FSEvents log files.
-   
-   We can filter on Path, Flags or use time box on source file 
-   
-   An interesting hunt may be filter for Entries of plist files modified or 
-   created on a specific date. Malware often creates plist files in 
-   /Library/LaunchAgents, Library/Preferences, /Library/LaunchDaemons, or 
-   /Library/Internet Plugins.
-   
-   NOTE: 
-   
-   - FSEvents do not have timestamps so we specify source file Mtime and 
-   Btime. 
-   - default timeout is only 600 seconds - you will need to increase for this 
-   colection to finish.
-
-reference:
-- https://www.osdfcon.org/presentations/2017/Ibrahim-Understanding-MacOS-File-Ststem-Events-with-FSEvents-Parser.pdf
-- https://www.crowdstrike.com/blog/using-os-x-fsevents-discover-deleted-malicious-artifact/
-
-type: CLIENT
-
-parameters:
-   - name: GlobTable
-     type: csv
-     default: |
-       Glob
-       /.fseventsd/*
-       /System/Volumes/Data/.fseventsd/*
-   - name: Glob
-     type: string
-     description: Instead of providing the globs in a table, a single glob may e given.
-   - name: PathRegex
-     description: Filter the path by this regexp
-     default: .
-     type: regex
-   - name: FlagsRegex
-     description: Filter by flags
-     type: regex
-     default: .
-   - name: DateAfter
-     type: timestamp
-     description: "search for source files with Btime after this date. YYYY-MM-DDTmm:hh:ssZ"
-   - name: DateBefore
-     type: timestamp
-     description: "search for source files with Mtime before this date. YYYY-MM-DDTmm:hh:ssZ"
-   - name: LogSource
-     type: bool
-     description: "Adds the Source file OSPath into logs"
-
-export: |
-    LET FSEventProfile = '''[
-    ["Header", 0, [
-      ["Signature", 0, "String", {
-          length: 4
-      }],
-      ["StreamSize", 8, uint32],
-      ["Items", 12, "Array", {
-          count: 10000,
-          max_count: 10000,
-          type: FSEventEntry,
-          sentinel: "x=>len(list=x.path) = 0",
-      }]
-    ]],
-    ["FSEventEntry", "x=>len(list=x.path) + 21", [
-      ["path", 0, "String"],
-      ["id", "x=>len(list=x.path) + 1", "uint64"],
-      ["flags", "x=>len(list=x.path) + 9", "Flags", {
-          type: "uint32",
-          bitmap: {
-            FSE_CREATE_FILE: 0,
-            FSE_DELETE: 1,
-            FSE_STAT_CHANGED: 2,
-            FSE_RENAME: 3,
-            FSE_CONTENT_MODIFIED: 4,
-            FSE_EXCHANGE: 5,
-            FSE_FINDER_INFO_CHANGED: 6,
-            FSE_CREATE_DIR: 7,
-            FSE_CHOWN: 8,
-            FSE_XATTR_MODIFIED: 9,
-            FSE_XATTR_REMOVED: 10,
-            FSE_DOCID_CREATED: 11,
-            FSE_DOCID_CHANGED: 12,
-            FSE_UNMOUNT_PENDING: 13,
-            FSE_CLONE: 14,
-            FSE_MODE_CLONE: 16,
-            FSE_TRUNCATED_PATH: 17,
-            FSE_REMOTE_DIR_EVENT: 18,
-            FSE_MODE_LAST_HLINK: 19,
-            FSE_MODE_HLINK: 20,
-            IsSymbolicLink: 22,
-            IsFile: 23,
-            IsDirectory: 24,
-            Mount: 25,
-            Unmount: 26,
-            EndOfTransaction: 29
-          }
-      }],
-    ]]
-    ]'''
-
-sources:
-  - query: |
-      LET files = SELECT OSPath, Mtime, Btime
-        FROM glob(globs=(Glob || GlobTable.Glob))
-        WHERE   if(condition=DateAfter, then= Btime > DateAfter, else= True )
-            AND if(condition=DateBefore, then= Mtime < DateBefore, else= True )
-            AND log(message=OSPath)
-
-      SELECT * FROM foreach(row=files,
-        query={
-            SELECT 
-                path as EntryPath,
-                id as EntryId, 
-                join(array=flags, sep=", ") AS EntryFlags,
-                OSPath.Basename as SourceFile, 
-                Mtime as SourceMtime, 
-                Btime as SourceBtime 
-            FROM foreach(row=parse_binary(
-                    filename=read_file(filename=OSPath, accessor="gzip", length=1000000),
-                    accessor="data",
-                    profile=FSEventProfile, struct="Header").Items)
-        })
-        WHERE EntryPath =~ PathRegex AND EntryFlags =~ FlagsRegex
-
-
-
-name: MacOS.Network.Netstat
-description: |
-  Report network connections, and enrich with process information.
-
-type: CLIENT
-
-precondition:
-  SELECT OS From info() where OS = 'darwin'
-
-parameters:
-  - name: IPRegex
-    description: "regex search over IP address fields."
-    default:  "."
-    type: regex
-  - name: PortRegex
-    description: "regex search over port fields."
-    default: "."
-    type: regex
-  - name: ProcessNameRegex
-    description: "regex search over source process name"
-    default: "."
-    type: regex
-  - name: UsernameRegex
-    description: "regex search over source process user context"
-    default: "."
-    type: regex
-  - name: ConnectionStatusRegex
-    description: "regex search over connection status"
-    default: "LISTEN|ESTAB"
-    type: regex
-  - name: ProcessPathRegex
-    description: "regex search over source process path"
-    default: "."
-    type: regex
-  - name: CommandLineRegex
-    description: "regex search over source process commandline"
-    default: "."
-    type: regex
-  - name: CallChainRegex
-    description: "regex search over the process callchain"
-    default: "."
-    type: regex
-  - name: AlsoCollectFullProcessTree
-    type: bool
-
-sources:
-  - query: |
-      SELECT Laddr.IP AS Laddr,
-             Laddr.Port AS Lport,
-             Raddr.IP AS Raddr,
-             Raddr.Port AS Rport,
-             Pid,
-             Status, TypeString AS Type,
-             process_tracker_get(id=Pid).Data AS ProcInfo,
-             join(array=process_tracker_callchain(id=Pid).Data.Name,
-                  sep=" -> ") AS CallChain,
-             if(condition=AlsoCollectFullProcessTree,
-                then=process_tracker_tree(id=Pid)) AS ChildrenTree
-      FROM netstat()
-      WHERE Status =~ ConnectionStatusRegex
-       AND  Raddr =~ IPRegex
-       AND  ( Lport =~ PortRegex OR Rport =~ PortRegex )
-       AND ProcInfo.Name =~ ProcessNameRegex
-       AND ProcInfo.Username =~ UsernameRegex
-       AND ProcInfo.Exe =~ ProcessPathRegex
-       AND ProcInfo.CommandLine =~ CommandLineRegex
-       AND CallChain =~ CallChainRegex
-
-column_types:
-  - name: ChildrenTree
-    type: tree
-
-
-
-name: MacOS.Network.PacketCapture
-author: Wes Lambert, @therealwlambert
-description: |
-  This artifact leverages tcpdump to natively capture packets.
-
-  The `Duration` parameter is used to define how long (in seconds) the capture should be.  Specific interfaces can be defined using the `Interface` parameter, otherwise the artifact defaults to an interface assignment of `any`.
-
-  A `BPF` (Berkeley Packet Filter) expression can also be supplied to filter the captured traffic as desired.
-  
-  Read more about BPF expressions here: https://biot.com/capstats/bpf.html
-
-required_permissions:
-  - EXECVE
-
-parameters:
-  - name: Duration
-    type: integer
-    description: Duration (in seconds) of PCAP to be recorded.
-    default: 10
-  
-  - name: Interface
-    type: string
-    default: any
-
-  - name: BPF
-    type: string
-    default:
-    
-precondition:
-  SELECT * FROM info() where OS = 'darwin'
-
-sources:
-    - query: |
-            LET pcap <= tempfile(extension=".pcap")
-            SELECT *, upload(file=pcap) AS PCAP
-              FROM execve(argv=['bash', '-c', format(format='''(tcpdump -nni %v -w %v %v) & sleep %v; kill $!''', args=[Interface, pcap, BPF, Duration])], length=1000000)
-
-
-
-name: MacOS.OSQuery.Generic
-description: |
-  OSQuery is an excellent tool for querying system state across the
-  three supported Velociraptor platform (Windows/Linux/MacOS).
-
-  You can read more about OSQuery on https://osquery.io/
-
-reference:
-  - https://osquery.io/
-  - https://github.com/osquery/osquery
-
-# I am not actually sure if OSQuery allows arbitrary command execution via SQL?
-required_permissions:
-  - EXECVE
-
-precondition: SELECT OS From info() where OS = 'darwin'
-
-tools:
-  - name: OSQueryDarwin
-    github_project: Velocidex/OSQuery-Releases
-    github_asset_regex: darwin-amd64
-
-parameters:
-  - name: Query
-    default: "SELECT * FROM osquery_info"
-
-sources:
-  - query: |
-      LET binary <= SELECT OSPath
-      FROM Artifact.Generic.Utils.FetchBinary(ToolName="OSQueryDarwin")
-
-      LET result = SELECT * FROM execve(
-         argv=[binary[0].OSPath, "--json", Query],
-         length=1000000)
-
-      SELECT * FROM foreach(row=result,
-      query={
-         SELECT * FROM parse_json_array(data=Stdout)
-      })
-
-
-
-name: MacOS.Search.FileFinder
-description: |
-  Find files on the filesystem using the filename or content.
-
-
-  ## Performance Note
-
-  This artifact can be quite expensive, especially if we search file
-  content. It will require opening each file and reading its entire
-  content. To minimize the impact on the endpoint we recommend this
-  artifact is collected with a rate limited way (about 20-50 ops per
-  second).
-
-  This artifact is useful in the following scenarios:
-
-    * We need to locate all the places on our network where customer
-      data has been copied.
-
-    * We’ve identified malware in a data breach, named using short
-      random strings in specific folders and need to search for other
-      instances across the network.
-
-    * We believe our user account credentials have been dumped and
-      need to locate them.
-
-    * We need to search for exposed credit card data to satisfy PCI
-      requirements.
-
-    * We have a sample of data that has been disclosed and need to
-      locate other similar files
-
-
-precondition:
-  SELECT * FROM info() where OS = 'darwin'
-
-parameters:
-  - name: SearchFilesGlob
-    default: /Users/*
-    description: Use a glob to define the files that will be searched (Use ** for recursive).
-
-  - name: SearchFilesGlobTable
-    type: csv
-    default: |
-      Glob
-      /Users/someuser/*
-    description: Alternative specify multiple globs in a table
-
-  - name: YaraRule
-    type: yara
-    default:
-    description: A yara rule to search for matching files.
-
-  - name: Upload_File
-    default: N
-    type: bool
-
-  - name: Calculate_Hash
-    default: N
-    type: bool
-
-  - name: MoreRecentThan
-    default: ""
-    type: timestamp
-
-  - name: ModifiedBefore
-    default: ""
-    type: timestamp
-
-  - name: DoNotFollowSymlinks
-    type: bool
-    default: Y
-    description: If specified we are allowed to follow symlinks while globbing
-
-sources:
-- query: |
-    LET file_search = SELECT OSPath,
-               Sys.mft as Inode,
-               Mode.String AS Mode, Size,
-               Mtime AS MTime,
-               Atime AS ATime,
-               Ctime AS CTime,
-               IsDir, Mode
-        FROM glob(globs=SearchFilesGlobTable.Glob + SearchFilesGlob,
-                  accessor="file", nosymlink=DoNotFollowSymlinks)
-
-    LET more_recent = SELECT * FROM if(
-        condition=MoreRecentThan,
-        then={
-          SELECT * FROM file_search
-          WHERE MTime > MoreRecentThan
-        },
-        else={ SELECT * FROM file_search})
-
-    LET modified_before = SELECT * FROM if(
-        condition=ModifiedBefore,
-        then={
-          SELECT * FROM more_recent
-          WHERE MTime < ModifiedBefore
-           AND  MTime > MoreRecentThan
-        },
-        else={SELECT * FROM more_recent})
-
-    LET keyword_search = SELECT * FROM if(
-        condition=YaraRule,
-        then={
-          SELECT * FROM foreach(
-            row={
-               SELECT * FROM modified_before
-               WHERE Mode.IsRegular
-            },
-            query={
-               SELECT OSPath, Inode, Mode,
-                      Size, ATime, MTime, CTime,
-                      str(str=String.Data) As Keywords
-
-               FROM yara(files=OSPath,
-                         key="A",
-                         rules=YaraRule,
-                         accessor="file")
-            })
-        },
-        else={SELECT * FROM modified_before})
-
-    SELECT OSPath, Inode, Mode, Size, ATime,
-             MTime, CTime, get(field='Keywords') AS Keywords,
-               if(condition=Upload_File and Mode.IsRegular,
-                  then=upload(file=OSPath,
-                              accessor="file")) AS Upload,
-               if(condition=Calculate_Hash and Mode.IsRegular,
-                  then=hash(path=OSPath,
-                            accessor="file")) AS Hash
-    FROM keyword_search
-
-column_types:
-  - name: ATime
-    type: timestamp
-  - name: MTime
-    type: timestamp
-  - name: CTime
-    type: timestamp
-  - name: Upload
-    type: preview_upload
-
-
-
 name: Linux.Sys.Pslist
 description: |
   List processes and their running binaries.
@@ -15466,338 +14517,6 @@ sources:
                Exe =~ "\\(deleted\\)$" AS Deleted
         FROM process_tracker_pslist()
         WHERE Name =~ processRegex
-
-
-
-name: MacOS.System.Dock
-description: |
-  This artifact examines the contents of the user's dock.  The
-  property list entry for each application represented within the dock
-  can be modified to point to a malcious application.
-
-   By comparing the application name, CFURLString, and book, we can
-   gather greater context to assist in determining if an adversary may
-   have tampered with an entry, or if an entry has been added to
-   emulate a legitimate application.
-
-reference:
-  - https://specterops.io/so-con2020/event-758922
-  - https://attack.mitre.org/techniques/T1547/009/
-  - https://attack.mitre.org/techniques/T1647/
-
-author: Wes Lambert - @therealwlambert
-
-type: CLIENT
-
-parameters:
-   - name: DockGlob
-     default: /Users/*/Library/Preferences/com.apple.dock.plist
-
-sources:
-  - query: |
-       SELECT * FROM foreach(row={
-          SELECT OSPath from glob(globs=DockGlob)
-       }, query={
-         SELECT OSPath, GUID,
-           get(member="tile-data.file-label") AS FileLabel,
-           get(member="tile-data.file-data._CFURLString") AS AppLocation,
-           timestamp(mactime=get(member="tile-data.file-mod-date")) AS FileModDate,
-           timestamp(mactime=get(member="tile-data.parent-mod-date")) AS ParentModDate,
-           get(member="tile-data.bundle-identifier") AS BundleIdentifier,
-           get(member="tile-data.dock-extra") AS DockExtra,
-           base64encode(string=get(member="tile-data.book")) AS Book
-         FROM foreach(row=plist(file=OSPath).`persistent-apps`)
-       })
-
-column_types:
-  - name: Book
-    type: base64hex
-
-
-
-name: MacOS.System.Packages
-description: |
-  Parse packages installed on Macs
-parameters:
-  - name: Length
-    description: Size (in bytes) of output that will be returned
-    type: int
-    default: "100000000"
-sources:
-  - precondition: |
-      SELECT OS From info() where OS = 'darwin'
-    query: |
-        LET packages = SELECT parse_json(data=Stdout) AS Json 
-          FROM execve(argv=[
-            "system_profiler", "-json", "SPApplicationsDataType"
-          ], length=Length)
-
-        SELECT  _name AS Name,
-                get(field="version") AS Version, 
-                path AS Path, 
-                lastModified AS LastModified, 
-                obtained_from AS ObtainedFrom,
-                get(field="signed_by") AS SignedBy,
-                arch_kind AS _Architecture
-        FROM foreach(
-           row=packages[0].Json.SPApplicationsDataType)
-
-
-
-name: MacOS.System.Plist
-description: |
-  This artifact collects and/or parses MacOS .plist files.  While simple,
-  this artifact allows users to specify a .plist glob, and have those plist files
-  returned for quick review.  If more advanced parsing is desired, the artifact can be copied
-  and modified.
-
-type: CLIENT
-
-author: Wes Lambert - @therealwlambert
-
-precondition: SELECT OS FROM info() WHERE OS =~ 'darwin'
-
-parameters:
-  - name: PlistGlob
-    default: /Library/Preferences/*.plist
-
-  - name: Upload_File
-    default: N
-    type: bool
-
-sources:
-  - query: |
-      SELECT
-        OSPath,
-        Mtime,
-        plist(file=OSPath) AS Content,
-        if(condition=Upload_File,
-           then=upload(file=OSPath,
-                       mtime=Mtime,
-                       atime=Atime,
-                       ctime=Ctime,
-                       btime=Btime)) AS Upload
-      FROM glob(globs=PlistGlob)
-
-
-
-name: MacOS.System.QuarantineEvents
-description: |
-
-  This artifact parses the QuarantineEventsV2 database, which provides
-  information on when a file was downloaded from the internet.
-
-type: CLIENT
-
-author: Wes Lambert - @therealwlambert
-
-parameters:
-- name: QuarantineGlob
-  default: /Users/*/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2
-
-precondition:
-      SELECT OS From info() where OS = 'darwin'
-
-sources:
-  - query: |
-      LET QList = SELECT OSPath
-        FROM glob(globs=QuarantineGlob)
-
-      LET QEvents = SELECT *
-        FROM sqlite(file=OSPath, query="SELECT * from LSQuarantineEvent")
-
-      // Add delta (978307200 seconds between Cocoa timestamp
-      // (2020,1,1) and epoch timestamp (1970,1,1)) to provided Cocoa
-      // timestamp
-
-      LET QEventsDetails =
-          SELECT * FROM foreach(
-              row=QEvents,
-              query={ SELECT
-                  timestamp(epoch=LSQuarantineTimeStamp + 978307200) AS DownloadTime,
-                  LSQuarantineDataURLString AS DownloadURL,
-                  LSQuarantineOriginURLString AS Origin,
-                  LSQuarantineAgentName AS AgentName,
-                  LSQuarantineAgentBundleIdentifier AS AgentBundle,
-                  split(string=OSPath, sep='/')[2] AS User,
-                  LSQuarantineEventIdentifier AS EventUUID
-                 FROM scope()
-              }
-          )
-
-      SELECT * FROM foreach(row=QList, query=QEventsDetails)
-
-
-
-name: MacOS.System.TCC
-description: |
-   This artifact provides details around the TCC (Transparency,
-   Consent, and Control) database, and can help reveal when access to
-   system services has been added or modified for an application.
-
-   Note that this artifact has only been tested on macOS Big Sur, and
-   that the `allowed`, and `prompt_count` columns will need to be used
-   in place of the `auth_value`, `auth_reason`, and `auth_version`
-   columns for Catalina and prior.
-
-type: CLIENT
-
-author: Wes Lambert - @therealwlambert
-
-parameters:
-- name: TCCGlob
-  default: /Library/Application Support/com.apple.TCC/TCC.db,/Users/*/Library/Application Support/com.apple.TCC/TCC.db
-
-precondition:
-      SELECT OS From info() where OS = 'darwin'
-
-sources:
-  - query: |
-      LET TCCList = SELECT OSPath
-       FROM glob(globs=split(string=TCCGlob, sep=","))
-
-      LET TCCAccess = SELECT *
-       FROM sqlite(file=OSPath, query="SELECT * from access")
-
-      LET TCCAccessDetails =
-          SELECT * FROM foreach(
-              row=TCCAccess,
-              query={ SELECT
-                    timestamp(epoch=last_modified) AS LastModified,
-                    service AS Service,
-                    client AS Client,
-                    if(condition= client_type= 0, then="Console", else=if(condition= client_type= 1, then="Service/Script", else="Other")) AS ClientType,
-                    if(condition= auth_value= 2, then="Yes", else="No") AS Allowed,
-                    if(condition= OSPath =~ "Users", then=path_split(path=OSPath)[-5], else="System") AS User,
-                    auth_reason AS _AuthReason,
-                    auth_version AS _AuthVersion,
-                    csreq AS _CSReq,
-                    policy_id as _PolicyId,
-                    indirect_object_identifier_type as _IndirectObjectIdentifierType,
-                    indirect_object_identifier as IndirectObjectIdentifier,
-                    indirect_object_code_identity as _IndirectObjectCodeIdentity,
-                    flags as _Flags,
-                    OSPath AS _OSPath
-                 FROM scope()
-              }
-          )
-      SELECT * FROM foreach(row=TCCList, query=TCCAccessDetails)
-
-
-
-name: MacOS.System.TimeMachine
-description: |
-  This artifact collects information about MacOS Time Machine backups.
-
-type: CLIENT
-
-author: Wes Lambert - @therealwlambert
-
-parameters:
-  - name: TimeMachineGlob
-    default: /Library/Preferences/com.apple.TimeMachine.plist
-
-sources:
-  - query: |
-      LET TMPlist = SELECT OSPath FROM glob(globs=TimeMachineGlob)
-      LET TMDetails =
-            SELECT * FROM foreach(
-                row=plist(file=OSPath),
-                query={ SELECT
-                    plist(file=OSPath).LocalizedDiskImageVolumeName AS VolumeName,
-                    plist(file=OSPath).AutoBackup AS AutoBackup,
-                    plist(file=OSPath).LastDestinationID AS LastDestination,
-                    plist(file=OSPath).HostUUIDs[0] AS HostUUID,
-                    plist(file=OSPath).Destinations AS Destinations
-                    FROM scope()
-                }
-            )
-      SELECT * FROM foreach(row=TMPlist, query=TMDetails)
-
-
-
-name: MacOS.System.Users
-description: |
-  This artifact collects information about the local users on the
-  system. The information is stored in plist files.
-
-parameters:
-  - name: UserPlistGlob
-    default: /private/var/db/dslocal/nodes/Default/users/*.plist
-  - name: OnlyShowRealUsers
-    type: bool
-    default: Y
-
-sources:
-  - query: |
-      LET user_plist = SELECT OSPath FROM glob(globs=UserPlistGlob)
-      LET UserDetails(OSPath) =
-              SELECT get(member="name.0", default="") AS Name,
-                     get(member="realname.0", default="") AS RealName,
-                     get(member="shell.0", default="") AS UserShell,
-                     get(member="home.0", default="") AS HomeDir,
-                     if(condition=LinkedIdentity,
-                        then=plist(file=LinkedIdentity[0],
-                                   accessor='data')) as AppleId,
-                     if(condition=accountPolicyData,
-                        then=plist(file=accountPolicyData[0],
-                                   accessor='data')) AS AccountPolicyData
-              FROM plist(file=OSPath)
-
-      SELECT Name, RealName, UserShell, HomeDir,
-               get(item=AppleId, field="appleid.apple.com") AS AppleId,
-               timestamp(epoch=AccountPolicyData.creationTime) AS CreationTime,
-               AccountPolicyData.failedLoginCount AS FailedLoginCount,
-               timestamp(epoch=AccountPolicyData.failedLoginTimestamp) AS FailedLoginTimestamp,
-               timestamp(epoch=AccountPolicyData.passwordLastSetTime) AS PasswordLastSetTime
-      FROM foreach(row=user_plist, query={
-         SELECT * FROM UserDetails(OSPath= OSPath)
-      })
-      WHERE NOT OnlyShowRealUsers OR NOT UserShell =~ 'false'
-
-
-
-name: MacOS.System.Wifi
-description: |
-   This artifact looks for all Wifi networks to which a host has
-   joined.  This can be useful in determining where a machine has
-   been, or if a user has joined an illegitimate or unauthorized
-   wireless network.
-
-type: CLIENT
-
-author: Wes Lambert - @therealwlambert
-
-parameters:
-  - name: WifiGlob
-    default: /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist
-
-precondition:
-      SELECT OS From info() where OS = 'darwin'
-
-sources:
-  - query: |
-      LET WifiPlist = SELECT OSPath from glob(globs=WifiGlob)
-      LET KnownNetworksQuery = SELECT get(member="KnownNetworks") as KN
-         FROM plist(file=WifiPlist.OSPath)
-         WHERE KN
-
-      LET EachNetwork = SELECT * from foreach(
-         row=KnownNetworksQuery,
-         query={
-            SELECT _key AS Network, _value AS Value
-            FROM items(item=KN)
-         })
-      SELECT Network,
-             Value.SSIDString AS SSID,
-             Value.SecurityType AS SecurityType,
-             Value.HiddenNetwork AS HiddenNetwork,
-             Value.PersonalHotspot AS PersonalHotspot,
-             Value.AddedAt AS AddedAt,
-             Value.LastAutoJoinAt AS LastAutoJoinAt,
-             Value.LastManualJoinAt AS LastManualJoinAt,
-             Value AS _Data
-      FROM EachNetwork
 
 
 
@@ -16463,9 +15182,9 @@ name: Server.Alerts.TheHive.Alert
 description: |
    Create a TheHive alert when monitored artifacts complete with results.
    Much of this was borrowed from: https://gist.github.com/scudette/3a32abd19350c8fe3368661c4278869d
-   
+
    It is recommended to use the Server Metadata section to store credentials, instead of having to store directly inside the artifact.
-   
+
 type: SERVER_EVENT
 
 author: Wes Lambert - @therealwlambert
@@ -16494,14 +15213,14 @@ sources:
              ClientId, FlowId, Flow.artifacts_with_results[0] AS FlowResults
       FROM watch_monitoring(artifact="System.Flow.Completion")
       WHERE Flow.artifacts_with_results =~ ArtifactsToAlertOn
-     
+
       LET hits = SELECT * FROM foreach(row=flow_info,
       query={
-        SELECT *, Timestamp, FQDN, ClientId  
-        FROM source(artifact=FlowResults, 
+        SELECT *, Timestamp, FQDN, ClientId
+        FROM source(artifact=FlowResults,
                     client_id=ClientId, flow_id=FlowId)
       })
-      
+
       SELECT * FROM foreach(row=flow_info,
        query={
           SELECT * FROM http_client(
@@ -16509,7 +15228,7 @@ sources:
                 title=format(format="Hit on %v for %v", args=[FlowResults, FQDN]), description=format(format="ClientId: %v\n\nFlowID: %v\n\nURL: %v//app/index.html?#/collected/%v/%v", args=[ClientId, FlowId, VeloServerURL, ClientId, FlowId]), type="artifact-alert", source="velociraptor", sourceRef=format(format="%v", args=[rand(range=1000000000)])), format="json"),
           headers=dict(`Content-Type`="application/json", `Authorization`=format(format="Bearer %v", args=[thehive_key])),
           disable_ssl_security=DisableSSLVerify,
-          method="POST", 
+          method="POST",
           url=format(format="%v/api/alert", args=[TheHiveURL]))
        })
 
@@ -16678,8 +15397,8 @@ type: SERVER
 
 parameters:
    - name: Observable
-     description: Data to be analyzed by Cortex 
-     default: 
+     description: Data to be analyzed by Cortex
+     default:
    - name: ObservableType
      description: Type of observable to be submitted to Cortex. Ex. `hash`, `domain`, `ip`
      default:
@@ -16711,46 +15430,46 @@ sources:
                 condition=CortexURL,
             then=CortexURL,
             else=server_metadata().CortexURL)
-        LET cortex_key = 
+        LET cortex_key =
             if(
                 condition=CortexKey,
             then=CortexKey,
             else=server_metadata().CortexKey)
-        LET ENABLED_ANALYZERS = SELECT Content FROM 
+        LET ENABLED_ANALYZERS = SELECT Content FROM
             http_client(
-                url=URL + '/analyzer', 
-                method='GET', 
-                disable_ssl_security=DisableSSLVerify, 
+                url=URL + '/analyzer',
+                method='GET',
+                disable_ssl_security=DisableSSLVerify,
                 headers=dict(
                     `Authorization`=format(format="Bearer %v", args=[cortex_key])))
         LET ANALYZERS_SUPPORTED = SELECT name AS AnalyzerName, id AS ID, dataTypeList AS DList FROM parse_json_array(data=ENABLED_ANALYZERS.Content)
-        LET ANALYZERS_MATCH_TYPE = SELECT ID  FROM foreach(row=ANALYZERS_SUPPORTED, query={ SELECT AnalyzerName, ID, _value AS Match FROM 
+        LET ANALYZERS_MATCH_TYPE = SELECT ID  FROM foreach(row=ANALYZERS_SUPPORTED, query={ SELECT AnalyzerName, ID, _value AS Match FROM
             if(
                 condition= filter(list=DList, regex=OBSERVABLE_DATATYPE),
             then="yes",
             else="no")}) WHERE Match = "yes"
-        LET ANALYZER_RUN = SELECT parse_json(data=Content) AS Resp FROM 
+        LET ANALYZER_RUN = SELECT parse_json(data=Content) AS Resp FROM
             http_client(
-                url=URL + '/analyzer/'+ ID + '/run' , 
-                method='POST', 
-                disable_ssl_security=DisableSSLVerify, 
+                url=URL + '/analyzer/'+ ID + '/run' ,
+                method='POST',
+                disable_ssl_security=DisableSSLVerify,
                 headers=dict(
-                    `Content-Type`="application/json", 
-                    `Authorization`=format(format="Bearer %v", 
+                    `Content-Type`="application/json",
+                    `Authorization`=format(format="Bearer %v",
                     args=[cortex_key])),
                     data=serialize(item=dict(
                         data=OBSERVABLE, dataType=OBSERVABLE_DATATYPE, tlp=TLP, message=JobMessage
                     ))
             )
         LET JOBID = SELECT Resp.id AS JobID from foreach(row=ANALYZER_RUN)
-        LET GETREPORT = SELECT Content AS Resp FROM 
+        LET GETREPORT = SELECT Content AS Resp FROM
             http_client(
                 url=format(format="%v/job/%v/waitreport?atMost=%v", args=[URL,JOBID.JobID[0], JobWaitTime]),
-                method='GET', 
-                disable_ssl_security=DisableSSLVerify, 
+                method='GET',
+                disable_ssl_security=DisableSSLVerify,
                 headers=dict(
-                    `Content-Type`="application/json", 
-                    `Authorization`=format(format="Bearer %v", 
+                    `Content-Type`="application/json",
+                    `Authorization`=format(format="Bearer %v",
                     args=[cortex_key])
                 )
             )
@@ -16874,7 +15593,7 @@ sources:
   - query: |
         LET URL <= if(condition= AccountType='community', then=CommunityURL, else=EnterpriseURL)
 
-        LET Data = if(condition= ApiKey!='', 
+        LET Data = if(condition= ApiKey!='',
         then={
             SELECT parse_json(data=Content) AS GreyNoiseLookup
             FROM http_client(url=URL + IP, headers=dict(`Accept`="application/json",`key`=ApiKey), method='GET')
@@ -24436,8 +23155,8 @@ description: |
 
   There are 2 kinds of Yara rules that can be deployed:
 
-  1. Url link to a yara rule.  
-  2. or a Standard Yara rule attached as a parameter.  
+  1. Url link to a yara rule.
+  2. or a Standard Yara rule attached as a parameter.
 
   Only one method of Yara will be applied and search order is as above. The
   default is targeting the Master Boot Record (MBR).
@@ -25045,7 +23764,7 @@ sources:
     query: |
       -- check which Yara to use
       LET yara_rules <= YaraUrl || YaraRule
-      
+
       -- find velociraptor process
       LET me = SELECT Pid FROM pslist(pid=getpid())
 
@@ -25080,7 +23799,7 @@ sources:
                         split(string=ProcessName, sep='\\.')[0], Pid,
                         String.Offset ]
                     )) as HitContext
-                
+
             FROM proc_yara(
                             pid=int(int=Pid),
                             rules=yara_rules,
@@ -25093,7 +23812,7 @@ sources:
       LET upload_hits = SELECT * FROM foreach(
         row=hits,
         query={
-            SELECT 
+            SELECT
                 ProcessName,
                 ExePath,
                 CommandLine,
@@ -25111,7 +23830,7 @@ sources:
                 ) as ProcessDump
             FROM proc_dump(pid=Pid)
           })
-          
+
       -- return rows
       SELECT * FROM if(condition=UploadHits,
         then=upload_hits,
@@ -25126,7 +23845,7 @@ name: Windows.Detection.Yara.UEFI
 author: Matt Green - @mgreen27
 description: |
   This artifact enables running yara over files in an EFI System Partition (ESP).
-  
+
 
 parameters:
   - name: ImagePath
@@ -25190,9 +23909,9 @@ parameters:
                     $trait_2= {83 EC 4C 53 57 68 A0 10 01 00 8D 45 F8}
                     $trait_3= {53 81 C7 FF 0F 00 00 68 54 44 55 00 81 E7 00 F0 FF FF 57 6A 01}
                     $trait_4= {50 68 08 08 08 08 68 D0 43 DE DE 68 1F 96 00 00 BF E4 10 01 00}
-                    $string_0 = "winlogon.exe" 
+                    $string_0 = "winlogon.exe"
                 condition:
-                    1 of ($trait_*) and 
+                    1 of ($trait_*) and
                     1 of ($string_*)
             }
   - name: NumberOfHits
@@ -25221,15 +23940,15 @@ sources:
                 then= stamp > DateAfter,
                 else= True
             )))
-            
+
       LET find_efi = SELECT StartOffset,EndOffset,
             Size AS PartitionSize,
             name AS PartitionName
        FROM Artifact.Windows.Forensics.PartitionTable(
           ImagePath=ImagePath, SectorSize=SectorSize)
       WHERE PartitionName =~ "EFI"
-      
-      LET find_files = SELECT * FROM foreach(row=find_efi, 
+
+      LET find_files = SELECT * FROM foreach(row=find_efi,
         query={
             SELECT *,
                 StartOffset,EndOffset,
@@ -25244,8 +23963,8 @@ sources:
                         DelegatePath=ImagePath,
                         Path=format(format="%d", args=StartOffset))))
         })
-      
-      LET target_files = SELECT 
+
+      LET target_files = SELECT
             StartOffset as PartitionOffset, PartitionSize,
             OSPath,
             Size, Mtime, Atime, Ctime, Btime,
@@ -25265,11 +23984,11 @@ sources:
                     OR time_test(stamp=Atime)
                     OR time_test(stamp=Ctime)
                     OR time_test(stamp=Btime))
-        
+
       -- scan files and prepare hit metadata
       LET hits = SELECT * FROM foreach(row=target_files,
         query={
-            SELECT 
+            SELECT
                 OSPath as _OSPath,
                 OSPath.Path as OSPath,
                 File.Size as Size,
@@ -25292,10 +24011,10 @@ sources:
             FROM yara( accessor='fat', rules=yara_rules,files=OSPath,
                     context=ContextBytes,number=NumberOfHits )
         })
-      
+
       -- upload files if selected
-      LET upload_hits = SELECT *, 
-            upload(accessor='fat',file=_OSPath,name=_OSPath.Path) as Upload 
+      LET upload_hits = SELECT *,
+            upload(accessor='fat',file=_OSPath,name=_OSPath.Path) as Upload
         FROM hits
 
       -- return rows
@@ -27577,7 +26296,7 @@ sources:
 
 name: Windows.Events.Mutants
 description: |
-  This artifact detects creation of Mutants and triggers an alert. 
+  This artifact detects creation of Mutants and triggers an alert.
 
 author: Jos Clephas - @DfirJos
 
@@ -27608,10 +26327,10 @@ parameters:
 
 sources:
     - query: |
-    
+
         LET processes = SELECT Pid AS ProcPid, Name AS ProcName, Exe FROM process_tracker_pslist() WHERE ProcName =~ processRegex AND int(int=ProcPid) > 0
 
-        LET query_mutant = SELECT * FROM winobj() WHERE Type = "Mutant" AND Name =~ MutantNameRegex 
+        LET query_mutant = SELECT * FROM winobj() WHERE Type = "Mutant" AND Name =~ MutantNameRegex
 
         LET query_enriched = SELECT * FROM foreach(
           row=processes,
@@ -27620,9 +26339,9 @@ sources:
             FROM handles(pid=int(int=ProcPid), types="Mutant")
           })
         WHERE Type = "Mutant" AND Name =~ MutantNameRegex
-        
-        LET query_diff = if(condition=enrich, then=query_enriched, else=query_mutant) 
-        
+
+        LET query_diff = if(condition=enrich, then=query_enriched, else=query_mutant)
+
         SELECT *, alert(name=AlertName, Name=Name, Type=Type, Exe=Exe) as AlertSent FROM diff(query=query_diff, period=Period, key="Name") WHERE Diff = diff
 
 
@@ -29047,9 +27766,9 @@ description: |
   - SusArgSize: Any lnk with Argument strings over this size is suspicious.
   - SusArgRegex: Regex for suspicious strings in Arguments.
   - SusHostnameRegex: Regex for suspicious TrackerData Hostname.
-  - VmPrefixMAC: Regex to match known Virtual Machine MacAddress prefix in TrackerData. 
+  - VmPrefixMAC: Regex to match known Virtual Machine MacAddress prefix in TrackerData.
   - RiskyExe: Regex target exe to flag as risky.
-  
+
 
   List of fields targeted by filter regex:
 
@@ -29065,7 +27784,7 @@ description: |
     - TrackerData.MacAddress
 
     NOTE: regex startof (^) and endof ($) line modifiers will not work.
-    
+
 
     Windows.Forensics.Lnk also will highlight suspicious lnk attributes in a Suspicious field.
 
@@ -29092,9 +27811,9 @@ description: |
     * CodePage - checks for existance of a ExtraData code page setting. Rare enough to report on - 936:Simplified Chinese, 949:Korean, 950:Traditional Chinese
     * Has Overlay - check for overlay and extra data attached to LNK
     * Long Base64 - check for a long base64 blog over 20 decoded characters
-    * Arguments have ticks - ticks are common in malicious LNK files  
-    * Arguments have environment variables - environment variables (%|\$env:) are common in malicious LNKs  
-    * Arguments have rare characters - looks for specific rare characters that may indicate obfuscation (\?|\!|\~|\@) 
+    * Arguments have ticks - ticks are common in malicious LNK files
+    * Arguments have environment variables - environment variables (%|\$env:) are common in malicious LNKs
+    * Arguments have rare characters - looks for specific rare characters that may indicate obfuscation (\?|\!|\~|\@)
     * Arguments have leading space - malicious LNK files may have a many leading spaces to obfuscate some tools
     * Arguments have http strings - LNKs are reguarly used as a download cradle - https?://
     * Arguments have UNC strings
@@ -29146,7 +27865,7 @@ parameters:
     description: Regex target exe to flag as risky.
     type: regex
     default: \\(cmd|powershell|cscript|wscript|rundll32|regsvr32|mshta|wmic|conhost)\.exe$
-    
+
 
 export: |
      LET Profile = '''
@@ -29374,7 +28093,7 @@ export: |
 
       ]],
       ["Empty", 0, []],
-      
+
       # Struct size includes the size field
       ["LinkTargetIDList", "x=>x.IDListSize + 2", [
         ["IDListSize", 0, "uint16"],
@@ -30396,15 +29115,15 @@ export: |
                   then= Data,
                   else= dict(
                     Header=format(format='0x%x',args=read_file(filename=OSPath, offset=Offset,length=4)),
-                    Offset=Offset, 
+                    Offset=Offset,
                     Length=len(list=read_file(filename=OSPath, offset=Offset)),
                     Entropy=entropy(string=read_file(filename=OSPath,offset=Offset)),
                     Magic=magic(accessor='data',path=read_file(filename=OSPath,offset=Offset))
                 )))  as _value
         FROM foreach(row=Parsed.ExtraData)
       })
-        
-        
+
+
 sources:
   - query: |
      LET targets = SELECT OSPath, Mtime,Atime,Ctime,Btime,Size,
@@ -30429,9 +29148,9 @@ sources:
         Parsed.Overlay as Overlay,
         Parsed
       FROM lnk_files
-     
+
      -- Several dynamic functions to check propertystore for anormalities
-      LET find_uid(propertystore) = SELECT regex_replace(source=Value,re='''S-1-5-\d{2}-\d+-\d+-\d+-''',replace='') as Value 
+      LET find_uid(propertystore) = SELECT regex_replace(source=Value,re='''S-1-5-\d{2}-\d+-\d+-\d+-''',replace='') as Value
         FROM propertystore WHERE Description = 'SID'
       LET find_oldpath(propertystore) = SELECT Value FROM propertystore WHERE Description = 'ParsingPath'
       LET find_oldsize(propertystore) = SELECT Value FROM propertystore WHERE Description = 'System.Size'
@@ -30446,13 +29165,13 @@ sources:
                                         then= ExtraData + dict(PropertyStore=PropertyStore),
                                         else= if(condition= Overlay.Length > 4,
                                                     then= ExtraData + dict(PropertyStore=PropertyStore) + dict(Overlay=to_dict(item=Overlay)),
-                                                    else= ExtraData + dict(PropertyStore=PropertyStore) 
+                                                    else= ExtraData + dict(PropertyStore=PropertyStore)
                                                 )),
                              else= if(condition= ExtraData.Overlay,
                                         then= ExtraData,
                                         else= if(condition= Overlay.Length > 4,
                                                     then= ExtraData + dict(Overlay=to_dict(item=Overlay)),
-                                                    else= ExtraData 
+                                                    else= ExtraData
                                                 )
                                         )) as ExtraData,
                           find_uid(propertystore=PropertyStore)[0].Value as UID,
@@ -30499,20 +29218,20 @@ sources:
                 `Arguments have UNC strings` = data=~'''(\s|^)\\\\[a-z0-9$_.-]+''',
                 `Suspicious arguments` = data=~SusArgRegex
             )
-            
+
       -- find largest base64 blob over 10 characters
       LET find_b64(data) = SELECT *
-        FROM if(condition=data, 
+        FROM if(condition=data,
             then={
-                SELECT Base64,  len(list=Base64) as Length 
+                SELECT Base64,  len(list=Base64) as Length
                 FROM parse_records_with_regex(accessor='data',file=data, regex='''(?P<Base64>(https?://[^\s]+/)*[A-Za-z0-9+/]{10,}={0,2})''')
                 WHERE NOT Base64 =~ '^http' -- Implementing negative regex match: We exclude b64 strings with http prefix.
-                ORDER BY Length DESC 
+                ORDER BY Length DESC
                 LIMIT 1
             },
             else=null )
-    
-      
+
+
       LET add_suspicious = SELECT *, dict(
                 `Large Size` = SourceFile.Size > SusSize,
                 `Startup Path` = SourceFile.OSPath =~ '''\\Startup\\''',
@@ -30547,7 +29266,7 @@ sources:
       LET add_suspiciousb64 = SELECT *
             if(condition= len(list=ArgumentsDecoded) > 20, then = dict(`Long Base64`=True) + sus_cli(data=ArgumentsDecoded)) as SuspiciousCliB64
         FROM add_suspicious
-      
+
       LET upload_results = SELECT *,
             upload(file=SourceFile.OSPath) as UploadedLnk
         FROM add_suspiciousb64
@@ -30562,9 +29281,9 @@ sources:
                 then= to_dict(item=StringData) + dict(`DecodedBase64`=ArgumentsDecoded),
                 else= StringData) as StringData,
             ExtraData,
-            to_dict(item={SELECT * FROM items(item=Suspicious) WHERE _value }) + 
-                to_dict(item={SELECT * FROM items(item=SuspiciousCli) WHERE _value }) + 
-                to_dict(item={SELECT * FROM items(item=SuspiciousCliB64) WHERE _value }) 
+            to_dict(item={SELECT * FROM items(item=Suspicious) WHERE _value }) +
+                to_dict(item={SELECT * FROM items(item=SuspiciousCli) WHERE _value }) +
+                to_dict(item={SELECT * FROM items(item=SuspiciousCliB64) WHERE _value })
                     as Suspicious
         FROM if(condition=UploadLnk,
             then= upload_results,
@@ -31254,16 +29973,16 @@ column_types:
 name: Windows.Forensics.RDPCache
 author: Matt Green - @mgreen27
 description: |
-    This artifact parses, views and enables simplified upload of RDP 
-    cache files. 
-    
+    This artifact parses, views and enables simplified upload of RDP
+    cache files.
+
     By default the artifact will parse .BIN RDPcache files.
-       
+
     Filters include User regex to target a user and Accessor to target
     vss via ntfs_vss.
-    
+
     Best combined with:
-    
+
        - Windows.EventLogs.RDPAuth to collect RDP focused event logs.
        - Windows.Registry.RDP to collect user RDP mru and server info
 
@@ -31293,21 +30012,21 @@ parameters:
 
 sources:
   - name: TargetFiles
-    description: RDP BitmapCache files in scope. 
+    description: RDP BitmapCache files in scope.
     query: |
       LET results = SELECT OSPath, Size, Mtime, Atime, Ctime, Btime
         FROM glob(globs=RDPCacheGlob,accessor=Accessor)
         WHERE OSPath =~ UserRegex
-        
+
       LET upload_results = SELECT *, upload(file=OSPath) as CacheUpload
         FROM results
-    
+
       SELECT * FROM if(condition= UploadRDPCache,
         then= upload_results,
         else= results )
-        
+
   - name: Parsed
-    description: Parsed RDP BitmapCache files. 
+    description: Parsed RDP BitmapCache files.
     query: |
       LET PROFILE = '''[
         ["BIN_CONTAINER", 0, [
@@ -31330,59 +30049,59 @@ sources:
             ["__Size", 0, Value,{ "value": "x=>x.DataLength + 12"}],
             ["Index", 0, Value,{ "value": "x=>count() - 1 "}],
         ]]]'''
-        
+
       LET parse_rgb32b(data) = SELECT
             _value  as Offset,
             _value + 3 as EndOffset,
             len(list=data) as Length,
             data[(_value):(_value + 3)] + unhex(string="FF") as Buffer
         FROM range(step=4,end=len(list=data))
-        
-      LET fix_bmp(data) = SELECT 
+
+      LET fix_bmp(data) = SELECT
             _value  as Offset,
             _value + 255 as EndOffset,
             join(array=data[ (_value):(_value + 256 ) ],sep='') as Buffer
         FROM range(step=256, end= len(list=data) )
         ORDER BY Offset DESC
-        
+
       LET parse_container = SELECT * OSPath,Name,Size as FileSize,
             read_file(filename=OSPath,length=12) as Header,
             parse_binary(filename=OSPath,profile=PROFILE,struct='BIN_CONTAINER') as Parsed
         FROM foreach(row={
-            SELECT * FROM glob(globs=RDPCacheGlob,accessor=Accessor) 
+            SELECT * FROM glob(globs=RDPCacheGlob,accessor=Accessor)
             WHERE OSPath =~ '\.bin$'
                 AND OSPath =~ UserRegex
                 AND NOT IsDir
         })
-        
+
       LET find_index_differential = SELECT *, 0 - Parsed.CachedFiles.Index[0] as IndexDif
         FROM parse_container
-      
+
       LET parse_cache = SELECT * FROM foreach(row=find_index_differential, query={
         SELECT OSPath, IndexDif,
             OSPath.Dirname + ( OSPath.Basename + '_' + format(format='%04v',args= Index + IndexDif ) + '.bmp' ) as BmpName,
             FileSize,Header,Width,Height,DataLength,DataOffset
         FROM foreach(row=Parsed.CachedFiles)
       })
-      
+
       LET extract_data = SELECT *
         FROM foreach(row=parse_cache,query={
             SELECT
                 OSPath,BmpName,FileSize,Header,Width,Height,DataLength,DataOffset,
-                join(array=parse_rgb32b(data=read_file(filename=OSPath,offset=DataOffset,length=DataLength)).Buffer,sep='') as Data 
+                join(array=parse_rgb32b(data=read_file(filename=OSPath,offset=DataOffset,length=DataLength)).Buffer,sep='') as Data
             FROM scope()
         }, workers=Workers)
-      
+
       -- change endianess for unint32
-      LET pack_lt_l(data) = unhex(string=join(array=[ 
-        format(format='%02x',args=unhex(string=format(format='%08x',args=data))[3]), 
+      LET pack_lt_l(data) = unhex(string=join(array=[
+        format(format='%02x',args=unhex(string=format(format='%08x',args=data))[3]),
         format(format='%02x',args=unhex(string=format(format='%08x',args=data))[2]),
         format(format='%02x',args=unhex(string=format(format='%08x',args=data))[1]),
-        format(format='%02x',args=unhex(string=format(format='%08x',args=data))[0]) 
+        format(format='%02x',args=unhex(string=format(format='%08x',args=data))[0])
             ],sep=''))
-            
+
       -- build bmp file, adding appropriate header
-      LET build_bmp(data,width,height) = join(array=[ 
+      LET build_bmp(data,width,height) = join(array=[
                 "BM",
                 pack_lt_l(data=len(list=data) + 122),
                 unhex(string="000000007A0000006C000000"),
@@ -31394,25 +30113,25 @@ sources:
                 " niW",
                 unhex(string="00" * 36),
                 unhex(string="000000000000000000000000"),
-                data 
+                data
             ], sep='')
-        
+
         SELECT * FROM if(condition= ParseCache,
             then={
-                SELECT 
+                SELECT
                     BmpName, Header, Width, Height, DataLength, DataOffset,
                     upload(
-                        file=build_bmp(data=join(array=fix_bmp(data=Data).Buffer,sep=''), 
+                        file=build_bmp(data=join(array=fix_bmp(data=Data).Buffer,sep=''),
                         width=Width, height=Height),
                         name=BmpName,
                         accessor='data' ) as BmpUpload,
                     OSPath as SourceFile
                 FROM extract_data
                 ORDER BY BmpName
-            }, 
+            },
             else= Null )
-            
-      
+
+
 column_types:
   - name: BmpUpload
     type: upload_preview
@@ -35916,23 +34635,23 @@ name: Windows.NTFS.ADSHunter
 author: "Matt Green - @mgreen27"
 description: |
    This artifact hunts
-   for Alternate Data Streams on NTFS file systems. 
-   Adversaries may use NTFS file attributes for covert storage in order to evade 
-   detection. 
-   Alternate Data Streams (ADS) are additional $DATA attributes for an MFT entry in 
-   NTFS file systems. In NTFS, the primary $DATA attribute is 
+   for Alternate Data Streams on NTFS file systems.
+   Adversaries may use NTFS file attributes for covert storage in order to evade
+   detection.
+   Alternate Data Streams (ADS) are additional $DATA attributes for an MFT entry in
+   NTFS file systems. In NTFS, the primary $DATA attribute is
    never named but subsequent $DATA attributes must be named.
-   
-   Targeting is via mix of path globs and include / exclude regex. 
-   
+
+   Targeting is via mix of path globs and include / exclude regex.
+
    - TargetGlob is a glob to target for ADS. NOTE **\* is recursive. To hit C drive we need to search for C:\*
-   - AdsName is name in glob format: e.g *, Zone.Identifier or Zone.*. 
-   - AdsNameExclusion - A regex value, common ADS added to exclusions have been 
+   - AdsName is name in glob format: e.g *, Zone.Identifier or Zone.*.
+   - AdsNameExclusion - A regex value, common ADS added to exclusions have been
    added by default. The artifact also excludes NTFS system files by default.
 
 reference:
   - https://attack.mitre.org/techniques/T1564/004/
-  
+
 type: CLIENT
 
 parameters:
@@ -35962,7 +34681,7 @@ parameters:
  - name: UploadDataStream
    description: If selected wil upload non-resident data streams.
    type: bool
-   
+
 sources:
  - query: |
       -- Collect ADS entries using glob but exclude ntfs objects that contain ads
@@ -35972,7 +34691,7 @@ sources:
             Size,
             OSPath.Dirname + split(string=Name,sep=':')[0] as HostObject,
             dict(Mtime=Mtime,Atime=Atime,Ctime=Ctime,Btime=Btime) as HostTimestampsSI
-        FROM glob(globs=TargetGlob + ":" + AdsNameGlob, 
+        FROM glob(globs=TargetGlob + ":" + AdsNameGlob,
                   accessor="ntfs",
                   nosymlink='Y')
         WHERE
@@ -35986,7 +34705,7 @@ sources:
             AND NOT if(condition=AdsNameExclusion,
                         then= AdsName =~ AdsNameExclusion,
                         else= False )
-      
+
       -- Extract content and filter
       LET hits = SELECT *,
             read_file(filename=OSPath[0]+Inode, accessor="mft",offset=0,length=1024) as AdsContent -- only upload first 1k of each hit
@@ -35995,13 +34714,13 @@ sources:
             AND NOT if(condition=AdsContentExclusion,
                     then= AdsContent =~ AdsContentExclusion,
                     else= False )
-                    
+
       -- upload hits
-      LET upload_hits = SELECT *, 
+      LET upload_hits = SELECT *,
             upload(file=OSPath,accessor='ntfs') as Upload
         FROM hits
-      
-      -- output rows 
+
+      -- output rows
       SELECT * FROM if(condition=UploadDataStream,
                         then= upload_hits,
                         else= hits)
@@ -37103,16 +35822,16 @@ sources:
 name: Windows.Persistence.PermanentWMIEvents
 author: Matt Green - @mgreen27
 description: |
-    This artifact reports currently deployed permanent WMI Event Consumers. The 
-    artifact collects Binding information, then presents associated Filters 
+    This artifact reports currently deployed permanent WMI Event Consumers. The
+    artifact collects Binding information, then presents associated Filters
     and Consumers.
-    
-    NOTE: the artifact does not report on individual eventing classes. A seperate 
-    wmi query will need to be made for unlinked components that may reside in the 
-    WMI datastore.  
 
-    WMI Eventing components:  
-    
+    NOTE: the artifact does not report on individual eventing classes. A seperate
+    wmi query will need to be made for unlinked components that may reside in the
+    WMI datastore.
+
+    WMI Eventing components:
+
     - __FilterToConsumerBinding - ties together Filter + Consumer
     - __EventFilter - trigger condition
     - __EventConsumer - payload
@@ -37137,14 +35856,14 @@ sources:
       SELECT OS From info() where OS = 'windows'
 
     query: |
-      LET namespaces <= SELECT * FROM if(condition=AllRootNamespaces, 
-            then= { 
-                SELECT 'root/' + Name as namespace 
+      LET namespaces <= SELECT * FROM if(condition=AllRootNamespaces,
+            then= {
+                SELECT 'root/' + Name as namespace
                 FROM wmi(namespace='ROOT',query='SELECT * FROM __namespace' )
                 WHERE namespace
             },
             else= Namespaces )
-    
+
       LET FilterToConsumerBinding <= SELECT * FROM foreach(
             row=namespaces,
             query={
@@ -37154,7 +35873,7 @@ sources:
                 FROM wmi(
                     query="SELECT * FROM __FilterToConsumerBinding",namespace=namespace)
         },workers=len(list=namespaces))
-        
+
       SELECT * FROM foreach(
             row=namespaces,
             query={
@@ -37328,12 +36047,12 @@ description: |
   developers troubleshoot legacy functions and contains data related to Windows
   features.
 
-  Note: 
-  
+  Note:
+
   - Windows 10+ systems Execution flag of 1 indicates execution.
   - The appcompatcache artifact does not currently support execution flag in
   Windows 7 and 8 / 8.1 Systems.
- 
+
 
 reference:
   - https://www.mandiant.com/resources/caching-out-the-val
@@ -37482,7 +36201,7 @@ sources:
                 })
 
       -- output results
-      SELECT 
+      SELECT
         Position,
         ModificationTime,
         Path,
@@ -37928,15 +36647,15 @@ name: Windows.Registry.PuttyHostKeys
 author: Matt Green - @mgreen27
 description: |
    This artifact extracts PuTTY SSH host keys.
-   
-   As a security measure PuTTY and its companion utilities PSCP, PSFTP, and Plink 
+
+   As a security measure PuTTY and its companion utilities PSCP, PSFTP, and Plink
    records the host key for each server connected to, in the Windows Registry.
-   
+
    - Output KeyName: ssh-ed12345@22:27.27.27.27
    - To search for a specific IP: TargetKeyName =~ ':\<IP\>$'
    - To search for a specific PORT: TargetKeyName =~ '@\<PORT\>:.+$'
-   
-   
+
+
 type: CLIENT
 
 parameters:
@@ -37951,12 +36670,12 @@ parameters:
 
 sources:
   - precondition:
-      SELECT OS From info() where OS = 'windows' 
+      SELECT OS From info() where OS = 'windows'
 
     query: |
       LET HKEY_USERS <= pathspec(path_type="registry", Path="HKEY_USERS")
 
-      SELECT 
+      SELECT
         Mtime,
         Username,
         OSPath.Basename AS KeyName,
@@ -37973,16 +36692,16 @@ sources:
 name: Windows.Registry.RDP
 author: Matt Green - @mgreen27
 description: |
-   This artifact will collect historical RDP server names and MRU items stored 
+   This artifact will collect historical RDP server names and MRU items stored
    in each users NTUser.dat
-   
-   1. Servers - list of all RDP connections that have ever been established by 
-   this user.   
-    UsernameHint shows the username used to connect to the RDP/RDS host.  
+
+   1. Servers - list of all RDP connections that have ever been established by
+   this user.
+    UsernameHint shows the username used to connect to the RDP/RDS host.
     CertHash variable contains the RDP server SSL certificate thumbprint.
 
-   2. MRU 10 - Most recently used RDP connections 
-   
+   2. MRU 10 - Most recently used RDP connections
+
    UserRegex and SidRegex can be used to target a specific user.
 
 type: CLIENT
@@ -37998,14 +36717,14 @@ parameters:
      default: .
      description: Regex filter to select a target SID
      type: regex
-     
+
 
 precondition: SELECT OS From info() where OS = 'windows'
-      
+
 sources:
   - name: Servers
     query: |
-      LET servers <= SELECT 
+      LET servers <= SELECT
             Mtime as LastWriteTime,
             basename(path=OSPath.Dirname) as Server,
             OSPath.Basename as KeyName,
@@ -38022,21 +36741,21 @@ sources:
 
       LET find_value(path, sid, keyname ) = SELECT KeyValue,
             format(format='%x',args=read_file(accessor='data',filename=KeyValue,length=ValueLength)) as CertHash
-        FROM servers 
+        FROM servers
         WHERE KeyName = keyname AND Key=path AND SID=sid
-        
-      LET results = SELECT 
-            Username || dirname(path=HiveName).Basename as Username,  
+
+      LET results = SELECT
+            Username || dirname(path=HiveName).Basename as Username,
             SID,
             HiveName,
-            Key,  
+            Key,
             LastWriteTime,
             Server
         FROM servers
         WHERE Username =~ UserRegex AND SID =~ SidRegex
         GROUP BY SID,Key,HiveName,LastWriteTime
-            
-      
+
+
       SELECT *
         find_value(path=Key,sid=SID,keyname='UsernameHint')[0].KeyValue as UsernameHint,
         find_value(path=Key,sid=SID,keyname='CertHash')[0].CertHash as CertHash
@@ -38044,7 +36763,7 @@ sources:
 
   - name: Mru
     query: |
-      LET mru <= SELECT 
+      LET mru <= SELECT
             Mtime as LastWriteTime,
             OSPath.Basename as KeyName,
             Data.value as KeyValue,
@@ -38055,19 +36774,19 @@ sources:
         FROM Artifact.Windows.Registry.NTUser(KeyGlob=KeyGlob)
         WHERE NOT Data.type = 'Key'
             AND OSPath =~ '''Terminal Server Client\\\\Default\\\\MRU'''
-    
-      LET find_mru(sid) = SELECT KeyValue FROM mru 
+
+      LET find_mru(sid) = SELECT KeyValue FROM mru
         WHERE SID=sid
-        
+
       LET results = SELECT *,
             Username || dirname(path=HiveName).Basename as Username
-        FROM mru 
+        FROM mru
         WHERE Username =~ UserRegex AND SID =~ SidRegex
         GROUP BY Sid,HiveName
-      
-      SELECT 
+
+      SELECT
         Username,
-        SID,  
+        SID,
         HiveName,
         Key,
         LastWriteTime,
@@ -40327,8 +39046,8 @@ sources:
             FROM scope()
             WHERE OSPath.Basename =~ ".(bat|ini|ps1)$"
         }, lnk={
-            SELECT { 
-                  SELECT SourceFile, ShellLinkHeader, LinkInfo, LinkTarget, StringData, ExtraData 
+            SELECT {
+                  SELECT SourceFile, ShellLinkHeader, LinkInfo, LinkTarget, StringData, ExtraData
                   FROM Artifact.Windows.Forensics.Lnk(TargetGlob=OSPath)
                 } as Details
             FROM scope()
@@ -40761,9 +39480,9 @@ reports:
 name: Windows.System.AuditPolicy
 
 description: |
-   Artifact using auditpol to retrieve the logging settings 
+   Artifact using auditpol to retrieve the logging settings
    defined in the Windows Audit Policy.
-   
+
    Use this artifact to determine what Windows event logs are audited
    and if there are any discrepancies across the environment.
 
@@ -40778,7 +39497,7 @@ sources:
     query: |
       LET output = SELECT * FROM execve(
         argv=["auditpol.exe","/get","/category:*","/r"])
-      
+
       SELECT * FROM foreach(
         row=output,
         query={
@@ -41163,15 +39882,15 @@ parameters:
    - name: RoleRegex
      description: Regex filter by Role
      default: .
-     
+
 sources:
   - precondition:
       SELECT OS From info() where OS =~ 'windows'
 
     query: |
-        SELECT 
-            Domain, 
-            DNSHostName, 
+        SELECT
+            Domain,
+            DNSHostName,
             if(condition= DomainRole=0,
                 then='Standalone Workstation',
                 else=if(condition= DomainRole=1,
@@ -41187,7 +39906,7 @@ sources:
                                     else= 'Unknown' )))))
                 ) AS DomainRole
         FROM wmi(query='SELECT * FROM Win32_ComputerSystem',namespace='ROOT/cimv2')
-        WHERE 
+        WHERE
             DNSHostName =~ HostNameRegex
             AND Domain =~ DomainRegex
             AND DomainRole =~ RoleRegex
@@ -42173,17 +40892,17 @@ name: Windows.System.VBScript
 author: Matt Green - @mgreen27
 description: |
   This artifact allows running VBScript through cscript.exe.
-  
-  This is a very powerful artifact since it allows for arbitrary command execution 
-  on the endpoints as SYSTEM. Therefore this artifact requires elevated permissions 
-  (specifically the EXECVE permission). Typically it is only available with the 
+
+  This is a very powerful artifact since it allows for arbitrary command execution
+  on the endpoints as SYSTEM. Therefore this artifact requires elevated permissions
+  (specifically the EXECVE permission). Typically it is only available with the
   administrator role.
-  
-  Note: Output is formatted to 1 row per line of Stdout. Ensure appropriately 
-  formatted scripts. Pasting scripts direct from word or webpages may lead to 
-  formatting issues when unicode characters are substituted. Copy script into 
+
+  Note: Output is formatted to 1 row per line of Stdout. Ensure appropriately
+  formatted scripts. Pasting scripts direct from word or webpages may lead to
+  formatting issues when unicode characters are substituted. Copy script into
   a notepad, save as ASCII then try again.
-  
+
 required_permissions:
   - EXECVE
 
@@ -42193,12 +40912,12 @@ precondition:
 parameters:
   - name: Script
     default: Wscript.Echo "Hello world!"
-       
+
 sources:
   - query: |
       LET temp_script <= tempfile(extension='.vbs', data=str(str=Script))
- 
-      SELECT Stdout 
+
+      SELECT Stdout
       FROM execve(argv=['cscript.exe','//NoLogo','/E:vbs',temp_script], sep='\n')
 
 
