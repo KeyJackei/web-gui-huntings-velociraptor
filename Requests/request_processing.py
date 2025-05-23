@@ -74,3 +74,21 @@ def generate_vql_query(client_id: str, artifact: str) -> str:
              WHERE FlowId = collection.flow_id LIMIT 1
     SELECT * FROM source(client_id=collection.request.client_id, flow_id=collection.flow_id, artifact='{artifact}')
     """.strip()
+
+def generate_custom_vql_query(client_id: str, vql_string: str) -> str:
+    return f"""
+    LET collection <= collect_client(
+        client_id='{client_id}',
+        artifacts='Generic.Client.VQL',
+        parameters=dict(Command="{vql_string.replace('"', '\\"')}")
+    )
+
+    LET _ <= SELECT * FROM watch_monitoring(artifact='System.Flow.Completion')
+             WHERE FlowId = collection.flow_id LIMIT 1
+
+    SELECT * FROM source(
+        client_id=collection.request.client_id,
+        flow_id=collection.flow_id,
+        artifact='Generic.Client.VQL'
+    )
+    """.strip()

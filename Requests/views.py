@@ -5,66 +5,51 @@ import yaml
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-from .request_processing import request_processing, flatten_dict, generate_vql_query
+from api_core.api_velociraptor import upload_artifacts
+from .request_processing import request_processing, flatten_dict, generate_vql_query, generate_custom_vql_query
 from .models import QueryVQL
 
+ARTIFACT_YAML = f"""
+name: Custom.Client.DynamicQuery
+type: CLIENT
+parameters:
+- name: Query
+  type: string
+sources:
+- query: |
+    {{.Query}}
+"""
 
 def requests_page(request):
     artifacts = QueryVQL.objects.all()
     return render(request, 'requests.html', {'artifact': artifacts})
 
-# import pprint
-#
-# def get_response(request):
-#     query = request.GET.get("query", "").strip()
-#
-#     if not query:
-#         return JsonResponse({"success": False, "error": "Пустой запрос"})
-#
-#     try:
-#         env_dict = {"Foo": "Bar"}
-#         config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
-#         with open(config_path, 'r') as config_file:
-#             config = yaml.safe_load(config_file)
-#
-#         results = request_processing(config, query, env_dict)
-#
-#         print("===== RAW RESULTS =====")
-#         pprint.pprint(results, indent=2)
-#
-#         parsed_results = []
-#         for item in results:
-#             flat = flatten_dict(item)
-#             print("===== FLATTENED ITEM =====")
-#             pprint.pprint(flat, indent=2)
-#             parsed_results.append(flat)
-#
-#         return JsonResponse({"success": True, "results": parsed_results})
-#
-#     except Exception as e:
-#         return JsonResponse({"success": False, "error": str(e)})
+'''Представление для передачи запроса из командной строки'''
+@csrf_exempt
+def get_response(request):
+    try:
+        data = json.loads(request.body)
+        query = data.get("query", "").strip()
+        client_id = data.get("client_id")
 
-# def get_response(request):
-#     query = request.GET.get("query", "").strip()
-#
-#     if not query:
-#         return JsonResponse({"success": False, "error": "Пустой запрос"})
-#
-#     try:
-#         env_dict = {"Foo": "Bar"}
-#         config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
-#         with open(config_path, 'r') as config_file:
-#             config = yaml.safe_load(config_file)
-#
-#         results = request_processing(config, query, env_dict)
-#
-#         parsed_results = [flatten_dict(item) for item in results]
-#         # print(parsed_results)
-#
-#         return JsonResponse({"success": True, "results": parsed_results})
-#
-#     except Exception as e:
-#         return JsonResponse({"success": False, "error": str(e)})
+        if not query:
+            return JsonResponse({"success": False, "error": "Пустой запрос"})
+
+        config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
+        with open(config_path, 'r') as config_file:
+            config = yaml.safe_load(config_file)
+
+        env_dict = {"Foo": "Bar"}
+        query_cmd = generate_custom_vql_query(client_id, query)
+        upload_artifacts(config, )
+        results = request_processing(config, query_cmd, env_dict)
+
+        parsed_results = [flatten_dict(item) for item in results]
+        print('===generated===')
+        return JsonResponse({"success": True, "results": parsed_results})
+
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
 
 def get_artifacts_description(request):
     name = request.GET.get('name')

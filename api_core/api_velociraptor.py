@@ -241,4 +241,22 @@ def run(config, query, env_dict):
                      print(f"Error: An unexpected error occurred - {e}")
 
 
+def upload_artifacts(config: dict, artifact_yaml: str):
+    creds = grpc.ssl_channel_credentials(
+        root_certificates=config["ca_certificate"].encode("utf-8"),
+        private_key=config["client_private_key"].encode("utf-8"),
+        certificate_chain=config["client_cert"].encode("utf-8")
+    )
 
+    options = (('grpc.ssl_target_name_override', "VelociraptorServer",),)
+
+    with grpc.secure_channel(config["api_connection_string"], creds, options) as channel:
+        stub = api_pb2_grpc.APIStub(channel)
+
+        # Создание запроса
+        artifact = api_pb2.Artifact(name="Custom.Client.DynamicQuery", data=artifact_yaml)
+        request = api_pb2.UploadArtifactRequest(Artifact=artifact)
+
+        # Отправка запроса
+        response = stub.UploadArtifact(request)
+        return response
