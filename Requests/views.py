@@ -13,27 +13,58 @@ def requests_page(request):
     artifacts = QueryVQL.objects.all()
     return render(request, 'requests.html', {'artifact': artifacts})
 
-def get_response(request):
-    query = request.GET.get("query", "").strip()
+# import pprint
+#
+# def get_response(request):
+#     query = request.GET.get("query", "").strip()
+#
+#     if not query:
+#         return JsonResponse({"success": False, "error": "Пустой запрос"})
+#
+#     try:
+#         env_dict = {"Foo": "Bar"}
+#         config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
+#         with open(config_path, 'r') as config_file:
+#             config = yaml.safe_load(config_file)
+#
+#         results = request_processing(config, query, env_dict)
+#
+#         print("===== RAW RESULTS =====")
+#         pprint.pprint(results, indent=2)
+#
+#         parsed_results = []
+#         for item in results:
+#             flat = flatten_dict(item)
+#             print("===== FLATTENED ITEM =====")
+#             pprint.pprint(flat, indent=2)
+#             parsed_results.append(flat)
+#
+#         return JsonResponse({"success": True, "results": parsed_results})
+#
+#     except Exception as e:
+#         return JsonResponse({"success": False, "error": str(e)})
 
-    if not query:
-        return JsonResponse({"success": False, "error": "Пустой запрос"})
-
-    try:
-        env_dict = {"Foo": "Bar"}
-        config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
-        with open(config_path, 'r') as config_file:
-            config = yaml.safe_load(config_file)
-
-        results = request_processing(config, query, env_dict)
-
-        parsed_results = [flatten_dict(item) for item in results]
-        print(parsed_results)
-
-        return JsonResponse({"success": True, "results": parsed_results})
-
-    except Exception as e:
-        return JsonResponse({"success": False, "error": str(e)})
+# def get_response(request):
+#     query = request.GET.get("query", "").strip()
+#
+#     if not query:
+#         return JsonResponse({"success": False, "error": "Пустой запрос"})
+#
+#     try:
+#         env_dict = {"Foo": "Bar"}
+#         config_path = os.path.join(os.path.dirname('api_core/'), "api_keys/api-admin.config.yaml")
+#         with open(config_path, 'r') as config_file:
+#             config = yaml.safe_load(config_file)
+#
+#         results = request_processing(config, query, env_dict)
+#
+#         parsed_results = [flatten_dict(item) for item in results]
+#         # print(parsed_results)
+#
+#         return JsonResponse({"success": True, "results": parsed_results})
+#
+#     except Exception as e:
+#         return JsonResponse({"success": False, "error": str(e)})
 
 def get_artifacts_description(request):
     name = request.GET.get('name')
@@ -60,10 +91,19 @@ def run_artifact_view(request):
         config = yaml.safe_load(f)
 
     env_dict = {}
-    result = request_processing(config, query, env_dict)
+    raw_result = request_processing(config, query, env_dict)
 
-    print("Результат выполнения запроса:", result)
+    parsed_result = []
 
-    return JsonResponse({"success": True, "results": result})
+    for item in raw_result:
+        if isinstance(item, dict):
+            flat = flatten_dict(item)
+            parsed_result.append(flat)
+        else:
+            parsed_result.append({"value": str(item)})
+
+    # print("Результат выполнения запроса:", result)
+
+    return JsonResponse({"success": True, "results": parsed_result})
 
 

@@ -34,31 +34,34 @@ def request_processing(config, query, env_dict):
                     return {"error": "Ошибка: не удалось декодировать JSON"}
                 except Exception as e:
                     return {"error": f"Ошибка: {str(e)}"}
-        print(results)
+        # print(results)
 
         return results
 
 
-def flatten_dict(data):
-    """Рекурсивно преобразует вложенные словари и списки в удобочитаемый формат."""
+def flatten_dict(data, parent_key='', sep='.'):
+    """Преобразует вложенные словари в плоские с составными ключами."""
     flat_data = {}
 
     for key, value in data.items():
+        new_key = f"{parent_key}{sep}{key}" if parent_key else key
+
         if isinstance(value, dict):
-            # Рекурсивно разворачиваем вложенные словари
-            nested_flat = flatten_dict(value)
-            flat_data[key] = ", ".join(f"{k}: {v}" for k, v in nested_flat.items())
+            # Рекурсивно разворачиваем словарь
+            flat_data.update(flatten_dict(value, new_key, sep=sep))
         elif isinstance(value, list):
-            # Если в списке есть словари, тоже разворачиваем их
-            flat_list = []
-            for item in value:
+            # Если список, обрабатываем каждый элемент
+            items = []
+            for i, item in enumerate(value):
                 if isinstance(item, dict):
-                    flat_list.append(", ".join(f"{k}: {v}" for k, v in flatten_dict(item).items()))
+                    flat_items = flatten_dict(item, f"{new_key}[{i}]", sep=sep)
+                    flat_data.update(flat_items)
                 else:
-                    flat_list.append(str(item))
-            flat_data[key] = "; ".join(flat_list)  # Используем ; как разделитель между объектами в списке
+                    items.append(str(item))
+            if items:
+                flat_data[new_key] = "; ".join(items)
         else:
-            flat_data[key] = value
+            flat_data[new_key] = value
 
     return flat_data
 
