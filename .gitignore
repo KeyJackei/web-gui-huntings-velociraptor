@@ -4,3 +4,5 @@
 __pycache__/
 api_core/api_keys/*
 !api_core/api_keys/.gitkeep
+certs/*
+!certs/.gitkeep
