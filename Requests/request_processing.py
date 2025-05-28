@@ -1,9 +1,8 @@
 from pyvelociraptor import api_pb2, api_pb2_grpc
 import grpc
 import json
+from textwrap import dedent
 
-
-#TODO: Вынести в класс
 def request_processing(config, query, env_dict):
     print("----------requesting-----------")
     """Выполняет gRPC запрос и возвращает JSON-ответ."""
@@ -34,7 +33,7 @@ def request_processing(config, query, env_dict):
                     return {"error": "Ошибка: не удалось декодировать JSON"}
                 except Exception as e:
                     return {"error": f"Ошибка: {str(e)}"}
-        # print(results)
+        print(results)
 
         return results
 
@@ -47,10 +46,8 @@ def flatten_dict(data, parent_key='', sep='.'):
         new_key = f"{parent_key}{sep}{key}" if parent_key else key
 
         if isinstance(value, dict):
-            # Рекурсивно разворачиваем словарь
             flat_data.update(flatten_dict(value, new_key, sep=sep))
         elif isinstance(value, list):
-            # Если список, обрабатываем каждый элемент
             items = []
             for i, item in enumerate(value):
                 if isinstance(item, dict):
@@ -66,11 +63,60 @@ def flatten_dict(data, parent_key='', sep='.'):
     return flat_data
 
 
+def generate_artifact_for_vql(query: str) -> str:
+    """Генерирует VQL-запрос для временного артефакта"""
+    # sanitized_query = query.replace('"', '\\"')
+    return dedent(f"""
+        SELECT artifact_set(definition='''name: Custom.Client.DynamicQuery
+        type: CLIENT
+        description: Шаблон для выполнения запросов из интерфейса
+        parameters:
+        - name: Command
+          type: string
+          default: {query}
+        sources:
+        - query: |
+            SELECT * FROM query(query=Command, env=dict(config=config))''') FROM scope()
+    """).strip()
+
+
+
+
 def generate_vql_query(client_id: str, artifact: str) -> str:
     print('---------------generate-----------------')
-    return f"""
-    LET collection <= collect_client(client_id='{client_id}', artifacts='{artifact}', env=dict())
-    LET _ <= SELECT * FROM watch_monitoring(artifact='System.Flow.Completion') 
-             WHERE FlowId = collection.flow_id LIMIT 1
-    SELECT * FROM source(client_id=collection.request.client_id, flow_id=collection.flow_id, artifact='{artifact}')
-    """.strip()
+
+    # Пользовательский артефакт
+    if artifact == "Custom.Client.DynamicQuery":
+        return dedent(f"""
+            LET collection <= collect_client(
+                client_id="{client_id}",
+                artifacts="{artifact}"
+            )
+
+            LET _ <= SELECT * FROM watch_monitoring(artifact='System.Flow.Completion')
+                     WHERE FlowId = collection.flow_id LIMIT 1
+
+            SELECT * FROM source(
+                client_id=collection.request.client_id,
+                flow_id=collection.flow_id,
+                artifact="{artifact}"
+            )
+        """).strip()
+
+    # Артефакт из базы
+    return dedent(f"""
+        LET collection <= collect_client(
+            client_id="{client_id}",
+            artifacts="{artifact}",
+            env=dict()
+        )
+
+        LET _ <= SELECT * FROM watch_monitoring(artifact='System.Flow.Completion') 
+                 WHERE FlowId = collection.flow_id LIMIT 1
+
+        SELECT * FROM source(
+            client_id=collection.request.client_id,
+            flow_id=collection.flow_id,
+            artifact="{artifact}"
+        )
+    """).strip()

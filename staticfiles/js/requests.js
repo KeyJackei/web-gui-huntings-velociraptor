@@ -45,6 +45,41 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tableHeader = document.getElementById("table-header");
     const tableBody = document.getElementById("table-body");
 
+    executeButton.addEventListener("click", () => {
+            const query = inputField.value.trim();
+            const clientId = sessionStorage.getItem('client_id');
+
+            if (!query) {
+                alert("Введите команду!");
+                return;
+            }
+
+            if (!clientId) {
+                alert("Клиент не выбран.");
+                return;
+            }
+
+            fetch("/requests/get-response/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    client_id: clientId,
+                    query: query
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    renderTable(data.results);
+                } else {
+                    alert("Ошибка: " + data.error);
+                }
+            })
+            .catch(error => console.error("Ошибка запроса:", error));
+        });
+
     function renderTable(results) {
         tableHeader.innerHTML = "";
         tableBody.innerHTML = "";
